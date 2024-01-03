@@ -1,8 +1,8 @@
-import { Children } from "react";
+import { Children, ReactNode } from "react";
 
-export function withHeadingId(children) {
-  return Children.map(children, el => {
-    if ("string" === typeof el) {
+export function withHeadingId(children: ReactNode) {
+  return Children.map(children, (el) => {
+    if (typeof el === "string") {
       const re = /\[#([^\]]+)\]\s*$/m;
       const match = el.match(re);
 

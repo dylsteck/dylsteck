@@ -1,0 +1,51 @@
+import MdxLayout from '../../components/MdxLayout'
+
+export const metadata = {
+  title: "User AI-gency",
+  description: "User AI-gency",
+  openGraph: {
+    title: "User AI-gency",
+    description: "User AI-gency",
+    images: [{ url: '' }]
+  }
+}
+
+How chatbots change the user agent in computing*
+
+Searching on computers has been the same for the past few decades: each app has its own search, while other apps can search containers of data(eg. browser history and the local file system). Throughout the process of information retrieval, users might adapt their search term based upon findings, click on several links, or even switch apps/websites. This process, called [berrypicking](https://pages.gseis.ucla.edu/faculty/bates/berrypicking.html), requires the user to both sense-make and organize content on their own. Search engines don’t really help with any of this and instead statically grab results that match keywords or targeted ads. On top of that, search rarely delves into the content that it provides, and so extra work has to be taken by the user to critically evaluate the source.
+
+Enter [ChatGPT](https://chat.openai.com): a fine-tuned version of GPT-3.5 trained with Internet data and equipped to answer questions, as well as remember context, during conversation. ChatGPT results are more synthesized and can aid the user in the process of information retrieval. Apart from ChatGPT being a major feat and a cultural phenomenon, I find its advancements most beneficial for two functions: **content synthesis** and **assisted introspection**.
+
+**Content synthesis:** Examples of ChatGPT being useful for content synthesis include structuring data(highlighted in this [GPT-powered project by Varun Shenoy](https://twitter.com/varunshenoy_/status/1620511932930490372)), getting answers to questions, and finding remotely located information. Although certain search engines have improved in some of these areas(namely Google adding embedded search result items from Wikipedia), they haven’t advanced enough to meaningfully push the needle, and ChatGPT shows glimpses of what search queries could really look like.
+
+**Assisted introspection:** ChatGPT’s ability to remember context in a conversation allows their model to follow the user on their journey of sense-making, being able to synthesize content in all of the ways listed above. Imagine how many parts of a user’s online workflow would benefit from having their own chatbot embedded in their search engine or browser! You could even imagine software where the model isn’t just assisting the user’s introspection, but is also organizing what they’ve done to make perusal easier. No more losing content or sifting through endless tabs.
+
+Some people are scared by how much ChatGPT can do. Some might even go as far as to say that it will complete every task we tackle in our everyday lives. Yes, there are parts of ChatGPT and other AI advancements that are a bit concerning — whether it’s [how they’re being trained](https://www.semafor.com/article/01/27/2023/openai-has-hired-an-army-of-contractors-to-make-basic-coding-obsolete), what their abilities mean for other sectors of the market, or [what computer-generated content means for how we perceive humanity](https://open.substack.com/pub/subconscious/p/llms-and-hyper-orality?r=1x6wn&utm_campaign=post&utm_medium=web). I don't believe that the AI revolution will overtake human abilities, but rather serve as a driving force for the next evolution of our relationship with computers.
+
+With that in mind, I see two key ways that ChatGPT will transform modern computing: through **prompt engineering** and through using **GPT as a backend**.
+
+## Prompt Engineering
+
+I’m sure most of us learned early on about maximizing shortcuts and keywords when navigating content. The next generation’s equivalent is becoming sound prompt engineers. It will become increasingly more important to know what types of questions, phrasings, and pieces of information to ask for, as well as how to use assisted introspection to their benefit.
+
+Prompt engineering won’t be simply about finding the right phrases to produce an answer, but about finding the best ways to logically work through a task. With the barriers to create being reduced, if you know how to navigate a computer well(or soon, you know how to prompt systems well), you can work through tasks quickly and even build complex web applications without needing to code or know shortcuts. In the future, prompt engineering _will_ be the new shortcuts.
+
+## GPT as a Backend
+
+One thing I’ve picked up on is that GPT is great at conversions and retrieval within a specific set. I’ve been thinking about what GPT could do on the backend — as the process of finding and sorting information is one that GPT is doing internally to extract information from its data sets. Around the same time, I stumbled upon this tweet about a [project from the Scale.ai hackathon using GPT-3 to mock fake backend data](https://twitter.com/colinfortuner/status/1619558128772874245).
+
+If prompt engineering will help us better describe tasks we want to take and execute the algorithms through our decision making, what if the same could be applied to coding — more specifically for fetching & managing data? Taken a step further, instead of needing to subscribe to API changes, what if developers could certify a user key and then headlessly browser, using the AI to find and structure the resulting data?
+
+You can even continue the metaphor and imagine a super-database with all of our information — with everyone having their own certified models, as well as models trained on distributed data sets(certain sites, communities, etc)? We could have a truly semantic web that anyone can more easily build upon at the root level.
+
+## New Computer
+
+I like to think about a new computer as the new internet, because I personally think since most of what we do is online, that we will eventually transition to 100% web use, just slightly different. So if there is a new computer, where the computer or the internet is powered by AI models, we would be able to focus more on sense-making and the algorithm of decisions that would lead us to the best outcomes(for a task, for our lives, etc). The user is still the driver of the computer, but instead of relying on rigid search and clicks within systems, we use our dialogues to instruct the computer.
+
+Imagine an Internet where everyone can find at the speed of a supercomputer and create at the speed of a high-level engineer. This is all subjective to everyone’s logical skills, but in a world where so many of the barriers are reduced, everyone is a creator. Taking this one step further, creators can have more ways to both share their insights as well as monetize from them. The easier it is to access content and the more ways we can find to overlap with other people’s content, the more we can(in theory) do.
+
+It seems as thought society is nearing the brink of some major paradigm shifts. However things end up, I'm down for the ride and confident it’ll take us somewhere exciting.
+
+export default function MDXPage({ children }) {
+  return <MdxLayout>{children}</MdxLayout>;
+}

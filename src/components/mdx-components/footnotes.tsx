@@ -1,13 +1,22 @@
-import { A } from "./a";
+import React, { ReactNode } from "react";
+import { A, type AProps } from "./a";
 import { P } from "./p";
 
-export const FootNotes = ({ children }) => (
+interface FootNotesProps {
+  children: ReactNode;
+}
+
+export const FootNotes = ({ children }: FootNotesProps) => (
   <div className="text-base before:w-[200px] before:m-auto before:content[''] before:border-t before:border-gray-300 dark:before:border-[#444] before:block before:my-10">
     {children}
   </div>
 );
 
-export const Ref = ({ id }) => (
+interface RefProps {
+  id: string;
+}
+
+export const Ref = ({ id }: RefProps) => (
   <a
     href={`#f${id}`}
     id={`s${id}`}
@@ -17,7 +26,12 @@ export const Ref = ({ id }) => (
   </a>
 );
 
-export const FootNote = ({ id, children }) => (
+interface FootNoteProps {
+  id: string;
+  children: ReactNode;
+}
+
+export const FootNote = ({ id, children }: FootNoteProps) => (
   <P>
     {id}.{" "}
     <A href={`#s${id}`} id={`f${id}`} className="no-underline">

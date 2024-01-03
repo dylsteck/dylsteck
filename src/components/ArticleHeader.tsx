@@ -1,4 +1,4 @@
-import { type Article, articles } from "../pages/articles/articles"
+import { type Article, articles } from "../lib/articles"
 import { CldImage } from "next-cloudinary";
 
 export default function ArticleHeader({ slug }: { slug: string | undefined }){

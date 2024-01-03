@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
+
 // we use `[ul_&]` prefix for the <UL> variety
-export function LI({ children }) {
+export function LI({ children }: { children: ReactNode }) {
   return (
     <li
       className={`

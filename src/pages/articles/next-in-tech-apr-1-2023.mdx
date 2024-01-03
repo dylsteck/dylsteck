@@ -1,0 +1,69 @@
+import MdxLayout from '../../components/MdxLayout'
+
+export const metadata = {
+  title: "Next in Tech - Apr. 1, 2023",
+  description: "Next in Tech - Apr. 1, 2023",
+  openGraph: {
+    title: "Next in Tech - Apr. 1, 2023",
+    description: "Next in Tech - Apr. 1, 2023",
+    images: [{ url: '' }]
+  }
+}
+
+In this week's Next in Tech, Arc has released a mobile companion, Farcaster has 10 hubs running on its testnet, Twitter open-sourced its algorithm, and Elon Musk and other prominent figures have signed an open letter calling for a pause in the training of AI systems more powerful than GPT-4.
+
+## Arc’s Mobile Companion is Here
+
+[The Browser Company](https://thebrowser.company/) has released a mobile companion to their desktop browser, [Arc](https://arc.net). Arc's mobile companion app, internally called Archie, is an app that does more than what meets the eye. Despite not being a traditional web browser, Archie acts as a companion that can navigate and save content in an easy and fun way. This feature alone is what Arc members wanted, according to a survey conducted by the company.
+
+Upon logging in, the app connects to Arc on desktop and populates with the user’s spaces. Each space can have its own background color, bookmarks and folders. The app also has a "Recents" area that shows the last few tabs opened across spaces. While Archie's functionality is minimal, it is quite powerful, especially as a save for later tool. It is shockingly difficult to move web pages between phones and PCs, but the synced sidebar makes this process easy. Users can look up a recipe on Google on their MacBook and pin it to their sidebar, which immediately shows up on their phone(or vice versa).
+
+https://twitter.com/joshm/status/1641440894409908227
+
+Arc's development team envisions creating an operating system for the internet that changes how users interact with apps and content online. Because of this, the company is not interested in building another web browser; instead of building a browser for mobile, they built a more powerful companion app for saving and launching content. While the app is currently only available on iOS, it is evident that the team is working to make it available on other platforms as well. Although Arc’s mobile companion isn’t a traditional web browser, it has the potential to fill an important gap in users’ browsing workflow.
+
+## Farcaster Hubs Running on Testnet
+
+Farcaster’s testnet now has 10 hubs running on it, a huge milestone that pushes the protocol closer to credible neutrality. The hubs are being run by core ecosystem developers who are testing and building on the protocol. In addition, [the first cast was sent directly from a hub as opposed to the Warpcast API on Wednesday](https://warpcast.com/dwr/0x36367c). Farcaster currently has 32 open source contributors to [its hubs repository on GitHub](https://github.com/farcasterxyz/hub-monorepo).
+
+https://twitter.com/dwr/status/1641490535625158656
+
+The future of hubs is exciting. As they take off, it will mean that developers can read and write from the protocol without going through the [main client’s API](https://warpcast.notion.site/Merkle-v2-API-Documentation-c19a9494383a4ce0bd28db6d44d99ea8). Different clients could run their own hubs, and so could developers. Hubs will allow for more flexibility and decentralization in the Farcaster ecosystem. As more hubs are added to the network, Farcaster's decentralization and resilience will increase, making it a more robust and secure platform to build social applications on top of.
+
+## Twitter Open Sources its Algorithm
+
+[Twitter open sourced it recommendation algorithm](https://github.com/twitter/the-algorithm/) yesterday, a highly anticipated move. This is something new owner Elon Musk has been talking about wanting to do for a while, as many previous discussions(especially during the Twitter Files) highlighted certain flaws in the algorithm. Although Musk prefaced that many parts of the algorithm still needed to be changed as it was released, several people have already started digging into the repository’s code. In fact, it already has 132 issues and pull requests.
+
+<CldImage src="media/TwitterAlgoDiagram.png" alt="Twitter algorithm diagram" width="700" height="700" className="p-2 pt-0" />
+
+Twitter Engineering explains the algorithm at a high level [in a new blog post](https://blog.twitter.com/engineering/en_us/topics/open-source/2023/twitter-recommendation-algorithm). The algorithm relies on a set of core models and features that extract latent information from tweet, user, and engagement data. The recommendation pipeline is made up of three main stages, including candidate sourcing, ranking, and applying heuristics and filters. This also includes a concept called Embedding Spaces, which work to cluster communities of related people around celebrities or users with larger followings. Ultimately, the goal of Twitter's recommendation system is to provide users with the best content possible, and the company is continually working on new developments to expand its recommendation systems.
+
+<CldImage src="media/TwitterAlgoCodeSnippet.jpg" alt="Twitter algorithm code snippet" width="700" height="700" className="p-2 pt-0" />
+
+One thing that many on social media were quick to pick up on was that [code in the algorithm](https://github.com/twitter/the-algorithm/blob/7f90d0ca342b928b479b512ec51ac2c3821f5922/home-mixer/server/src/main/scala/com/twitter/home_mixer/functional_component/decorator/HomeTweetTypePredicates.scala#L224-L247) specifically grouped users into four buckets: Elon Musk, power users, Democrats and Republicans. The idea of this type of grouping existing in the algorithm alarmed many, even after core engineers explained [in a Twitter Space](https://twitter.com/elonmusk/status/1641880448061120513) that the grouping wasn’t a part of the algorithm, but was implemented as a statistics measure to make sure their anti-grouping tactics were working.
+
+## AI Pause Letter
+
+Elon Musk, Tristan Harris from the Center for Humane Technology, Steve Wozniak, Andrew Yang, and 2,400+ others [signed an open letter](https://futureoflife.org/open-letter/pause-giant-ai-experiments/) with an aim to “call on all AI labs to immediately pause for at least 6 months the training of AI systems more powerful than GPT-4”. This letter comes during an era of unprecedented AI advancements, and only two weeks after OpenAI released GPT-4.
+
+A powerful excerpt from the letter reads: “Contemporary AI systems are now becoming human-competitive at general tasks, and we must ask ourselves: _Should_ we let machines flood our information channels with propaganda and untruth?… Powerful AI systems should be developed only once we are confident that their effects will be positive and their risks will be manageable.”
+
+<CldImage src="media/PauseAIOpenLetter.jpg" alt="Pause AI advancement open letter" width="700" height="700" className="p-2 pt-0" />
+
+In response, it seems as though the rest of the AI world is moving ahead. One user on Farcaster [@vgr even said](https://warpcast.com/vgr/0x6089f3), “Not that anyone cares what I think either, but I’d sign the opposite of this letter”. Additionally, [Sam Altman’s interview with Lex Fridman](https://www.youtube.com/watch?v=L_Guz73e6fw&t=34s) gave hints that Sam believed they were handling the speed and procedures of AI development properly. This letter comes during a time of heightened AI scrutiny, as [Italy just became one of the first countries to ban ChatGPT nationwide](https://www.bbc.com/news/technology-65139406) over privacy concerns.
+
+## Top Links
+
+_Interesting finds I’ve stumbled upon recently:_
+
+- [ConjureUI - generate UI on the fly in a chat environment](https://twitter.com/sgrove/status/1640417065650778113)
+- [Teaching GPT-4 to browse the web](https://twitter.com/m1guelpf/status/1640020967442227200)
+- [gpt4all: a chatbot trained on a massive collection of clean assistant data](https://github.com/nomic-ai/gpt4all)
+- [Look Again - Daily Visual Puzzle](https://lookaga.in/)
+- [The Age of the App is Over](https://browsercompany.substack.com/p/the-age-of-the-app-is-over)
+- [Your personal design language](https://www.proofofconcept.pub/p/your-personal-design-language)
+- [State of Web3 Security: Part 1, Attacks](https://blog.stelolabs.com/state-of-web3-security-part-1/)
+
+export default function MDXPage({ children }) {
+  return <MdxLayout>{children}</MdxLayout>;
+}

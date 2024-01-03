@@ -1,3 +1,3 @@
 # dylsteck 
  
-Live at [dylansteck.com](https://dylansteck.com)
+My personal website, live at [dylansteck.com](https://dylansteck.com)

@@ -1,0 +1,52 @@
+import MdxLayout from '../../components/MdxLayout'
+
+export const metadata = {
+  title: "Building a Digital Garden",
+  description: "Building a Digital Garden",
+  openGraph: {
+    title: "Building a Digital Garden",
+    description: "Building a Digital Garden",
+    images: [{ url: '' }]
+  }
+}
+
+<CldImage src="media/dsfinalsite.png" alt="final site image" width="700" height="700" className="p-2 pt-0" />
+
+I’m excited to finally announce a project I’ve had in the works for a while — [my own digital garden.](https://dylansteck.com) This site holds my articles, casts from Farcaster, and tweets. As I write more, it will also contain more informal content such as thoughts(shorter writing), lists(of my favorite finds), NFTs, projects, and more. I’ve always wanted a tool that had all of my online content and identities in one place.
+
+[Digital gardening](https://maggieappleton.com/garden-history) refers to building a site with notes and other inter-linking content that can be added to and updated over time. Some of my favorite online researchers and thinkers have built digital gardens as ways to share their thoughts, and their work has always inspired me to build my own. I’ve also wanted to share even more of my interests and beliefs, especially as it relates to technology and web3, and I think building a digital garden I can continually refer to is a great way to do so.
+
+I want to share the process behind building this digital garden to help others who might want to create their own digital garden, as well as to highlight some potential updates(and opportunities) I’m thinking of.
+
+## The Process
+
+When I set off, I wanted to build a **decentralized** digital garden — or at least as close as I could get. The more I looked into this, the more improbable it looked to make the tool fully decentralized. To name a few key reasons why I chose this:
+
+1.  [Fleek](https://fleek.co) is a great tool but I’m not sure how well it handles edge functions, which I rely on in Vercel/Next.js
+2.  I can take my notes in [Obsidian](https://obsidian.md), upload them to GitHub, and then load them into my digital garden with very minimal effort and no changes to my workflow. [Arweave](https://arweave.org) or any other solution would’ve added more hassle and I rather stick to a system that feels better overall — especially one that lets me write in my favorite note taking tool.
+3.  Because of how much content I have in my feed(and because Twitter’s API is about to shut down free access so I wanted to have content backed up), I need to use a database — I use [Supabase](https://supabase.com) and it’s great. There’s not a decentralized storage solution that I feel very confident and comfortable with, and until that happens I rather stick with a more traditional stack, even if it’s not decentralized.
+
+With these decisions made, I went ahead and started building. I had settled on a design for a while and just needed to implement it. The first page I built was the articles page because I wanted to make sure my Obsidian files were properly formatted, and that I could make changes to the files without messing up the site(see here: [example snippet on grabbing files from a GitHub repo](https://gist.github.com/dylsteck/4b2e7e72457e9d5f94e31a8c29a57d09)).
+
+The next thing I did was set up access to the Twitter and Farcaster APIs. While connecting to Twitter was alright, setting up the [Farcaster API](https://api.farcaster.xyz/docs) was a _breeze_. The developer community is super easy to get in touch with and the fact anyone can use their API means some of the most interesting minds in web3 are coming and building cool things. I knew I wanted to add my casts to my site, since Farcaster has become a big part of my web3 identity. I’ve been using the platform much more than Twitter for several months now.
+
+<CldImage src="media/MerkleDocs.png" alt="Merkle Docs" width="700" height="700" className="p-2 pt-0" />
+
+I always knew I wanted to set up a database, because it would make sense to backup data and have one place to grab data instead of calling several APIs every time someone loaded the site. However, I was being lazy setting one up until I got the new that Twitter was planning on restricting free access. I wanted to make sure that I could use the API to save all my tweets, and then once API access cuts off I’ll build another solution that uses web scraping. The last piece of backend architecture I needed to set up were a set of Vercel Edge Functions that will fetch new tweets/casts and save them to my database and I was all set to finish the user interface.
+
+One of the most difficult things for me to set up was mobile responsiveness, something I find super important when building any site. So many people click on links on mobile that any web developer needs to optimize for that platform. Because of the homepage set up, I have two horizontal columns that I need to turn into rows on mobile. Making sure I had the right margins and everything set up took a while, but it was very rewarding to re-solidify skills on some intricate problems.
+
+## Future Plans
+
+Right now, the site holds three data types: **Articles**, **Casts**, and **Tweets**. In the very near future, I have plans to add four more data types:
+
+-   **Thoughts**: shorter and more loosely edited ideas that pop into my mind, but might be a bit too long to put on Farcaster/Twitter
+-   **Lists:** collections of different types of things I find, both to live on its own and also to be embedded in future articles
+-   **Projects**: what I’ve worked on that’s on my resume, as well as what’s on my online/on-chain resume
+-   **NFTs:** mints, sales, auction bids, and transfers from [my main wallet](https://rainbow.me/dylsteck.eth)
+
+At the end of the day, the more I can add to [this digital garden](https://dylansteck.com) that is representative of myself, the better. I’m still actively brainstorming ideas so if anything sticks out to you, [let me know](https://nf.td/dylan)!
+
+export default function MDXPage({ children }) {
+  return <MdxLayout>{children}</MdxLayout>;
+}

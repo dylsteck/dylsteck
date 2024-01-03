@@ -1,4 +1,10 @@
-export const Code = ({ children }) => {
+import React, { ReactNode } from "react";
+
+interface CodeProps {
+  children: ReactNode;
+}
+
+export const Code = ({ children }: CodeProps) => {
   return (
     <code
       className={`
@@ -8,6 +14,7 @@ export const Code = ({ children }) => {
         [p_&]:rounded-sm
         [p_&]:bg-gray-200
         dark:[p_&]:bg-[#333]
+        text-white
       `}
     >
       {children}
