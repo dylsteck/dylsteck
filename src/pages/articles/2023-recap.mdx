@@ -1,0 +1,72 @@
+import MdxLayout from '../../components/MdxLayout'
+
+export const metadata = {
+  title: '2023 Recap',
+  description: '2023 Recap',
+  openGraph: {
+    title: '2023 Recap',
+    description: '2023 Recap',
+    images: [{ url: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704266542/media/2023-recap-og-image.png' }]
+  }
+}
+
+My 2023 was defined by two things: **a move to LA and going all in on projects.**
+
+On the heels of a gap semester where I built a spatial browsing app, I started the year off back in DC at GW. It was nice to be back in Washington and see my friends, but it was also great because I started to get back into new projects. At the end of my gap semester, I felt a bit down about what I had built and said I was going to focus on other projects to take a break and make some money while in school. At the end of 2022/the beginning of 2023 before I left for DC, I was finding it difficult to think about what I could build in tech next if I put Cortex aside -- but when I got to DC I stumbled upon a random web2 freelancing opportunity from someone I'd previously done some contracting for, and that opportunity started to get me back in the groove a bit. 
+
+It was in a field I needed to brush up in a bit and I wanted to make sure I did really well on this project, so I went to work for a few weeks straight, shuffling between VSCode, docs, and ChatGPT(one of my first real chances to see how it could help with a project). At the same time I also started to focus more on writing, publishing 18 articles with 68 subscribers on Substack(and cross-posted on my site and Paragraph). I started a weekly series called "Next In Tech", where at the end of every week I'd round up some of the top stories that caught my eye, as well as a few updates on what I was working on. Writing "Next In Tech" helped me not only share my thoughts on topics/what's trending, but it also gave me a consistent posting schedule to follow. 
+
+I also joined Chapter One's Research Program for the spring semester, an amazing cohort that pushed me to write even more. I put out three pieces over the course of twelve weeks and learned a ton from what everyone else wrote as well. And around this time, I published a revamped version of my website dylansteck.com as a digital garden -- indexing my articles, casts, and tweets(note: those features are down right now but coming back even better soon). I was also on the team FundPG at ETHDenver 2023 with Luciano DeAngelo and Joseph Low, where we built a product that let you donate earnings from multiple routers to the Gitcoin matching pool. -- group purple here too
+
+I then spent a good bit of time building v1 of Casterscan with Yash Karthik -- a block explorer for Farcaster inspired by a mockup I did of Etherscan but for Farcaster. Since hubs were released(dbl check) in 2023 and devs now had more tools to sync the whole network to a database, I felt it would be important to track data the way a block explorer does. I was also spending a lot more time on Farcaster, as I have this year, and thought this could be a cool project. 
+
+I then started a big journey out west to move to LA. The move has two reasons: the first is to transfer to Santa Monica College, and the other was to spend the summer interning at Triangle Labs. I had an incredible time working with them and learned more from the experience than I have any other position. I started off the summer working on features for a mobile crypto browser but pivoted to work on the backend for Glimpse, an AI-powered assistant that can chat with the Internet. I felt like there was a lot of shared vision for a new Internet and I really enjoyed learning from and working with the team. They gave me the space and skills to be able to work -- and I'm forever grateful for the opportunity.
+
+Going into the fall, I knew that I wanted to take everything I'd learned from the year and apply it to two areas: Cortex and Farcaster. Cortex is my years long research into what the future workspace looks like, and though it's something I gave up for a bit going into the year, by the fall I found myself newly inspired to do new research. And for Farcaster, there were a few things I wanted to build that I felt could either connect with Cortex or was related in spirit and just made more sense as a Farcaster community utility. 
+
+On the Farcaster side of things, I kicked the fall off by launching Casterscan v2, a redesign that made it easier to see relevant data and relied on a new indexer. I also shipped a redesign of the PurpleDAO website(more coming in early '24) and Group Purple moved from Juicebox to Party Bid, while growing from 3 Purple tokens to 8. The largest of them all, I launched Farcaster Kit, React hooks and middleware for the best React apps. It's already used by Casterscan and 80 weekly active API users, as well as a new client Litecast I'm shipping soon(from dwr.eth's bounty). The key theme with my Farcaster projects has been accessibility: making casts easier to view with Casterscan, bringing easier membership access(and group discussion) to Purple through Group Purple, and helping overall DevEx with Farcaster Kit. While there might be ways for Farcaster projects to overlap with Cortex so I can double my efforts/not re-write code, my main goal with Farcaster projects is to make things that are accessible and impactful, and I'll continue to do so(plus maintain my projects) with a good portion of my time.
+
+And on the Cortex side of things, while some of the time I intended to use for launches went to Farcaster projects, I did a lot of important research for Cortex towards the end of the year that I'm going to put to serious work as my main focus in 2024 and beyond. I built a proof of concept(called Timeline) that syncs my Brave Browser history, Farcaster casts, and Markdown notes into a timeline. I was able to use and iterate on Timeline internally, and I'm taking what I learned from it to launch a beta version of Cortex in early 2024. *include thinking about what learned from Cortex*
+
+And probably the largest event of the fall for me was OpenAI DevDay, which funny enough was only a week before the whole Sam Altman saga at OpenAI. After working on AI this summer both for my internship and Cortex, I felt that what OpenAI launched what developers needed/were asking for. From learning in-depth about what they're releasing to networking with extremely talented folks, I really enjoyed my time at DevDay and walked away with many new perspectives on what I could build. It's certainly one of the highlights of my year that I'm sure I'll look back on. 
+
+<h1 className="text-lg font-medium">Forecast</h1>
+
+Here are some trends that I see for 2024. 
+
+**Everything in crypto will be embedded and gamified.**
+	This year we saw trends to abstract web3 rails and clean up UX so crypto could be more helpful, and usable by more people(eg. embedded wallets, points, L2s managed by Conduit, etc). This is only going to accelerate more and become the industry standard in 2024, and that will push developers to make more engaging apps. I hope this allows for crypto to expand beyond its (currently) limited use cases.
+
+**In 2024 and beyond, context is the key for AI-powered products.**
+	One thing we're seeing from the top LLM vendors and LLM-enabled products is that whoever supports and builds products with memory built-in will win. While some think OpenAI is ahead here, a slew of agents and software/hardware products are building convincing end-user apps with long-standing memory at the center. 
+
+**Your Farcaster graph will become synonymous to your ENS, and new pockets of capital will open up on Farcaster.**
+	With your Farcaster social graph, one thing stands out the most: reputation. This could be your follower count, what people know you for, or even your bounties/receipts. Because of how much reputation is growing across many sectors on Farcaster, I think it's safe to say many more apps will support Farcaster, the same way ENS has quickly become a naming convention that's widely accepted. Additionally, Farcaster reputation showing up in other apps and new sub-communities forming through channels, I think new sectors of businesses will form that not only bring capital to the ecosystem but also will help expand/grow the protocol. 
+
+<h1 className="text-lg font-medium">My 2024</h1>
+Here are some of my plans/resolutions/goals for 2024:
+
+**Subsequent launches and branding to Cortex 1.0, and some metrics around that**
+In my mind there are ways to experiment around some key ideas that I'm calling Cortex, and I want to not only do so until I get to a 1.0 that I have roughly planned, but also highly document and share the process. I know a lot of getting to the proper v1 is sharing as many of the surrounding ideas as I can, and so I want to not only do so but also use social media as a way to drive attention towards the project organically. I'm excited to take this more seriously and if everything goes well then at some point Cortex should become my main or only focus! 
+
+**Build Farcaster tooling and get to 5k followers**
+I want to continue to build out tooling for the Farcaster community. A big effort here will be Farcaster Kit -- there's a ton I worked on at the end of 2023 that I need to publish in Farcaster Kit early in 2024, including a new test app Litecast, a NeynarProvider, an example with Mod Protocol, supporter modules, components(with Framer support), and a re-write of the API. I'll also be active in communities like Purple and Energy, and will help build out small initiatives or tooling as I see fit. One thing I noted recently was that there needs to be more of a nucleus for DAOs, so that will be on my mind. And I also want to shoot for 5k followers(if not more), because I heavily believe in the platform and also want to spend more time learning from and growing with other casters.
+
+**Focus on building out my following and digital garden in 2024**
+	I did a good bit this year but I feel like I need to double down on building my following and a digital garden in 2024. The following part I find important to have a larger audience to share thoughts/products/impact with, but the digital garden is something I find important so that I have a set of content that's inter-connected and consistent. This means sharing more short notes, articles, videos, and promoting across platforms while trying to link as much back to this website(updates to better reflect this effort coming soon). I also want to use this as a way to spend more time on odd ends of the Internet(clean this up).
+
+**Work on skills in design and Rust**
+	One of the main things I worked on this year was my backend skills -- from extensive Postgres setups to vectorization to web3 indexing, I feel like I learned a lot more in backend this year and really enjoyed that, especially since I felt weaker in it beforehand. Now I feel like there are types of design I want to get better and overall design theory that I'd like to focus on(it's all a balance!). I also want to pick up(among other things I'm sure) Rust, because of its versatility and cross-platform abilities. 
+
+**Build out my personal life and health regiments**
+	While I really enjoyed my time in 2023 writing a ton of code and soaking up the sun in California, there are a few things personally and health-wise I'd like to take a bit more care of so I have a more well-balanced life. Some of that includes cleaning up my diet, getting back to running/playing tennis, and having some more social events/activities I'm attending regularly. It's not as if this isn't all possible out there, it's just something I didn't prioritize as much in 2023 and am realizing this especially as I've had time to reflect on the year the past few days.
+
+<h1 className="text-lg font-medium">Best of 2023</h1>
+<MediaGrid gridType="best" />
+
+<h1 className="text-lg font-medium">2023 Recap</h1>
+<MediaGrid gridType="portfolio" />
+
+export default function MDXPage({ children }) {
+  return <MdxLayout>{children}</MdxLayout>;
+}

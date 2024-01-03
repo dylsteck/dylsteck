@@ -1,0 +1,44 @@
+{
+  "name": "dylsteck",
+  "version": "0.1.0",
+  "private": true,
+  "author": "@dylsteck",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "export": "next export",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@mdx-js/loader": "^3.0.0",
+    "@mdx-js/react": "^3.0.0",
+    "@next/font": "^13.1.2",
+    "@next/mdx": "^14.0.4",
+    "@rainbow-me/rainbowkit": "^1.2.0",
+    "@types/mdx": "^2.0.10",
+    "@vercel/og": "^0.1.0",
+    "@withfabric/protocol-sdks": "^0.3.2",
+    "eslint": "8.31.0",
+    "eslint-config-next": "13.1.2",
+    "fs": "^0.0.1-security",
+    "geist": "^1.2.0",
+    "image-size": "^1.1.0",
+    "next": "13.1.2",
+    "next-cloudinary": "^5.17.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-tweet": "^3.2.0",
+    "react-wrap-balancer": "^1.1.0",
+    "react-youtube": "^10.1.0",
+    "wagmi": "^1.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.6",
+    "@types/react": "^18.2.28",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.4",
+    "typescript": "^5.2.2"
+  }
+}
