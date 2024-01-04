@@ -11,26 +11,64 @@ import { useState } from 'react';
 import DSName from './DSName';
 import FCKitName from './FCKitName';
 import YTName from './YTName';
+import { CldImage } from 'next-cloudinary';
 
 export type CarouselItem = {
     id: number;
     name: string;
 }
 
+// const items: CarouselItem[] = [
+//     {
+//         id: 0, name: 'Cortex'
+//     },
+//     {
+//         id: 1, name: 'Membership'
+//     },
+//     {
+//         id: 2, name: 'Farcaster Kit'
+//     },
+//     {
+//         id: 3, name: 'OpenAI DevDay'
+//     },
+// ]
+
 const items: CarouselItem[] = [
     {
-        id: 0, name: 'Cortex'
+        id: 0, name: '2023 Recao'
     },
     {
-        id: 1, name: 'Membership'
+        id: 1, name: 'Cortex'
     },
     {
-        id: 2, name: 'Farcaster Kit'
+        id: 2, name: 'Membership'
     },
     {
-        id: 3, name: 'OpenAI DevDay'
+        id: 3, name: 'Farcaster Kit'
+    },
+    {
+        id: 4, name: 'OpenAI DevDay'
     },
 ]
+
+function Recap2023CarouselItem(){
+    return(
+        <div className="md:flex md:flex-row md:gap-5 pl-1 pr-1 mt-[1vh] items-center">
+            <div>
+                <p className="text-4xl font-medium pt-[2.5%]">2023 Recap</p>
+                <p className="pt-[5%] text-2xl text-white/90">Check out what I built, what defined my year, favorites and more</p>
+                <Link href="/articles/2023-recap">
+                    <p className="underline pt-[5vh] md:pt-[7.5vh] text-lg md:text-xl">
+                        Read 2023 Recap
+                    </p>
+                </Link>
+            </div>
+            <div className="max-w-[0%] md:max-w-[50%] max-h-[0%] md:max-h-[50%] invisible md:visible items-center">
+                <CldImage src="media/2023-recap-og-image.png" alt="2023 Recap banner" width="800" height="800" className="p-2 pt-0 rounded-2xl" />
+            </div>
+        </div>
+    )
+}
 
 function CortexCarouselItem(){
     return(
@@ -114,10 +152,11 @@ function FeaturedCarousel(){
                     <Image src={arrowRightCircle} className="w-[70%] h-[70%]" alt="Arrow right circle" onClick={() => handleSetCurrentItem(false)} />
                 </div>
             </div>
-            {currentItem.id === 0 && <CortexCarouselItem /> }
-            {currentItem.id === 1 && <MembershipCarouselItem /> }
-            {currentItem.id === 2 && <FarcasterKitCarouselItem /> }
-            {currentItem.id === 3 && <DevDayCarouselItem /> }
+            {currentItem.id === 0 && <Recap2023CarouselItem /> }
+            {currentItem.id === 1 && <CortexCarouselItem /> }
+            {currentItem.id === 2 && <MembershipCarouselItem /> }
+            {currentItem.id === 3 && <FarcasterKitCarouselItem /> }
+            {currentItem.id === 4 && <DevDayCarouselItem /> }
         </div>
     )
 }
@@ -126,8 +165,8 @@ export default function Featured(){
     const im = "I'm";
     return(
         <div className="flex flex-col gap-4 justify-center items-center w-[100%] max-h-[80%] pt-[5vh]">
-            <p className="text-3xl">How can software give people more agency?</p>
-            <p className="max-w-[50%] text-xl text-center">{im} researching interfaces and platforms that make data accessible and better represent user actions</p>
+            <p className="text-xl md:text-3xl">How can software give people more agency?</p>
+            <p className="max-w-[75%] md:max-w-[50%] text-lg md:text-xl text-center">{im} researching interfaces and platforms that make data accessible and better represent user actions</p>
             <FeaturedCarousel />
         </div>
     )

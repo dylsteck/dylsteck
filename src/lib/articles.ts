@@ -7,6 +7,11 @@ export type Article = {
 
 export const articles: Article[] = [
   {
+    "id": "its-time-to-rebuild-the-internet",
+    "date": "July 11, 2019",
+    "title": "It’s Time to Rebuild the Internet"
+  },
+  {
     "id": "how-i-ended-up-spending-all-summer-building-a-chrome-extension",
     "date": "September 13, 2019",
     "title": "How I ended up spending all summer building a Chrome extension"

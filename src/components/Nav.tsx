@@ -18,15 +18,15 @@ export default function Nav(){
                         </Link>
                     </p>
                     <p>
-                        <Link href="/">
-                            About
+                        <Link href="https://nf.td/dylan">
+                            Links
                         </Link>
                     </p>
-                    <p>
+                    {/* <p>
                         <Link href="/feed">
                             Feed
                         </Link>
-                    </p>
+                    </p> */}
                     {/* <p>
                         <Link href="https://hypersub.withfabric.xyz/collection/steck-studio-membership-14dtpljtcbda8">
                             Membership

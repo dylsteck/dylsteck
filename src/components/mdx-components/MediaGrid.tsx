@@ -574,7 +574,7 @@ const MediaGrid = ({ gridType }: { gridType: 'best' | 'portfolio' }) => {
   return (
     <>
       <p className="pb-[2vh]">
-        {gridType === 'best' ? 'My favorite products, content, and writing from 2023' : 'Every project and piece of content I launched this year'}
+        {gridType === 'best' ? 'My favorite products, content, and writing from 2023' : 'Every project and piece of content I launched or helped work on this year'}
       </p>
       <Filters filter={filter} handlePress={handleFilterPress} />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 items-center pt-[1.5]">

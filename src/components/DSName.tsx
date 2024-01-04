@@ -6,11 +6,14 @@ export default function DSName(){
     return(
     <div className="flex flex-row gap-1 items-center pt-[5vh]">
             <Image src={dsLogo} alt="DS Logo" className="w-9 h-10 pt-[0.5vh] items-center" />
-            <p className="text-xl underline underline-offset-4">
+            {/* <p className="text-xl underline underline-offset-4">
                 <Link href="https://hypersub.withfabric.xyz/collection/steck-studio-membership-14dtpljtcbda8">
                     Explore Membership
                 </Link>
-            </p>    
+            </p>     */}
+            <p className="text-xl font-medium underline-offset-4">
+                Coming soon
+            </p>  
     </div>
     )
 }
