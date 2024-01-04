@@ -133,7 +133,7 @@ export const articles: Article[] = [
   },
   {
     "id": "2023-recap",
-    "date": "January 3, 2024",
+    "date": "January 4, 2024",
     "title": "2023 Recap"
   },
 ]

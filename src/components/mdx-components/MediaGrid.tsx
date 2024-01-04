@@ -61,7 +61,7 @@ const bestOf2023Items: MediaGridItemProps[] = [
   {
     title: 'Alex Labossiere Intervew with Keith Rabois',
     type: MediaGridItemType.video,
-    url: '',
+    url: 'https://www.youtube.com/watch?v=S9by0kQ12aI',
     imageUrl: 'media/alex-labossiere-interview-with-keith-rabois.jpg',
   },
   {
@@ -190,10 +190,14 @@ const bestOf2023Items: MediaGridItemProps[] = [
     url: 'https://new.computer',
     imageUrl: 'media/dot-new-computer-website.png', 
   },
+  {
+    title: 'Family',
+    type: MediaGridItemType.product,
+    url: 'https://family.co',
+    imageUrl: 'media/family-wallet-website.png', 
+  },
 ];
 
-// todo: add positions/work
-// but proly stop for now, j put this in style it and fine!
 const dylan2023Portfolio: MediaGridItemProps[] = [
   {
     title: 'Casterscan (v1 with Yash Karthik)',
@@ -453,6 +457,18 @@ const dylan2023Portfolio: MediaGridItemProps[] = [
     url: 'https://zora.co/collect/zora:0x2b1a039a4b74b89f95fd05403e7d1d4478bed04a',
     imageUrl: 'media/a-bunch-of-nerdf-kismet-casa-energy-nft.png',
   },
+  {
+    title: 'Glimpse (internship)',
+    type: MediaGridItemType.product,
+    url: 'https://glimpse.surf',
+    imageUrl: 'media/glimpse-extension-banner.png',
+  },
+  {
+    title: 'Double Down (fellowship)',
+    type: MediaGridItemType.product,
+    url: 'https://double-down.com/',
+    imageUrl: 'media/double-down-vc-banner.png',
+  },
 ];
 
 export type MediaGridItemProps = {
@@ -518,7 +534,7 @@ const Filters = ({ filter, handlePress }: { filter: MediaGridItemType | null, ha
   }
   const allFilters = Object.values(MediaGridItemType);
   return(
-    <div className="flex flex-row gap-2 items-center pb-2">
+    <div className="flex flex-row gap-2 items-center pb-2 overflow-x-scroll">
       <button 
         className={`text-black rounded-xl px-3 py-2 text-sm ${filter === null ? 'bg-[#b7b7b7]' : 'bg-[#E2E3E2]'}`}
         onClick={() => handlePress('All')}>

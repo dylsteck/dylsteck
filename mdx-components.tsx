@@ -18,6 +18,7 @@ import { Blockquote as blockquote } from "./src/components/mdx-components/blockq
 import MediaGrid from "./src/components/mdx-components/MediaGrid";
 import { CldImage } from "next-cloudinary";
 import { ArticleMetaTags } from "./src/components/mdx-components/ArticleMetaTags";
+import MintOnZora from "./src/components/MintOnZora";
 
 export function useMDXComponents(components: {
   [component: string]: React.ComponentType;
@@ -46,6 +47,7 @@ export function useMDXComponents(components: {
     FootNote,
     MediaGrid,
     CldImage,
-    ArticleMetaTags
+    ArticleMetaTags,
+    MintOnZora
   };
 }
