@@ -136,4 +136,9 @@ export const articles: Article[] = [
     "date": "January 4, 2024",
     "title": "2023 Recap"
   },
+  {
+    "id": "onchain-nucleus",
+    "date": "January 11, 2024",
+    "title": "Onchain Nucleus"
+  },
 ]
