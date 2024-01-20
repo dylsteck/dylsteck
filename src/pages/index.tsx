@@ -42,7 +42,7 @@ export default function Main() {
             <Image alt="DS grey logo" src={dsGreyLogo} width={604.72} height={752} />
           </div>
           <Featured />
-          <div className="flex flex-col gap-4 justify-center w-[80%] p-[20%] pb-[7.5%] pl-[25%] max-h-[80%] pt-[5vh]">
+          <div className="flex flex-col gap-4 justify-center w-[95%] md:w-[80%] p-[20%] pb-[7.5%] pl-[7.5%] md:pl-[25%] max-h-[80%] pt-[5vh]">
             <p className="text-2xl font-medium">Articles</p>
             <div className="flex flex-col gap-5">
               {articles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((article) => {
