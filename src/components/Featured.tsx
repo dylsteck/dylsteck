@@ -18,38 +18,46 @@ export type CarouselItem = {
     name: string;
 }
 
-// const items: CarouselItem[] = [
-//     {
-//         id: 0, name: 'Cortex'
-//     },
-//     {
-//         id: 1, name: 'Membership'
-//     },
-//     {
-//         id: 2, name: 'Farcaster Kit'
-//     },
-//     {
-//         id: 3, name: 'OpenAI DevDay'
-//     },
-// ]
-
+// TODO: edit featured page
 const items: CarouselItem[] = [
     {
-        id: 0, name: '2023 Recao'
+        id: 0, name: 'Onchain Nucleus'
     },
     {
-        id: 1, name: 'Cortex'
+        id: 1, name: '2023 Recap'
     },
     {
-        id: 2, name: 'Membership'
+        id: 2, name: 'Cortex'
     },
     {
-        id: 3, name: 'Farcaster Kit'
+        id: 3, name: 'Membership'
     },
     {
-        id: 4, name: 'OpenAI DevDay'
+        id: 4, name: 'Farcaster Kit'
+    },
+    {
+        id: 5, name: 'OpenAI DevDay'
     },
 ]
+
+function OnchainNucleusCarouselItem(){
+    return(
+        <div className="md:flex md:flex-row md:gap-5 pl-1 pr-1 mt-[1vh] items-center">
+            <div>
+                <p className="text-4xl font-medium pt-[2.5%]">Onchain Nucleus</p>
+                <p className="pt-[5%] text-xl max-w-[80%] text-white/90">Read about why I think DAOs have a coordination problem and what an onchain nucleus can do to solve it</p>
+                <Link href="/articles/onchain-nucleus">
+                    <p className="underline pt-[5vh] md:pt-[7.5vh] text-lg md:text-xl">
+                        Read Onchain Nucleus
+                    </p>
+                </Link>
+            </div>
+            <div className="max-w-[0%] md:max-w-[50%] max-h-[0%] md:max-h-[50%] invisible md:visible items-center">
+                <CldImage src="media/onchain-nucleus-og-image.png" alt="Onchain Nucleus banner" width="800" height="800" className="p-2 pt-0 rounded-2xl" />
+            </div>
+        </div>
+    )
+}
 
 function Recap2023CarouselItem(){
     return(
@@ -144,7 +152,7 @@ function FeaturedCarousel(){
     }
 
     return(
-        <div style={{ background: 'linear-gradient(180deg, rgba(56, 56, 56, 0.6) 0%, rgba(38, 38, 38, 0.6) 100%)', borderRadius: 20, color: 'white', width: '50%', height: 'auto' }} className="p-5 mt-[2.5vh]">
+        <div style={{ background: 'linear-gradient(180deg, rgba(56, 56, 56, 0.6) 0%, rgba(38, 38, 38, 0.6) 100%)', borderRadius: 20, color: 'white' }} className="p-5 mt-[2.5vh] w-[90%] md:w-[50%] h-auto">
             <div className="flex flex-row justify-between items-center pl-1 pr-3">
                 <p className="text-xl">Featured</p>
                 <div className="flex flex-row items-center gap-2 max-h-[5%]">
@@ -152,11 +160,12 @@ function FeaturedCarousel(){
                     <Image src={arrowRightCircle} className="w-[70%] h-[70%]" alt="Arrow right circle" onClick={() => handleSetCurrentItem(false)} />
                 </div>
             </div>
-            {currentItem.id === 0 && <Recap2023CarouselItem /> }
-            {currentItem.id === 1 && <CortexCarouselItem /> }
-            {currentItem.id === 2 && <MembershipCarouselItem /> }
-            {currentItem.id === 3 && <FarcasterKitCarouselItem /> }
-            {currentItem.id === 4 && <DevDayCarouselItem /> }
+            {currentItem.id === 0 && <OnchainNucleusCarouselItem /> }
+            {currentItem.id === 1 && <Recap2023CarouselItem /> }
+            {currentItem.id === 2 && <CortexCarouselItem /> }
+            {currentItem.id === 3 && <MembershipCarouselItem /> }
+            {currentItem.id === 4 && <FarcasterKitCarouselItem /> }
+            {currentItem.id === 5 && <DevDayCarouselItem /> }
         </div>
     )
 }
@@ -165,7 +174,7 @@ export default function Featured(){
     const im = "I'm";
     return(
         <div className="flex flex-col gap-4 justify-center items-center w-[100%] max-h-[80%] pt-[5vh]">
-            <p className="text-xl md:text-3xl">How can software give people more agency?</p>
+            <p className="text-xl md:text-3xl font-medium text-center">How can software give people more agency?</p>
             <p className="max-w-[75%] md:max-w-[50%] text-lg md:text-xl text-center">{im} researching interfaces and platforms that make data accessible and better represent user actions</p>
             <FeaturedCarousel />
         </div>

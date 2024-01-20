@@ -8,6 +8,7 @@ const nextConfig = {
   images: { 
     domains: ['res.cloudinary.com']
   },
+  transpilePackages: ["geist"],
 }
 
 module.exports = withMDX(nextConfig)

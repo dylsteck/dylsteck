@@ -19,6 +19,7 @@ import MediaGrid from "./src/components/mdx-components/MediaGrid";
 import { CldImage } from "next-cloudinary";
 import { ArticleMetaTags } from "./src/components/mdx-components/ArticleMetaTags";
 import MintOnZora from "./src/components/MintOnZora";
+import Cast from "./src/components/mdx-components/cast";
 
 export function useMDXComponents(components: {
   [component: string]: React.ComponentType;
@@ -48,6 +49,7 @@ export function useMDXComponents(components: {
     MediaGrid,
     CldImage,
     ArticleMetaTags,
-    MintOnZora
+    MintOnZora,
+    Cast
   };
 }

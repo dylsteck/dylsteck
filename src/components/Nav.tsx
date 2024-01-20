@@ -13,11 +13,6 @@ export default function Nav(){
                 </Link>
                 <div className="pl-[2.5vw] pr-[10vw] flex flex-row gap-4 items-center">
                     <p>
-                        <Link href="/">
-                            Home
-                        </Link>
-                    </p>
-                    <p>
                         <Link href="https://nf.td/dylan">
                             Links
                         </Link>
