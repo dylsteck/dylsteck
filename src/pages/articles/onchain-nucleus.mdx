@@ -8,23 +8,65 @@ import MdxLayout from '../../components/MdxLayout'
 />
 {/* TODO: update the og:image */}
 
-Groups in web3 -- whether that's an open source repository, a channel on Farcaster, or a DAO -- have a _coordination problem_. For most groups, this coordination problem is shown in two ways:
+DAOs have a _coordination problem_. For most DAOs, this coordination problem is shown in two ways:
 
-**Lack of mission:** 
-Lots of groups(especially DAOs) get misguided because there was never a mission in the first place. As a DAO and its resources grow, it can become easier for plans to deviate and alterior motives to creep up. Some of the best DAOs have very clear missions, and some have even been single purpose DAOs(eg. ConstitutionDAO).
+**Lack of mission** 
+Lots of DAOs get misguided because there was never a mission in the first place. As a DAO and its resources grow, it can become easier for plans to deviate and alterior motives to creep up. Some of the best DAOs have very clear missions, and some have even been single purpose DAOs(eg. [ConstitutionDAO](https://www.constitutiondao.com)).
 
-**Lack of data transparency:** 
-The ongoings and info surrounding the group are so scattered that it's even harder for members to participate -- and just because web3 makes data available on public ledgers doesn't always mean it's accessible/legible! Because it can be so difficult to find out even simple details/take simple actions about a DAO, many members dormantly sit around.
+**Lack of data transparency** 
+The ongoings and info surrounding the DAO are so scattered that it's even harder for members to participate -- and just because web3 makes data available on public ledgers doesn't always mean it's accessible/legible! Because it can be so difficult to find out even simple details/take simple actions about a DAO, many members dormantly sit around.
 
-I think the solution to this problem is creating an onchain nucleus: a homepage for each group that clearly showcases its ongoings, as well as offers tooling out-the-box. While it doesn't change the need for people to coordinate around a *goal*, it makes the act of bringing your group together much easier, which is hopefully an incentive. In this article, I'm going to outline where in the Ethereum ecosystem this problem is apparent and how an onchain nucleus(nuclei?) could take form, and where it already has to certain extents.
+I think the solution to this problem is creating an **onchain nucleus:** a homepage for each DAO that clearly showcases its ongoings, as well as offers tooling out-the-box. While it doesn't change the need for people to coordinate around a *goal*, it makes the act of bringing your DAO together much easier, which is hopefully an incentive. In this article I'm going to outline where in the Ethereum ecosystem this problem is apparent, how an onchain nucleus(nuclei?) could take form, and where it already has to certain extents.
 
 ## Where is data transparency missing?
+I think the answer to "Where is data transparency missing"? is less about particular DAOs and more about the general ecosystem of tooling. The only (biased) exception I'd give is the Nouns ecosystem, which has seen so much proliferation that the core DAO and many of its sub DAOs have lots of tooling.
 
-## Groups that are doing it right
+So with that being said, here are some *areas* of tooling that often tend to confuse or mislead DAO members:
+
+**Action discovery**
+Sometimes a DAO can be using multiple tools but not effeciently linking to where those tools exist or how to operate them. For example -- your DAO might've been created through Nouns Builder, but you use Snapshot for voting, Prop House for community rounds, and CharmVerse for your docs. While each of these tools are individually great and have their own tooling, this creates a lot for members to keep track of.
+
+**Analytics**
+Similar to how it can be difficult to locate where things are taking place/what's actually happening in a DAO, it can be equally if not more difficult to run basic analytics on that data. Some of it is becoming easier with tools like Dune, but lots of a DAO's data either isn't organized well for analytics or is missing crucial offchain data.
+
+**Communication tools**
+I cannot count how many times I've heard this phrase from people in web3/DAOs: "I hate Telegram/Discord/[insert messaging platform] so much but can't leave because everyone's there". We often find ourselves scrolling between channels and folders in Telegram and while many people find somewhat working solutions, the way modern communication tools are structured makes it so hard to traverse the tree of history.
+
+
+## Tools that make DAO data transparent
+
+I think that there are some DAOs and DAO tooling platforms that have done really good jobs at making the data *and* actions of a DAO transparent. In no particular order and without nit-picking every detail, here are some DAOs that I think are doing it right:
+
+<CldImage src="media/nouns-dot-builder-website-jan-24.png" alt="Nouns Builder website" width="500" height="500" className="p-2 pt-0 rounded-2xl" />
+**Nouns Builder**
+ICYMI, [Nouns Builder](https://nouns.build) is a platform to create a Nounish DAO: you can customize your settings and are given a Nounish auction, prop tools, and a whole bunch of tools for things to do with your DAO. Nouns Builder not only provides flexibility, but it's one of the only DAO creation tools -- which shows the lack of tooling in the space.
+
+<CldImage src="media/nouns-dot-camp-website-jan-24.png" alt="nouns.camp Website" width="500" height="500" className="p-2 pt-0 rounded-2xl" />
+**nouns.camp**
+I think [nouns.camp](https://nouns.camp) is one of the most simple yet informative clients for a DAO that I've seen so far. On one screen you see the most recent activity and have easy access to the different tabs you'd need(eg. connect wallet, draft a prop, etc). 
+
+<Cast url="https://warpcast.com/dwr.eth/0xb0f5c6f4"/>
+**Warpcast**
+[Warpcast](https://warpcast.com) has three recent features that make it easier for DAOs to coordinate: _DAO proposal notifications, channels, and group chats_. Because many crypto native people are moving to Farcaster, having these features in the protocol's leading app(Warpcast) makes sense -- and it's been helpful for DAO members, especially in [Purple](https://purple.construction).
 
 ## The form of an onchain nucleus
 
+One idea that I've had for an onchain nucleus is to glue together all of the tools a DAO uses. Imagine you could go to a page, input every contract address and onchain/offchain tool your DAO uses, then magically get an API/dashboard that you can use.
+
+Bringing data together in this way can be helpful for DAOs in many ways, such as: <br/> - Bookkeeping <br/> - Having a website where members can check in and participate <br/> - Open data/tools for DAO members to build on and proliferate the DAO
+
+The first place that I'm going to be building an onchain nucleus is for the [Purple website](https://purple.construction). I [redesigned the site in the fall](https://github.com/dylsteck/purple.construction) but even then was noting that more could be done to bring the tools that the DAO uses together. The new edits that I've been working on(which I'm finalizing before sharing for feedback in the upcoming week or two) is the first version of an onchain nucleus -- and hopefully not the last!
+
 ## Final thoughts
+
+I think that while a lot can be said about the steps you take to organize your DAO, not having the infrastructure to do so makes that task even more difficult.
+
+For this reason I think having an onchain nucleus is one of the most important things for DAO, because it gives members the tools needed to see how a DAO works and make changes.
+
+My aside to this is that I think DAOs need structure and it's crazy to think that an autonomous DAO of hundreds, maybe even thousands, of people will vote and stay aware of several votes. There needs to be a fine line between using decentralization to get what you need done and coodinating centrally to make sure it actually gets done.
+
+Hopefully having easier access to an onchain nucleus will make it more likely for folks to create or organize their DAOs more!
+
 
 export default function MDXPage({ children }) {
   return <MdxLayout>{children}</MdxLayout>;
