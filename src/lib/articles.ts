@@ -1,3 +1,4 @@
+import { notes } from "./notes";
 
 export type TextItemType = 'article' | 'note';
 
@@ -172,3 +173,6 @@ export const articles: TextItem[] = [
     "type": 'article',
   },
 ]
+
+export const allWritingItems = articles.concat(notes);
+// TODO: move allWritingItems and the types to dedicated files(maybe consts and types?)

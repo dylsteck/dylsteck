@@ -1,8 +1,8 @@
-import { type TextItem, articles } from "../lib/articles";
+import { type TextItem, allWritingItems } from "../lib/articles";
 import { notes } from "../lib/notes";
 
 export default function ItemHeader({ slug }: { slug: string | undefined }){
-    const allItems = articles.concat(notes);
+    const allItems = allWritingItems;
     const item: TextItem | undefined = allItems.find((item) => item.id === slug)
 
     return(

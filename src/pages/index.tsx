@@ -5,7 +5,7 @@ import dsLogo from "../assets/DylanLogoTransparent.png";
 import dsGreyLogo from '../../public/dsGreyLogo.png';
 import Head from "next/head";
 import Image from "next/image";
-import { TextItem, TextItemType, articles } from "../lib/articles";
+import { TextItem, TextItemType, allWritingItems, articles } from "../lib/articles";
 import Link from "next/link";
 import { useState } from "react";
 import { notes } from "../lib/notes";
@@ -13,7 +13,7 @@ import { notes } from "../lib/notes";
 type TabType = 'all' | TextItemType;
 
 export default function Main() {
-  const allItems = articles.concat(notes);
+  const allItems = allWritingItems;
   const [activeTab, setActiveTab] = useState<TabType>('all');
   const [activeItems, setActiveItems] = useState<TextItem[]>(allItems);
 
