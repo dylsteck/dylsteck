@@ -66,11 +66,11 @@ export default function Main() {
         </div>
         <div className="w-full">
           <Nav />
-          <div className="fixed z-[-50] top-[15vh] pl-[5%] md:pl-[25%]">
+          <div className="fixed z-[-50] top-[15vh] pl-[5%] md:pl-[15%] lg:pl-[25%]">
             <Image alt="DS grey logo" src={dsGreyLogo} width={604.72} height={752} />
           </div>
           <Featured />
-          <div className="flex flex-col gap-4 justify-center w-[95%] md:w-[80%] p-[20%] pb-[7.5%] pl-[7.5%] md:pl-[25%] max-h-[80%] pt-[5vh]">
+          <div className="flex flex-col gap-4 justify-center w-[95%] md:w-[80%] p-[20%] pb-[7.5%] pl-[7.5%] md:pl-[11%] lg:pl-[16s%] xl:pl-[25%] max-h-[80%] pt-[5vh]">
             <div className="flex flex-row gap-5 items-center">
               <p className={`text-2xl ${activeTab === 'all' ? 'font-medium' : ''}`} onClick={() => handleTabClick('all')}>All</p>
               <p className={`text-2xl ${activeTab === 'article' ? 'font-medium' : ''}`} onClick={() => handleTabClick('article')}>Articles</p>
