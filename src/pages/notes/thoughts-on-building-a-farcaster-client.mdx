@@ -1,0 +1,55 @@
+import MdxLayout from '../../components/MdxLayout'
+
+<ArticleMetaTags 
+  title="Thoughts on building a Farcaster client" 
+  description="Some thoughts on building a Farcaster client after spending some time building my own web & mobile client, Litecast."
+  slug="thoughts-on-building-a-farcaster-client"
+  image="https://res.cloudinary.com/dz3c2rl2o/image/upload/v1706147355/media/thoughts-on-building-a-farcaster-client-og-image.png"
+/>
+
+I've been spending a lot more time lately building an open source Farcaster client called **[Litecast](https://litecast.xyz)**. I wanted to share some notes that have popped in my head as I've been in client-land:
+
+<div>
+	**Building a Farcaster client is one of the highest leverage/highest impact things you can do in the ecosystem (*major bonus points for mobile dev't*)**
+	[Warpcast](https://warpcast.com) has the vast majority of client market-share and while there are more clients emerging, I'd argue that there aren't enough people competing directly with Warpcast. On top of this, the usage rates both for Warpcast and most apps in general are *significantly higher on mobile* ([Dan](https://warpcast.com/dwr.eth) even shared that ~90% of Twitter usage is on mobile) -- yet Warpcast is the *only* Farcaster client in the Apple App Store & Google Play Store. Honestly, it's a bit shocking that Warpcast is the *only* real mobile client, especially given how much capital there is in the broader Farcaster ecosystem now.<br/>
+	<br/>
+	Building a client not only supports the protocol overall, but it also:
+	- Lets you create the experience you want to: for example I want to add mini-apps and feel like Warpcast probably won't do that(at least soon), but I can bring that experience to others by building it
+	- Opens up more pockets of growth on the protocol that yourself and others can benefit from -- whether that results in venture rounds, new customers, or overall exposure
+</div>
+<div>
+	**The Farcaster developer community is still underserved for the amount of activity happening on the protocol**
+	There has been a bigger push over the past few months to improve the developer experience -- both from Warpcast themselves and others -- but I'd argue that it's not enough to attract more builders, or to incentivize those who are already Farcaster-native to build clients. In comparison, a developer on Bluesky/Mastodon/Lens(especially Lens) has access to *free resources from multiple data providers* that they can use to build their apps. I understand that businesses need to make money and also that decentralization/free access isn't the answer to every problem, but not having more of the Farcaster DevEx free & easy to use puts us in a state where the Farcaster ecosystem feels more like web2 and less interoperable.
+	<br/>
+	Also this is more platform specific but I think a big focus here *needs* to be mobile. Even comparing how I built Litecast's web and iOS builds, I'm noticing how much quicker it was to build on the web vs. on mobile.
+	- note: some of this isn't Farcaster specific(eg. I think hot reload is much faster on the web than in React Native), but I still think it's a problem worth noting
+</div>
+<div>
+	**There are *so* many areas that feel ripe for disruption/exploration on Farcaster, it almost feels endless**
+	For example, here are a few things that Litecast can do or serve as that nobody/a very limited number of people in the Farcaster ecosystem are doing:
+		- Integrate [Mod Protocol](https://www.modprotocol.org/)'s cast editor and mini apps
+		- Provide an open source template for building a cross-platform Farcaster client in React & React Native
+		- Hyper focus on every small detail in Litecast so the design and animations truly stand out like a web2 app that was put together by an agency
+		- Enable passkey authentication and more wallet/signer actions in-app like Warpcast does
+	<br/>
+	And other than the fact that I personally like jumping from project to project, the main incentives that I have to build these things that are ripe for disruption are:
+		- Contribution -- building something that others would want to remix, whether that's for their own app or for Litecast
+		- Attribution -- being able to build up a track record of building cool tooling, which in my eyes can only lead to positive things(opportunities, exposure, etc)
+		- Personal use -- most of the time I start building something/working on a problem because it's genuinely interesting to me and I want to use a solution that's hyper-specific to my problem
+		- Gratitude/why not?! -- if I'm building something for myself and I know others can benefit from seeing how it works under the hood, why not let others benefit from it? It's the ethos of the community and feeds into everything else I listed above, plus it feels good to give back because of how much the community has done for me.
+	<hr />
+	So while there might be other things in the world/professionally that I'm interested in, it's really easy for me to be fully fixated on the Farcaster ecosystem -- and most importantly it's always something that's exciting!
+</div>
+
+<div>
+	Anyways, this post isn't meant to be an update on where things are with Litecast or what's coming next -- maybe I'll write up a separate piece on that -- just some loose thoughts on my journey with Farcaster client development and the space as a whole. But if you want to learn more about Litecast in the meantime:
+	<div className="h-auto">
+		- Check out the [web version at litecast.xyz](https://litecast.xyz) and [view the code on GitHub](https://github.com/dylsteck/litecast-web)
+		- Join the testing group for Litecast's TestFlight and [view the code on GitHub](https://github.com/dylsteck/litecast)
+		- Keep up with the latest on Litecast and my other projects by [following me on Farcaster](https://warpcast.com/dylsteck.eth)
+	</div>
+</div>
+
+export default function MDXPage({ children }) {
+  return <MdxLayout>{children}</MdxLayout>;
+}

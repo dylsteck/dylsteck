@@ -5,10 +5,38 @@ import dsLogo from "../assets/DylanLogoTransparent.png";
 import dsGreyLogo from '../../public/dsGreyLogo.png';
 import Head from "next/head";
 import Image from "next/image";
-import { articles } from "../lib/articles";
+import { TextItem, TextItemType, allWritingItems, articles } from "../lib/articles";
 import Link from "next/link";
+import { useState } from "react";
+import { notes } from "../lib/notes";
+
+type TabType = 'all' | TextItemType;
 
 export default function Main() {
+  const allItems = allWritingItems;
+  const [activeTab, setActiveTab] = useState<TabType>('all');
+  const [activeItems, setActiveItems] = useState<TextItem[]>(allItems);
+
+  const handleTabClick = (newTab: TabType) => {
+    if(newTab !== activeTab){
+      setActiveTab(newTab);
+      switch(newTab){
+        case 'all': {
+          setActiveItems(allItems);
+          break;
+        }
+        case 'article': {
+          setActiveItems(articles);
+          break;
+        }
+        case 'note': {
+          setActiveItems(notes);
+          break;
+        }
+      }
+    }
+  }
+
   return (
     <Layout>
       <Head>
@@ -38,22 +66,26 @@ export default function Main() {
         </div>
         <div className="w-full">
           <Nav />
-          <div className="fixed z-[-50] top-[15vh] pl-[5%] md:pl-[25%]">
+          <div className="fixed z-[-50] top-[15vh] pl-[5%] md:pl-[15%] lg:pl-[25%]">
             <Image alt="DS grey logo" src={dsGreyLogo} width={604.72} height={752} />
           </div>
           <Featured />
-          <div className="flex flex-col gap-4 justify-center w-[95%] md:w-[80%] p-[20%] pb-[7.5%] pl-[7.5%] md:pl-[25%] max-h-[80%] pt-[5vh]">
-            <p className="text-2xl font-medium">Articles</p>
+          <div className="flex flex-col gap-4 justify-center w-[95%] md:w-[80%] p-[20%] pb-[7.5%] pl-[7.5%] md:pl-[11%] lg:pl-[16s%] xl:pl-[25%] max-h-[80%] pt-[5vh]">
+            <div className="flex flex-row gap-5 items-center">
+              <p className={`text-2xl ${activeTab === 'all' ? 'font-medium' : ''}`} onClick={() => handleTabClick('all')}>All</p>
+              <p className={`text-2xl ${activeTab === 'article' ? 'font-medium' : ''}`} onClick={() => handleTabClick('article')}>Articles</p>
+              <p className={`text-2xl ${activeTab === 'note' ? 'font-medium' : ''}`} onClick={() => handleTabClick('note')}>Notes</p>
+            </div>
             <div className="flex flex-col gap-5">
-              {articles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((article) => {
-                return(
-                  <div key={`article-${article.id}`}>
-                    <Link href={`/articles/${article.id}`}>
-                      <p className="text-lg">{article.title}</p>
-                    </Link>
-                    <p className="text-xs">{article.date}</p>
-                  </div>
-                )
+              {activeItems.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((item, index) => {
+                  return(
+                    <div key={index}>
+                      <Link href={`/${item.type}s/${item.id}`}>
+                        <p className="text-lg">{item.title}</p>
+                      </Link>
+                      <p className="text-xs">{item.date}</p>
+                    </div>
+                  )
               })}
             </div>
           </div>

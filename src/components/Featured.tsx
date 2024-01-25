@@ -152,7 +152,7 @@ function FeaturedCarousel(){
     }
 
     return(
-        <div style={{ background: 'linear-gradient(180deg, rgba(56, 56, 56, 0.6) 0%, rgba(38, 38, 38, 0.6) 100%)', borderRadius: 20, color: 'white' }} className="p-5 mt-[2.5vh] w-[90%] md:w-[50%] h-auto">
+        <div style={{ background: 'linear-gradient(180deg, rgba(56, 56, 56, 0.6) 0%, rgba(38, 38, 38, 0.6) 100%)', borderRadius: 20, color: 'white' }} className="p-5 mt-[2.5vh] w-[90%] md:w-[80%] lg:w-[65%] xl:w-[50%] h-auto">
             <div className="flex flex-row justify-between items-center pl-1 pr-3">
                 <p className="text-xl">Featured</p>
                 <div className="flex flex-row items-center gap-2 max-h-[5%]">
