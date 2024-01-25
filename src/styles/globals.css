@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+::marker{
+    padding: 0 !important; 
+    margin: 0 !important;
+} 
+
+/* ul > li{
+    position: relative;
+    height: auto;
+    min-height: 15px;
+    max-height: 168px;
+} */
+
+hr{
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+    max-width: 99%;
+    height: 2px;
+    color: inherit;
+    border-color: #adadad;
+    border-top-width: 0.5px;
+}
