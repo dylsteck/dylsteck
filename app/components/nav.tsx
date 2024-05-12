@@ -4,9 +4,6 @@ import DSIcon from './icons/ds-icon'
 const navItems = {
   '/': {
     name: 'home',
-  },
-  '/about': {
-    name: 'about',
   }
 }
 
