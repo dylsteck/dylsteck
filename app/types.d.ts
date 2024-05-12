@@ -1,4 +1,4 @@
-export type MediaItemType = 'article' | 'note';
+export type MediaItemType = 'blog' | 'video';
 
 export type TabType = 'all' | MediaItemType;
 

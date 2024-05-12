@@ -38,7 +38,7 @@ export default function Footer() {
             href="https://github.com/dylsteck/dylsteck"
           >
             <ArrowIcon />
-            <p className="ml-2 h-7">view source</p>
+            <p className="ml-2 h-7">github</p>
           </a>
         </li>
       </ul>

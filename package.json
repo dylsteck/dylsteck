@@ -1,5 +1,6 @@
 {
-  "name": "dylsteck",
+  "name": "dylsteck", 
+  "author": "@dylsteck",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,7 +14,6 @@
     "@types/react-dom": "18.2.19",
     "@vercel/analytics": "^1.1.3",
     "@vercel/speed-insights": "^1.0.9",
-    "frames.js": "^0.15.2",
     "geist": "1.2.2",
     "next": "canary",
     "next-mdx-remote": "^4.4.1",

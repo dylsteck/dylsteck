@@ -11,7 +11,7 @@ export default function Page() {
         Currently building products at <Link className="underline" href="https://neynar.com" target="_blank">Neynar</Link> and hacking at <Link className="underline" href="https://farhack.xyz" target="_blank">FarHack</Link>.
         Full-stack engineer focused on building software that gives people more agency. 
       </p>
-      <div className="my-6">
+      <div className="my-8">
         <Media />
       </div>
     </section>
