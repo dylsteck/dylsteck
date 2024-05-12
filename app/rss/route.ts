@@ -1,18 +1,24 @@
-
-import { getArticles } from 'app/blog/utils'
-import { allItems, BASE_URL } from 'app/consts'
+import { baseUrl } from 'app/sitemap'
+import { getBlogPosts } from 'app/blog/utils'
 
 export async function GET() {
-
-  const itemsXml = allItems
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  let allBlogs = await getBlogPosts()
+  const itemsXml = allBlogs
+    .sort((a, b) => {
+      if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
+        return -1
+      }
+      return 1
+    })
     .map(
-      (item) =>
+      (post) =>
         `<item>
-          <title>${item.title}</title>
-          <link>${BASE_URL}/${item.type}s/${item.id}</link>
-          <description>${item.title} by Dylan Steck</description>
-          <pubDate>${new Date(item.date).toUTCString()}</pubDate>
+          <title>${post.metadata.title}</title>
+          <link>${baseUrl}/blog/${post.slug}</link>
+          <description>${post.metadata.summary || ''}</description>
+          <pubDate>${new Date(
+            post.metadata.publishedAt
+          ).toUTCString()}</pubDate>
         </item>`
     )
     .join('\n')
@@ -21,8 +27,8 @@ export async function GET() {
   <rss version="2.0">
     <channel>
         <title>Dylan Steck</title>
-        <link>${BASE_URL}</link>
-        <description>An RSS feed for all of Dylan Steck's articles and notes</description>
+        <link>${baseUrl}</link>
+        <description>This is Dylan Steck's RSS feed</description>
         ${itemsXml}
     </channel>
   </rss>`

@@ -1,13 +1,13 @@
 import { MediaItem } from "app/types";
 
-export const articles: MediaItem[] = [
+export const posts: MediaItem[] = [
     {
       "id": "its-time-to-rebuild-the-internet",
       "date": "July 11, 2019",
       "title": "It’s Time to Rebuild the Internet",
       "description": "It’s Time to Rebuild the Internet",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142851/media/AppleMacintosh128K.jpg",
-      "type": 'article'
+      "type": 'blog'
     },
     {
       "id": "how-i-ended-up-spending-all-summer-building-a-chrome-extension",
@@ -15,7 +15,7 @@ export const articles: MediaItem[] = [
       "title": "How I ended up spending all summer building a Chrome extension",
       "description": "How I ended up spending all summer building a Chrome extension",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142851/media/ActionsChromeExtBanner.jpg",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "tools-for-action",
@@ -23,7 +23,7 @@ export const articles: MediaItem[] = [
       "title": "Tools for action",
       "description": "Tools for action",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142851/media/BerrypickingSearch.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "my-summer-at-chapter-one",
@@ -31,7 +31,7 @@ export const articles: MediaItem[] = [
       "title": "My Summer at Chapter One",
       "description": "My Summer at Chapter One",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142860/media/ChapterOneSummerBanner.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "going-down-the-rabbit-hole",
@@ -39,14 +39,14 @@ export const articles: MediaItem[] = [
       "title": "Going Down the Rabbit Hole",
       "description": "Going Down the Rabbit Hole",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142863/media/RabbitHoleBanner.jpg",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "lego-blocks-for-the-web",
       "date": "December 15, 2022",
       "title": "LEGO Blocks for the Web",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142862/media/LEGOBlocksBanner.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "2022-recap",
@@ -54,7 +54,7 @@ export const articles: MediaItem[] = [
       "title": "2022 Recap",
       "description": "2022 Recap",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142851/media/2022Recap.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "next-in-tech-jan-28-2023",
@@ -62,7 +62,7 @@ export const articles: MediaItem[] = [
       "title": "Next in Tech - Jan. 28, 2023",
       "description": "Next in Tech - Jan. 28, 2023",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142855/media/NextInTechJan282023.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "user-ai-gency",
@@ -70,7 +70,7 @@ export const articles: MediaItem[] = [
       "title": "User AI-gency",
       "description": "User AI-gency",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142860/media/UserAIgency.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "next-in-tech-feb-4-2023",
@@ -78,14 +78,14 @@ export const articles: MediaItem[] = [
       "title": "Next in Tech - Feb. 4, 2023",
       "description": "Next in Tech - Feb. 4, 2023",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142854/media/NextInTechFeb42023.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "building-a-digital-garden",
       "date": "Feb 10, 2023",
       "title": "Building a Digital Garden",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704144251/media/dsmetacard.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "next-in-tech-feb-11-2023",
@@ -93,7 +93,7 @@ export const articles: MediaItem[] = [
       "title": "Next in Tech - Feb. 11, 2023",
       "description": "Next in Tech - Feb. 11, 2023",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142856/media/NextInTechFeb112023.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "the-boom-of-farcasters-developer-community",
@@ -101,7 +101,7 @@ export const articles: MediaItem[] = [
       "title": "The Boom of Farcaster's Developer Community",
       "description": "The Boom of Farcaster's Developer Community, and how it mirrors early Twitter API excitement",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142858/media/TheBoomOfFarcastersDeveloperCommunity.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "next-in-tech-feb-18-2023",
@@ -109,7 +109,7 @@ export const articles: MediaItem[] = [
       "title": "Next in Tech - Feb. 18, 2023",
       "description": "Next in Tech - Feb. 18, 2023",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142855/media/NextInTechFeb182023.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "next-in-tech-mar-4-2023",
@@ -117,7 +117,7 @@ export const articles: MediaItem[] = [
       "title": "Next in Tech - Mar. 4, 2023",
       "description": "Next in Tech - Mar. 4, 2023",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142856/media/NextInTechMar42023.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "internet-os",
@@ -125,7 +125,7 @@ export const articles: MediaItem[] = [
       "title": "Internet OS",
       "description": "How the Internet will become a part of the operating system and what that looks like.",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142853/media/InternetOS.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "the-wallet-of-tomorrow",
@@ -133,7 +133,7 @@ export const articles: MediaItem[] = [
       "title": "The Wallet of Tomorrow",
       "description": "The Wallet of Tomorrow",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142858/media/TheWalletOfTomorrow.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "next-in-tech-mar-20-2023",
@@ -141,7 +141,7 @@ export const articles: MediaItem[] = [
       "title": "Next in Tech - Mar. 20, 2023",
       "description": "Next in Tech - Mar. 20, 2023",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142856/media/NextInTechMar202023.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "next-in-tech-mar-25-2023",
@@ -149,7 +149,7 @@ export const articles: MediaItem[] = [
       "title": "Next in Tech - Mar. 25, 2023",
       "description": "Next in Tech - Mar. 25, 2023",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142857/media/NextInTechMar252023.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "next-in-tech-apr-1-2023",
@@ -157,7 +157,7 @@ export const articles: MediaItem[] = [
       "title": "Next in Tech - Apr. 1, 2023",
       "description": "Next in Tech - Apr. 1, 2023",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142854/media/NextInTechApr12023.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "product-launch-nfts",
@@ -165,7 +165,7 @@ export const articles: MediaItem[] = [
       "title": "Product Launch NFTs",
       "description": "From Passive Collectors to Passionate Users",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142862/media/ProductLaunchNFTs.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "next-in-tech-apr-8-2023",
@@ -173,7 +173,7 @@ export const articles: MediaItem[] = [
       "title": "Next in Tech - Apr. 8, 2023",
       "description": "Next in Tech - Apr. 8, 2023",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142854/media/NextInTechApr82023.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "shifting-directions",
@@ -181,7 +181,7 @@ export const articles: MediaItem[] = [
       "title": "Shifting Directions",
       "description": "Shifting Directions",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142860/media/ShiftingDirections.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "focus-on-what-doesnt-scale",
@@ -189,7 +189,7 @@ export const articles: MediaItem[] = [
       "title": "Focus On What Doesn't Scale",
       "description": "Focus On What Doesn't Scale",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142853/media/FocusOnWhatDoesntScale.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "2023-recap",
@@ -197,7 +197,7 @@ export const articles: MediaItem[] = [
       "title": "2023 Recap",
       "description": "My 2023 was defined by two things: a move to LA and going all in on projects",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704345283/media/2023-recap-og-image.png",
-      "type": 'article',
+      "type": 'blog',
     },
     {
       "id": "onchain-nucleus",
@@ -205,6 +205,14 @@ export const articles: MediaItem[] = [
       "title": "Onchain Nucleus",
       "description": "Read about why I think DAOs have a coordination problem and what an onchain nucleus can do to solve it",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1705785983/media/onchain-nucleus-og-image.png",
-      "type": 'article',
+      "type": 'blog',
+    },
+    {
+      "id": "thoughts-on-building-a-farcaster-client",
+      "date": "January 24, 2024",
+      "title": "Thoughts on building a Farcaster client",
+      "description": "Some thoughts on building a Farcaster client after spending some time building my own web & mobile client, Litecast.",
+      "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1706147355/media/thoughts-on-building-a-farcaster-client-og-image.png",
+      "type": "blog"
     },
   ];
