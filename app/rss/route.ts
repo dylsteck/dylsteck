@@ -22,7 +22,7 @@ export async function GET() {
     <channel>
         <title>Dylan Steck</title>
         <link>${BASE_URL}</link>
-        <description>An RSS feed for all of Dylan Steck's articles, notes, and videos</description>
+        <description>An RSS feed for all of Dylan Steck's articles and notes</description>
         ${itemsXml}
     </channel>
   </rss>`
