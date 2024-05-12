@@ -6,9 +6,8 @@ import { Navbar } from './components/nav'
 import Footer from './components/footer'
 import { bannerImg, baseUrl } from './sitemap'
 import Head from 'next/head'
-import { fetchMetadata } from 'frames.js/next'
 
-export async function generateMetadata(){
+export function generateMetadata(){
   return{
     metadataBase: new URL(baseUrl),
     title: {
@@ -35,16 +34,6 @@ export async function generateMetadata(){
         'max-image-preview': 'large',
         'max-snippet': -1,
       },
-    },
-    other: {
-      ...(await fetchMetadata(
-        new URL(
-          "/frames",
-          process.env.VERCEL_URL
-            ? `https://${process.env.VERCEL_URL}`
-            : "http://localhost:3000"
-        )
-      )),
     },
   } as Metadata
 }
