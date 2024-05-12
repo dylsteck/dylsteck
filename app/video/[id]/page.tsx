@@ -1,38 +1,52 @@
-"use client";
-import React from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { Metadata } from 'next';
 import { videos } from '../videos';
 import { MediaItem } from 'app/types';
-import Link from 'next/link';
+import Video from 'app/components/video';
 
-const Page = () => {
-  const [video, setVideo] = React.useState<MediaItem | null>(null);
-  const pathname = usePathname();
-  const router = useRouter();
+const baseUrl = 'https://dylansteck.com'
 
-  React.useEffect(() => {
-    const pathnameParts = pathname.split('/');
-    const id = pathnameParts[pathnameParts.length - 1];
-    const videoObject = videos.find((video) => video.id === id);
-    
-    if (videoObject) {
-      setVideo(videoObject);
-      setTimeout(() => {
-        router.replace(`https://www.youtube.com/watch?v=${id}`);
-      }, 500);
-    } else {
-      router.replace('/404');
-    }
-  }, [pathname, router]);
+export async function generateStaticParams() {
+  return videos.map((video) => ({
+    id: video.id,
+  }))
+}
 
-  return (
-    <div>
-     {video ? 
-     <p>Redirecting to <Link target="_blank" className="underline" href={`https://www.youtube.com/watch?v=${video.id}`}>{video.title}</Link> on YouTube</p> :
-     <p>Redirecting...</p>
-     }
-    </div>
-  );
+export function generateMetadata({ params }) {
+  let video = videos.find((video) => video.id === params.id)
+  let videoItem = videos.find((video) => video.id === params.id)
+  if (!video) {
+    return
+  }
+
+  let ogImage = videoItem?.banner;
+
+  return {
+    title: videoItem?.title,
+    description: videoItem?.description,
+    openGraph: {
+      title: videoItem?.title,
+      description: videoItem?.description,
+      type: 'video.episode',
+      date: videoItem?.date,
+      url: `${baseUrl}/video/${video.id}`,
+      images: [
+        {
+          url: ogImage,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: videoItem?.title,
+      description: videoItem?.description,
+      images: [ogImage],
+    },
+  }
+}
+
+export default function VideoPage({ params }){
+  const { id: ytId } = params
+
+  return <Video ytId={ytId} />;
 };
-
-export default Page;
