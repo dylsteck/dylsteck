@@ -1,5 +1,6 @@
 import { baseUrl } from 'app/sitemap'
 import { getBlogPosts } from 'app/blog/utils'
+import { posts } from 'app/blog/posts/posts';
 
 function escapeXml(unsafe: string): string {
   return unsafe.replace(/[<>&'"]/g, (c: string): string => {
@@ -25,11 +26,15 @@ export async function GET() {
     })
     .map(
       (post: any) => {
+        const postItem = posts.find((p) => p.id === post.slug);
         let description = post.metadata.summary ? escapeXml(post.metadata.summary) : "";
+        let imageUrl = postItem?.banner ?? "";
+        let imageType = imageUrl.endsWith('.png') ? 'image/png' : 'image/jpeg';
         return `<item>
           <title>${post.metadata.title}</title>
           <link>${`${baseUrl}/blog/${post.slug}`}</link>
           <description>${description}</description>
+          <enclosure url="${imageUrl}" type="${imageType}" />
           <pubDate>${new Date(
             post.metadata.publishedAt
           ).toUTCString()}</pubDate>

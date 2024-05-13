@@ -33,11 +33,11 @@ export default function Media(){
     return(
         <div>
             <div className="my-2 flex flex-row gap-2 items-center">
-                <p className={activeTab === 'all' ? 'font-semibold' : ''} onClick={() => handleTabClick('all')}>all</p>
+                <p className={`cursor-pointer ${activeTab === 'all' ? 'font-semibold' : ''}`} onClick={() => handleTabClick('all')}>all</p>
                 <p>/</p>
-                <p className={activeTab === 'blog' ? 'font-semibold' : ''} onClick={() => handleTabClick('blog')}>blog</p>
+                <p className={`cursor-pointer ${activeTab === 'blog' ? 'font-semibold' : ''}`} onClick={() => handleTabClick('blog')}>blog</p>
                 <p>/</p>
-                <p className={activeTab === 'video' ? 'font-semibold' : ''} onClick={() => handleTabClick('video')}>video</p>
+                <p className={`cursor-pointer ${activeTab === 'video' ? 'font-semibold' : ''}`} onClick={() => handleTabClick('video')}>video</p>
             </div>
             <div className="flex flex-col gap-5">
               {activeItems.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((item, index) => {

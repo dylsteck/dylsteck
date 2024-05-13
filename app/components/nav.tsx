@@ -18,7 +18,7 @@ export function Navbar() {
           <div className="flex flex-row gap-2 items-center">
             <Link
               href="/"
-              className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1"
+              className="cursor-pointer transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1"
             >
               <DSIcon />
             </Link>
@@ -28,7 +28,7 @@ export function Navbar() {
                   <Link
                     key={path}
                     href={path}
-                    className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1"
+                    className="cursor-pointer transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1"
                   >
                     {name}
                   </Link>
@@ -36,7 +36,7 @@ export function Navbar() {
               })}
               <Link
                 href="https://nf.td/dylan"
-                className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1"
+                className="cursor-pointer transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1"
                 target="_blank"
               >
                 links
