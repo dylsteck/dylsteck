@@ -11,10 +11,7 @@ const sortedVideos = videos.sort((a, b) => new Date(b.date).getTime() - new Date
 const handleRequest = frames(async (ctx: any) => {
   let currentState: any = ctx.state;
   const name = ctx.searchParams.name;
-
-  if (ctx.pressedButton?.action === "post_redirect") {
-    return redirect(`${baseUrl}/video/${sortedVideos[currentState.count].id}`);
-  }
+  const videoUrl = `${baseUrl}/video/${sortedVideos[currentState.count].id}`;
 
   if(name === "Next"){
     currentState = {count: currentState.count + 1}
@@ -41,6 +38,7 @@ const handleRequest = frames(async (ctx: any) => {
        <Button action="post" target={{pathname: "/video", query: { name: "Next" }}}>
         Next
        </Button>,
+       <Button action="link" target={videoUrl}>Watch video</Button>
     ] : sortedVideos.length - 1 === currentState.count ? 
     [
       <Button action="post" target={{pathname: "/", query: { name: "Menu" }}}>
@@ -52,6 +50,7 @@ const handleRequest = frames(async (ctx: any) => {
        <Button action="post" target={{pathname: "/video", query: { name: "Restart" }}}>
         Restart
        </Button>,
+       <Button action="link" target={videoUrl}>Watch video</Button>
     ] : 
     [
       <Button action="post" target={{pathname: "/", query: { name: "Menu" }}}>
@@ -63,6 +62,7 @@ const handleRequest = frames(async (ctx: any) => {
        <Button action="post" target={{pathname: "/video", query: { name: "Next" }}}>
         Next
        </Button>,
+       <Button action="link" target={videoUrl}>Watch video</Button>
     ]
   };
 });

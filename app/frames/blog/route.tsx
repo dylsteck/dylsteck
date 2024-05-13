@@ -11,10 +11,7 @@ const sortedPosts = posts.sort((a, b) => new Date(b.date).getTime() - new Date(a
 const handleRequest = frames(async (ctx: any) => {
   let currentState: any = ctx.state;
   const name = ctx.searchParams.name;
-
-  if (ctx.pressedButton?.action === "post_redirect") {
-    return redirect(`${baseUrl}/blog/${sortedPosts[currentState.count].id}`);
-  }
+  const postUrl = `${baseUrl}/blog/${sortedPosts[currentState.count].id}`;
 
   if(name === "Next"){
     currentState = {count: currentState.count + 1}
@@ -41,6 +38,7 @@ const handleRequest = frames(async (ctx: any) => {
        <Button action="post" target={{pathname: "/blog", query: { name: "Next" }}}>
         Next
        </Button>,
+       <Button action="link" target={postUrl}>View post</Button>
     ] : sortedPosts.length - 1 === currentState.count ? 
     [
       <Button action="post" target={{pathname: "/", query: { name: "Menu" }}}>
@@ -52,6 +50,7 @@ const handleRequest = frames(async (ctx: any) => {
        <Button action="post" target={{pathname: "/blog", query: { name: "Restart" }}}>
         Restart
        </Button>,
+       <Button action="link" target={postUrl}>View post</Button>,
     ] : 
     [
       <Button action="post" target={{pathname: "/", query: { name: "Menu" }}}>
@@ -63,6 +62,7 @@ const handleRequest = frames(async (ctx: any) => {
        <Button action="post" target={{pathname: "/blog", query: { name: "Next" }}}>
         Next
        </Button>,
+       <Button action="link" target={postUrl}>View post</Button>
     ]
   };
 });

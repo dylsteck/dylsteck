@@ -1,13 +1,16 @@
 /* eslint-disable react/jsx-key */
-import { Button,  } from "frames.js/next";
+import { Button } from "frames.js/next";
 import { redirect } from "frames.js/core";
 import { frames } from "./frames";
-import { bannerImg } from "app/sitemap";
+import { bannerImg, baseUrl } from "app/sitemap";
  
 const handleRequest = frames(async (ctx) => {
-  // if (ctx.pressedButton?.action === "post_redirect" && ctx.pressedButton?.index === 3) {
-  //   return redirect("https://dylansteck.com");
-  // }
+  let currentState: any = ctx.state;
+  const name = ctx.searchParams.name;
+  if(name === "Menu" && currentState.count !== 0){
+    currentState = {count: 0}
+    ctx.state.count = 0;
+  }
   return {
     image: bannerImg,
     buttons: [
@@ -16,7 +19,8 @@ const handleRequest = frames(async (ctx) => {
       </Button>,
        <Button action="post" target={{pathname: "/video", query: { name: "Video" }}}>
         Videos
-       </Button>
+       </Button>,
+       <Button action="link" target={baseUrl}>View site</Button>
     ]
   };
 });
