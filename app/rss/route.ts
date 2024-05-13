@@ -1,6 +1,19 @@
 import { baseUrl } from 'app/sitemap'
 import { getBlogPosts } from 'app/blog/utils'
 
+function escapeXml(unsafe: string): string {
+  return unsafe.replace(/[<>&'"]/g, (c: string): string => {
+    switch (c) {
+      case '<': return '&lt;';
+      case '>': return '&gt;';
+      case '&': return '&amp;';
+      case "'": return '&apos;';
+      case '"': return '&quot;';
+      default: return c;
+    }
+  });
+}
+
 export async function GET() {
   let allBlogs = await getBlogPosts()
   const itemsXml = allBlogs
@@ -11,16 +24,17 @@ export async function GET() {
       return 1
     })
     .map(
-      (post) =>
-        `<item>
+      (post: any) => {
+        let description = post.metadata.summary ? escapeXml(post.metadata.summary) : "";
+        return `<item>
           <title>${post.metadata.title}</title>
-          <link>${baseUrl}/blog/${post.slug}</link>
-          <description>${post.metadata.summary || ''}</description>
+          <link>${`${baseUrl}/blog/${post.slug}`}</link>
+          <description>${description}</description>
           <pubDate>${new Date(
             post.metadata.publishedAt
           ).toUTCString()}</pubDate>
         </item>`
-    )
+    })
     .join('\n')
 
   const rssFeed = `<?xml version="1.0" encoding="UTF-8" ?>
