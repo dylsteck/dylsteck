@@ -6,6 +6,7 @@ import { Navbar } from './components/nav'
 import Footer from './components/footer'
 import { bannerImg, baseUrl } from './sitemap'
 import Head from 'next/head'
+import Script from 'next/script'
 
 export function generateMetadata(){
   return{
@@ -56,7 +57,6 @@ export default function RootLayout({
     >
       <Head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <script async defer data-website-id="6bd90a5b-62c2-44c5-850b-7e24720d2062" src="https://dylsteck-analytics.up.railway.app/umami.js"></script>
       </Head>
       <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
         <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
@@ -64,6 +64,13 @@ export default function RootLayout({
           {children}
           <Footer />
         </main>
+        <Script
+          strategy="afterInteractive"
+          src="https://dylsteck-analytics.up.railway.app/umami.js"
+          async
+          defer
+          data-website-id="6bd90a5b-62c2-44c5-850b-7e24720d2062"
+        />
       </body>
     </html>
   )
