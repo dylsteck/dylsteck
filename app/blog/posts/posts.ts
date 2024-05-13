@@ -219,7 +219,7 @@ export const posts: MediaItem[] = [
       "id": "farcon-and-farhack-2024",
       "date": "May 13, 2024",
       "title": "FarCon and FarHack 2024",
-      "description": "My notes and thoughts from last week",
+      "description": "My notes and thoughts from the other week",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1715483513/media/farcon-and-farhack-2024-og-image.png",
       "type": "blog",
     }
