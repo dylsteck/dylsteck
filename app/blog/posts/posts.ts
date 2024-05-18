@@ -222,5 +222,13 @@ export const posts: MediaItem[] = [
       "description": "My notes and thoughts from the other week",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1715483513/media/farcon-and-farhack-2024-og-image.png",
       "type": "blog",
+    },
+    {
+      "id": "crypto-super-app",
+      "date": "May 18, 2024",
+      "title": "Crypto Super App",
+      "description": "Why everyone wants it but nobody is building it",
+      "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1716068782/media/crypto-super-app-og-image.png",
+      "type": "blog",
     }
   ];
