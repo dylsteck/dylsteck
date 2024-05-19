@@ -3,8 +3,8 @@ import { CustomMDX } from 'app/components/mdx';
 import { formatDate, getBlogPosts } from 'app/blog/utils';
 import { posts } from '../posts/posts';
 
-export const baseUrl = 'https://dylansteck.com'
-export const bannerImg = 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704144251/media/dsmetacard.png'
+const baseUrl = 'https://dylansteck.com'
+const bannerImg = 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704144251/media/dsmetacard.png'
 
 export async function generateStaticParams() {
   let posts = getBlogPosts();
