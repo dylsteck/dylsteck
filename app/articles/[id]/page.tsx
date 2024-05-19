@@ -4,6 +4,7 @@ import { posts } from 'app/blog/posts/posts';
 import { MediaItem } from 'app/types';
 import Video from 'app/components/video';
 import ArticleRedirect from 'app/components/article-redirect';
+import { getBlogPosts } from 'app/blog/utils';
 
 const baseUrl = 'https://dylansteck.com'
 
@@ -14,23 +15,29 @@ export async function generateStaticParams() {
 }
 
 export function generateMetadata({ params }) {
-  let post = posts.find((video) => video.id === params.id)
-  let postItem = posts.find((video) => video.id === params.id)
+  let post = getBlogPosts().find((post) => post.slug === params.id);
+  let postItem = posts.find((post) => post.id === params.id);
   if (!post) {
-    return
+    return;
   }
 
+  let {
+    title,
+    publishedAt: publishedTime,
+    summary: description,
+    image,
+  } = post.metadata;
   let ogImage = postItem?.banner;
 
   return {
-    title: postItem?.title,
-    description: postItem?.description,
+    title: `${title} | Dylan Steck`,
+    description,
     openGraph: {
-      title: postItem?.title,
-      description: postItem?.description,
+      title: `${title} | Dylan Steck`,
+      description,
       type: 'article',
-      date: postItem?.date,
-      url: `${baseUrl}/articles/${post.id}`,
+      publishedTime: new Date(publishedTime).toISOString(),
+      url: `${baseUrl}/articles/${post.slug}`,
       images: [
         {
           url: ogImage,
@@ -39,14 +46,14 @@ export function generateMetadata({ params }) {
     },
     twitter: {
       card: 'summary_large_image',
-      title: postItem?.title,
-      description: postItem?.description,
+      title: `${title} | Dylan Steck`,
+      description,
       images: [ogImage],
     },
-  }
+  };
 }
 
-// redirects `/articles/[id]` slugs from the old site to `/blog/[id]
+// redirects `/articles/[id]` slugs from the old site to `/blog/[id]`
 export default function ArticlePage({ params }){
   const { id } = params
 
