@@ -230,5 +230,13 @@ export const posts: MediaItem[] = [
       "description": "Why everyone wants it but nobody is building it",
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1716068782/media/crypto-super-app-og-image.png",
       "type": "blog",
+    },
+    {
+      "id": "free-fip-2",
+      "date": "June 27, 2024",
+      "title": "Free FIP-2",
+      "description": `A brief overview of FIP-2 and why I think it's a key unlock for Farcaster's growth`,
+      "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1719520174/media/free-fip-2-og-image.png",
+      "type": "blog",
     }
   ];
