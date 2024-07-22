@@ -96,5 +96,13 @@ export const videos: MediaItem[] = [
         "description": "My thoughts on why some of the first AI hardware/pendant products are falling short, and what a happier medium might look like.",
         "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1715543714/media/the-pendant-problem-video-cover.jpg",
         "type": 'video'
+    },
+    {
+        "id": "k2hdHCKvjdU",
+        "date": "July 22, 2024",
+        "title": "Riffing on React Server Components",
+        "description": "I took a few minutes to riff on my experience setting up React Server Components with Next.js for the v1 of FarHack's software",
+        "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1721684061/media/riffing-on-react-server-components.png",
+        "type": 'video'
     }
 ]
