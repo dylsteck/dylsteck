@@ -238,5 +238,13 @@ export const posts: MediaItem[] = [
       "description": `A brief overview of FIP-2 and why I think it's a key unlock for Farcaster's growth`,
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1719520174/media/free-fip-2-og-image.png",
       "type": "blog",
+    },
+    {
+      "id": "cortex-one-pager",
+      "date": "September 4, 2024",
+      "title": "Cortex One Pager",
+      "description": `I'm building a new product called Cortex, Notion-style blocks for Farcaster data. Below is a one-pager on the concept and its progress.`,
+      "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1725492120/media/cortex-one-pager-sept-4-24.png",
+      "type": "blog",
     }
   ];
