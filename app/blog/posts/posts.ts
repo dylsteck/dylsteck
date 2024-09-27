@@ -246,5 +246,13 @@ export const posts: MediaItem[] = [
       "description": `I'm building a new product called Cortex, Notion-style blocks for Farcaster data. Below is a one-pager on the concept and its progress.`,
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1725492120/media/cortex-one-pager-sept-4-24.png",
       "type": "blog",
+    },
+    {
+      "id": "farcaster-dev-day",
+      "date": "September 27, 2024",
+      "title": "Farcaster Dev Day",
+      "description": `A recap from the inaugural Farcaster Dev Day in Venice Beach, CA.`,
+      "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1727418648/media/farcaster-dev-day-sept-27-24.png",
+      "type": "blog",
     }
   ];
