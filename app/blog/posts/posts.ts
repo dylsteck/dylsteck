@@ -254,5 +254,13 @@ export const posts: MediaItem[] = [
       "description": `A recap from the inaugural Farcaster Dev Day in Venice Beach, CA.`,
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1727418648/media/farcaster-dev-day-sept-27-24.png",
       "type": "blog",
+    },
+    {
+      "id": "universal-react",
+      "date": "October 22, 2024",
+      "title": "Universal React",
+      "description": `A brief overview of some of the most exciting developments in the world of Universal React, what the main benefits/downfalls of those are, and what I think this all means for React developers`,
+      "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1729569683/media/universal-react-oct-22-24.png",
+      "type": "blog",
     }
   ];
