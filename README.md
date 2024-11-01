@@ -1,6 +1,6 @@
 # dylsteck
 
-![dylansteck.com new homepage 2024](https://i.imgur.com/Fw1AkKS.png)
+![dylansteck.com homepage screenshot November 2024](https://i.imgur.com/pbKRdV5.png)
 
 The homepage of Dylan Steck, live at [dylansteck.com](https://dylansteck.com)
 
