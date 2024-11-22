@@ -52,7 +52,7 @@ export default function Page() {
         Dylan Steck
       </h1>
       <p className="mb-4">
-        Currently building products in web3 and hacking at <Link className="underline" href="https://farhack.xyz" target="_blank">FarHack</Link>.
+        Currently building products onchain and hacking at <Link className="underline" href="https://farhack.xyz" target="_blank">FarHack</Link>.
         Full-stack engineer focused on building software that gives people more agency. 
       </p>
       <div className="my-8">
