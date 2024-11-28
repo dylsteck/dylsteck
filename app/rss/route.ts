@@ -1,4 +1,4 @@
-import { baseUrl } from 'app/sitemap'
+import { appUrl } from 'app/sitemap'
 import { getBlogPosts } from 'app/blog/utils'
 import { posts } from 'app/blog/posts/posts';
 
@@ -32,7 +32,7 @@ export async function GET() {
         let imageType = imageUrl.endsWith('.png') ? 'image/png' : 'image/jpeg';
         return `<item>
           <title>${post.metadata.title}</title>
-          <link>${`${baseUrl}/blog/${post.slug}`}</link>
+          <link>${`${appUrl}/blog/${post.slug}`}</link>
           <description>${description}</description>
           <enclosure url="${imageUrl}" type="${imageType}" />
           <pubDate>${new Date(
@@ -46,7 +46,7 @@ export async function GET() {
   <rss version="2.0">
     <channel>
         <title>Dylan Steck</title>
-        <link>${baseUrl}</link>
+        <link>${appUrl}</link>
         <description>This is Dylan Steck's RSS feed</description>
         ${itemsXml}
     </channel>

@@ -3,8 +3,7 @@ import { Metadata } from 'next';
 import { videos } from '../videos';
 import { MediaItem } from 'app/types';
 import Video from 'app/components/video';
-
-const baseUrl = 'https://dylansteck.com'
+import { appUrl } from 'app/sitemap';
 
 export async function generateStaticParams() {
   return videos.map((video) => ({
@@ -29,7 +28,7 @@ export function generateMetadata({ params }) {
       description: videoItem?.description,
       type: 'video.episode',
       date: videoItem?.date,
-      url: `${baseUrl}/video/${video.id}`,
+      url: `${appUrl}/video/${video.id}`,
       images: [
         {
           url: ogImage,
