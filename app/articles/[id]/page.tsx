@@ -5,8 +5,7 @@ import { MediaItem } from 'app/types';
 import Video from 'app/components/video';
 import ArticleRedirect from 'app/components/article-redirect';
 import { getBlogPosts } from 'app/blog/utils';
-
-const baseUrl = 'https://dylansteck.com'
+import { appUrl } from 'app/sitemap';
 
 export async function generateStaticParams() {
   return posts.map((post) => ({
@@ -37,7 +36,7 @@ export function generateMetadata({ params }) {
       description,
       type: 'article',
       publishedTime: new Date(publishedTime).toISOString(),
-      url: `${baseUrl}/articles/${post.slug}`,
+      url: `${appUrl}/articles/${post.slug}`,
       images: [
         {
           url: ogImage,

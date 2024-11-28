@@ -2,9 +2,7 @@ import { notFound } from 'next/navigation';
 import { CustomMDX } from 'app/components/mdx';
 import { formatDate, getBlogPosts } from 'app/blog/utils';
 import { posts } from '../posts/posts';
-
-const baseUrl = 'https://dylansteck.com'
-const bannerImg = 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704144251/media/dsmetacard.png'
+import { appUrl, bannerImg } from 'app/sitemap';
 
 export async function generateStaticParams() {
   let posts = getBlogPosts();
@@ -36,7 +34,7 @@ export function generateMetadata({ params }) {
       description,
       type: 'article',
       publishedTime: new Date(publishedTime).toISOString(),
-      url: `${baseUrl}/blog/${post.slug}`,
+      url: `${appUrl}/blog/${post.slug}`,
       images: [
         {
           url: ogImage,
@@ -74,10 +72,10 @@ export default function Blog({ params }) {
             description: post.metadata.summary,
             image: post.metadata.image 
               ? [
-                  `${baseUrl}${post.metadata.image}`
+                  `${appUrl}${post.metadata.image}`
                 ]
               : [bannerImg],
-            url: `${baseUrl}/blog/${post.slug}`,
+            url: `${appUrl}/blog/${post.slug}`,
             author: [
               {
                 '@type': 'Person',

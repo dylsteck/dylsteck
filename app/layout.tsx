@@ -4,13 +4,13 @@ import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import { Navbar } from './components/nav'
 import Footer from './components/footer'
-import { bannerImg, baseUrl } from './sitemap'
+import { appUrl, bannerImg, frame } from './sitemap'
 import Head from 'next/head'
 import Script from 'next/script'
 
 export function generateMetadata(){
   return{
-    metadataBase: new URL(baseUrl),
+    metadataBase: new URL(appUrl),
     title: {
       default: 'Dylan Steck',
       template: '%s | Dylan Steck',
@@ -20,7 +20,7 @@ export function generateMetadata(){
       title: 'Dylan Steck',
       description: 'The homepage of Dylan Steck, a full-stack engineer focused on building software that gives people more agency.',
       images: [bannerImg],
-      url: baseUrl,
+      url: appUrl,
       siteName: 'Dylan Steck',
       locale: 'en_US',
       type: 'website',
@@ -35,6 +35,9 @@ export function generateMetadata(){
         'max-image-preview': 'large',
         'max-snippet': -1,
       },
+    },
+    other: {
+      "fc:frame": JSON.stringify(frame),
     },
   } as Metadata
 }
