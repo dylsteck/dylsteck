@@ -5,10 +5,10 @@
 The homepage of Dylan Steck, live at [dylansteck.com](https://dylansteck.com)
 
 ## Features
-The site is optimized for performance, requires minimal outside dependencies, and has a [Farcaster gallery frame](https://docs.farcaster.xyz/learn/what-is-farcaster/frames) built in. 
+The site is optimized for performance, requires minimal outside dependencies, and has a [Farcaster Frame v2](https://github.com/farcasterxyz/protocol/discussions/205) built in 
 
 Features/packages used include:
-- [Frames.js](https://framesjs.org)
+- [@farcaster/frame-sdk](https://github.com/farcasterxyz/frames)
 - [Geist](https://vercel.com/font)
 - [TailwindCSS](https://tailwindcss.com/)
 - [Next.js](https://nextjs.org/) App Router
