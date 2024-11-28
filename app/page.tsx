@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import Media from './components/media'
-import { fetchMetadata } from 'frames.js/next'
 import { Metadata } from 'next'
-import { bannerImg, baseUrl } from './sitemap'
+import { appUrl, bannerImg, frame } from './sitemap'
+import HomePage from './components/home'
 
-export async function generateMetadata(){
+export function generateMetadata(){
   return{
-    metadataBase: new URL(baseUrl),
+    metadataBase: new URL(appUrl),
     title: {
       default: 'Dylan Steck',
       template: '%s | Dylan Steck',
@@ -16,7 +16,7 @@ export async function generateMetadata(){
       title: 'Dylan Steck',
       description: 'The homepage of Dylan Steck, a full-stack engineer focused on building software that gives people more agency.',
       images: [bannerImg],
-      url: baseUrl,
+      url: appUrl,
       siteName: 'Dylan Steck',
       locale: 'en_US',
       type: 'website',
@@ -33,31 +33,12 @@ export async function generateMetadata(){
       },
     },
     other: {
-      ...(await fetchMetadata(
-        new URL(
-          "/frames",
-          process.env.VERCEL_URL
-            ? `https://${process.env.VERCEL_URL}`
-            : "http://localhost:3000"
-        )
-      )),
+      "fc:frame": JSON.stringify(frame),
     },
   } as Metadata
 }
 
 export default function Page() {
-  return (
-    <section>
-      <h1 className="text-2xl font-semibold tracking-tighter">
-        Dylan Steck
-      </h1>
-      <p className="mb-4">
-        Currently building products onchain and hacking at <Link className="underline" href="https://farhack.xyz" target="_blank">FarHack</Link>.
-        Full-stack engineer focused on building software that gives people more agency. 
-      </p>
-      <div className="my-8">
-        <Media />
-      </div>
-    </section>
-  )
+  
+  return <HomePage />
 }
