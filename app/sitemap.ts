@@ -9,9 +9,9 @@ export const frame = {
   version: "next",
   imageUrl: bannerImg,
   button: {
-    title: "View Site",
+    title: "Launch Site",
     action: {
-      type: "launch",
+      type: "launch_frame",
       name: "Dylan Steck",
       url: appUrl,
       splashImageUrl: iconImg,
