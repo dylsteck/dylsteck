@@ -3,15 +3,15 @@ import { videos as videosList } from './video/videos'
 
 export const appUrl = process.env.NEXT_PUBLIC_URL || 'https://dylansteck.com';
 export const bannerImg = 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704144251/media/dsmetacard.png'
-export const iconImg = 'https://i.imgur.com/2UTZYvn.png';
+export const iconImg = 'https://i.imgur.com/DDrGKML.png';
 
 export const frame = {
   version: "next",
   imageUrl: bannerImg,
   button: {
-    title: "Launch Frame",
+    title: "View Site",
     action: {
-      type: "launch_frame",
+      type: "launch",
       name: "Dylan Steck",
       url: appUrl,
       splashImageUrl: iconImg,
