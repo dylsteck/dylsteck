@@ -15,7 +15,7 @@ export const frame = {
       name: "Dylan Steck",
       url: appUrl,
       splashImageUrl: iconImg,
-      splashBackgroundColor: "#2D2D2D",
+      splashBackgroundColor: "#000000",
     },
   },
 };
