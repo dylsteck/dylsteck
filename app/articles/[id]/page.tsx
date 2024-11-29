@@ -5,7 +5,7 @@ import { MediaItem } from 'app/types';
 import Video from 'app/components/video';
 import ArticleRedirect from 'app/components/article-redirect';
 import { getBlogPosts } from 'app/blog/utils';
-import { appUrl } from 'app/sitemap';
+import { appUrl, createFrame } from 'app/sitemap';
 
 export async function generateStaticParams() {
   return posts.map((post) => ({
@@ -27,12 +27,13 @@ export function generateMetadata({ params }) {
     image,
   } = post.metadata;
   let ogImage = postItem?.banner;
+  let siteTitle = `${title} | Dylan Steck`;
 
   return {
-    title: `${title} | Dylan Steck`,
+    title: siteTitle,
     description,
     openGraph: {
-      title: `${title} | Dylan Steck`,
+      title: siteTitle,
       description,
       type: 'article',
       publishedTime: new Date(publishedTime).toISOString(),
@@ -45,9 +46,12 @@ export function generateMetadata({ params }) {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${title} | Dylan Steck`,
+      title: siteTitle,
       description,
       images: [ogImage],
+    },
+    other: {
+      "fc:frame": JSON.stringify(createFrame('Read Post', ogImage)),
     },
   };
 }

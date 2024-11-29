@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { CustomMDX } from 'app/components/mdx';
 import { formatDate, getBlogPosts } from 'app/blog/utils';
 import { posts } from '../posts/posts';
-import { appUrl, bannerImg } from 'app/sitemap';
+import { appUrl, bannerImg, createFrame } from 'app/sitemap';
 
 export async function generateStaticParams() {
   let posts = getBlogPosts();
@@ -25,12 +25,13 @@ export function generateMetadata({ params }) {
     image,
   } = post.metadata;
   let ogImage = postItem?.banner;
+  let siteTitle = `${title} | Dylan Steck`;
 
   return {
-    title: `${title} | Dylan Steck`,
+    title: siteTitle,
     description,
     openGraph: {
-      title: `${title} | Dylan Steck`,
+      title: siteTitle,
       description,
       type: 'article',
       publishedTime: new Date(publishedTime).toISOString(),
@@ -43,9 +44,12 @@ export function generateMetadata({ params }) {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${title} | Dylan Steck`,
+      title: siteTitle,
       description,
       images: [ogImage],
+    },
+    other: {
+      "fc:frame": JSON.stringify(createFrame('Read Post', ogImage)),
     },
   };
 }

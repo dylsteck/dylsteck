@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Media from './components/media'
 import { Metadata } from 'next'
-import { appUrl, bannerImg, frame } from './sitemap'
+import { appUrl, bannerImg, createFrame } from './sitemap'
 import HomePage from './components/home'
 
 export function generateMetadata(){
@@ -33,7 +33,7 @@ export function generateMetadata(){
       },
     },
     other: {
-      "fc:frame": JSON.stringify(frame),
+      "fc:frame": JSON.stringify(createFrame()),
     },
   } as Metadata
 }

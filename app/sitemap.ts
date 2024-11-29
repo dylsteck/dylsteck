@@ -5,20 +5,22 @@ export const appUrl = process.env.NEXT_PUBLIC_URL || 'https://dylansteck.com';
 export const bannerImg = 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704144251/media/dsmetacard.png'
 export const iconImg = 'https://i.imgur.com/DDrGKML.png';
 
-export const frame = {
-  version: "next",
-  imageUrl: bannerImg,
-  button: {
-    title: "Launch Site",
-    action: {
-      type: "launch_frame",
-      name: "Dylan Steck",
-      url: appUrl,
-      splashImageUrl: iconImg,
-      splashBackgroundColor: "#000000",
+export function createFrame(title = 'Launch Site', imageUrl = bannerImg){
+  return {
+    version: "next",
+    imageUrl: imageUrl,
+    button: {
+      title: title,
+      action: {
+        type: "launch_frame",
+        name: "Dylan Steck",
+        url: appUrl,
+        splashImageUrl: iconImg,
+        splashBackgroundColor: "#000000",
+      },
     },
-  },
-};
+  };
+}
 
 export default async function sitemap() {
   let blogs = getBlogPosts().map((post) => ({

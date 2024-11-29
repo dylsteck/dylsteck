@@ -4,7 +4,7 @@ import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import { Navbar } from './components/nav'
 import Footer from './components/footer'
-import { appUrl, bannerImg, frame } from './sitemap'
+import { appUrl, bannerImg, createFrame } from './sitemap'
 import Head from 'next/head'
 import Script from 'next/script'
 
@@ -37,7 +37,7 @@ export function generateMetadata(){
       },
     },
     other: {
-      "fc:frame": JSON.stringify(frame),
+      "fc:frame": JSON.stringify(createFrame()),
     },
   } as Metadata
 }
