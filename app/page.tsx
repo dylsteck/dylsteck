@@ -1,8 +1,8 @@
+import React from "react";
 import Link from 'next/link'
 import Media from './components/media'
 import { Metadata } from 'next'
 import { appUrl, bannerImg, createFrame } from './sitemap'
-import HomePage from './components/home'
 
 export function generateMetadata(){
   return{
@@ -38,7 +38,19 @@ export function generateMetadata(){
   } as Metadata
 }
 
-export default function Page() {
-  
-  return <HomePage />
+export default function Home(){
+    return(
+        <section>
+            <h1 className="text-2xl font-semibold tracking-tighter">
+            Dylan Steck
+            </h1>
+            <p className="mb-4">
+            Currently building <Link className="underline" href="https://withcortex.com" target="_blank">Cortex</Link> and hacking at <Link className="underline" href="https://farhack.xyz" target="_blank">FarHack</Link>.
+            Full-stack engineer focused on building software that gives people more agency. 
+            </p>
+            <div className="my-8">
+              <Media />
+            </div>
+        </section>
+    )
 }
