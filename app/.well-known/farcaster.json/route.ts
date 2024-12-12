@@ -8,7 +8,7 @@ export async function GET() {
       "signature": "MHg5ZDEzODdhODkxMTk5YzliMDg3ZDhiZWZlMTNjYTk1ZGU5NGU0MTJhNmMzMDIwMzg3YzUwZjllNGIyNTM3NDliMmExZDg3MTJjYWRhMTQyZTg0NzM4NjA0NjNkM2I0YzczMGZiODM0MDZjMWEwZmEwZWM4NzQ5ZThhZjI2Zjk4ODFi"
     },
     frame: {
-      version: "0.0.0",
+      version: "0.0.1",
       name: "Dylan Steck",
       iconUrl: iconImg,
       splashImageUrl: iconImg,
