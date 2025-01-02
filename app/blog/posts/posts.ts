@@ -262,13 +262,5 @@ export const posts: MediaItem[] = [
       "description": `A brief overview of some of the most exciting developments in the world of Universal React, what the main benefits/downfalls of those are, and what I think this all means for React developers`,
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1729569683/media/universal-react-oct-22-24.png",
       "type": "blog",
-    },
-    {
-      "id": "2024-recap",
-      "date": "December 31, 2024",
-      "title": "2024 Recap",
-      "description": 'An overview of everything I built and consumed in 2024',
-      "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1729569683/media/2024-recap.png",
-      "type": "blog",
     }
   ];
