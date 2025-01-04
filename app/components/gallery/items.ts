@@ -1,25 +1,4 @@
-export type GalleryItem = {
-    title: string;
-    type: GalleryItemType;
-    url: string;
-    imageUrl: string;
-};
-
-export enum GalleryItemType {
-    article = "Article",
-    nft = "NFT",
-    paper = "Paper",
-    product = "Product",
-    video = "Video",
-}
-
-export type GalleryItems = {
-    name: string;
-    description: string;
-    id: string;
-    articleSlug: string;
-    items: GalleryItem[]
-}
+import { GalleryItems, GalleryItemType } from "app/types";
 
 const apostraphae = `'`;
 

@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { allGalleryItems, GalleryItem, GalleryItems, GalleryItemType } from 'app/components/gallery/items';
+import { allGalleryItems } from './items';
+import { GalleryItem, GalleryItems, GalleryItemType } from 'app/types';
 
 const getColorFromType = (type: GalleryItemType, colorFormat: 'text' | 'bg') => {
   switch(type){
