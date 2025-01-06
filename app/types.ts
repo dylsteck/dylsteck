@@ -24,6 +24,7 @@ export type GalleryItem = {
 
 export enum GalleryItemType {
   article = "Article",
+  music = "Music",
   nft = "NFT",
   paper = "Paper",
   product = "Product",

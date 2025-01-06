@@ -476,11 +476,95 @@ export const allGalleryItems: GalleryItems[] = [
       articleSlug: '2024-recap',
       items: [
           {
-            title: 'Embark: Dynamic documents for making plans',
+            title: 'Things we learned about LLMs in 2024',
             type: GalleryItemType.article,
-            url: 'https://www.inkandswitch.com/embark/',
-            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142855/media/embark-dynamic-documents-for-making-plans.png',
-          }
+            url: 'https://simonwillison.net/2024/Dec/31/llms-in-2024',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736192464/media/arena-dec-2024.jpg',
+          },
+          {
+            title: 'MiniPerplx',
+            type: GalleryItemType.product,
+            url: 'https://mplx.run',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142855/media/miniperplx-ss-jan-25.png',
+          },
+          {
+            title: 'Clanker',
+            type: GalleryItemType.product,
+            url: 'https://clanker.world',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736192769/media/clanker-world-ss-jan-25.png',
+          },
+          {
+            title: 'Farcaster Frames v2',
+            type: GalleryItemType.product,
+            url: 'https://docs.farcaster.xyz/developers/frames/v2',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736192813/media/frames-v2-banner-dec-24.png',
+          },
+          {
+            title: 'Anoncast',
+            type: GalleryItemType.product,
+            url: 'https://anoncast.org',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736192923/media/anoncast-ss-jan-25.png',
+          },
+          {
+            title: 'Rodeo',
+            type: GalleryItemType.product,
+            url: 'https://rodeo.club',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736193029/media/rodeo-club-ss-jan-25.png',
+          },
+          {
+            title: 'Frens',
+            type: GalleryItemType.product,
+            url: 'https://frens.lol',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736193120/media/frens-app-chart-ss-jan-25.png'
+          },
+          {
+            title: 'Farcade',
+            type: GalleryItemType.product,
+            url: 'https://farcade.ai',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736193352/media/farcade-v2-frame-jan-25.png'
+          },
+          {
+            title: 'Grok by xAI',
+            type: GalleryItemType.product,
+            url: 'https://x.com/i/grok',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736193456/media/grok-xai-jan-25.png'
+          },
+          {
+            title: 'Google Gemini App',
+            type: GalleryItemType.product,
+            url: 'https://gemini.google.com/app/download',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736193545/media/google-gemini-ai-iphone-app-jan-25.jpg'
+          },
+          {
+            title: 'Bracket',
+            type: GalleryItemType.product,
+            url: 'https://bracket.game',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736193686/media/bracket-game-cfb-playoffs-jan-25.png'
+          },
+          {
+            title: 'The Making of Beast Games',
+            type: GalleryItemType.video,
+            url: 'https://www.youtube.com/watch?v=kArnh6zrfvI',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736194012/media/the-making-of-beast-games-colin-samir-thumbnail.jpg'
+          },
+          {
+            title: 'The Dark Knight of Consumer Crypto',
+            type: GalleryItemType.article,
+            url: 'https://terminallyonchain.xyz/zktls',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736195780/media/yb-toc-zktls-article.jpg'
+          },
+          {
+            title: 'How to consistently go viral: Nikita Bier’s playbook for winning at consumer apps',
+            type: GalleryItemType.article,
+            url: 'https://www.youtube.com/watch?v=bhnfZhJWCWY',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736195874/media/nikita-bier-lenny-rachitsky-podcast-thumbnail.jpg'
+          },
+          {
+            title: 'Peter Thiel on the Triumph of the Counter-Elites',
+            type: GalleryItemType.article,
+            url: 'https://www.youtube.com/watch?v=bhnfZhJWCWY',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736196020/media/peter-thiel-bari-weiss-free-press-2024-thumbnail.jpg'
+          },
         ]
   }, 
   {
@@ -644,6 +728,12 @@ export const allGalleryItems: GalleryItems[] = [
             type: GalleryItemType.article,
             url: 'https://dylansteck.com/blog/2023-recap',
             imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1705785983/media/2023-recap-og-image.png',
+          },
+          {
+            title: 'The Terminal Season 1',
+            type: GalleryItemType.product,
+            url: 'https://terminallyonchain.xyz/appalpha',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736196591/media/toc-app-article-banner.png',
           }
         ]
   }
