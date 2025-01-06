@@ -555,16 +555,70 @@ export const allGalleryItems: GalleryItems[] = [
           },
           {
             title: 'How to consistently go viral: Nikita Bier’s playbook for winning at consumer apps',
-            type: GalleryItemType.article,
+            type: GalleryItemType.video,
             url: 'https://www.youtube.com/watch?v=bhnfZhJWCWY',
             imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736195874/media/nikita-bier-lenny-rachitsky-podcast-thumbnail.jpg'
           },
           {
             title: 'Peter Thiel on the Triumph of the Counter-Elites',
-            type: GalleryItemType.article,
+            type: GalleryItemType.video,
             url: 'https://www.youtube.com/watch?v=bhnfZhJWCWY',
             imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736196020/media/peter-thiel-bari-weiss-free-press-2024-thumbnail.jpg'
           },
+          {
+            title: 'Chromakopia',
+            type: GalleryItemType.music,
+            url: 'https://open.spotify.com/album/0U28P0QVB1QRxpqp5IHOlH',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736196987/media/chromakopia-tyler-banner.png'
+          },
+          {
+            title: 'GNX',
+            type: GalleryItemType.music,
+            url: 'https://open.spotify.com/album/0hvT3yIEysuuvkK73vgdcW',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736197061/media/gnx-kendrick-banner.png'
+          },
+          {
+            title: 'Timeless',
+            type: GalleryItemType.music,
+            url: 'https://open.spotify.com/album/3C3t2bKhwEL3wdKioqWUDh',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736197159/media/timeless-kaytranada-banner.png'
+          },
+          {
+            title: 'Dune: Part Two',
+            type: GalleryItemType.video,
+            url: 'https://www.imdb.com/title/tt15239678',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736197211/media/dune-part-two-banner.png'
+          },
+          {
+            title: 'One',
+            type: GalleryItemType.product,
+            url: 'https://onestack.dev',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736197346/media/one-framework-site-jan-25.png'
+          },
+          {
+            title: 'Super',
+            type: GalleryItemType.product,
+            url: 'https://supercast.xyz',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736197442/media/supercastxyz-site-jan-25.png'
+          },
+          {
+            title: 'Why every Al company will try to build a browser',
+            type: GalleryItemType.video,
+            url: 'https://www.youtube.com/watch?v=lvw-85-6-4s',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736197641/media/why-every-ai-company-will-try-to-build-a-browser-browser-company-thumbnail.png'
+          },
+          {
+            title: 'Polymarket',
+            type: GalleryItemType.product,
+            url: 'https://polymarket.com',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736197892/media/polymarket-banner.png'
+          },
+          {
+            title: 'Windsurf Editor',
+            type: GalleryItemType.product,
+            url: 'https://codeium.com/windsurf',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736197971/media/windsurf-editor-banner.png'
+          }
         ]
   }, 
   {
@@ -734,6 +788,24 @@ export const allGalleryItems: GalleryItems[] = [
             type: GalleryItemType.product,
             url: 'https://terminallyonchain.xyz/appalpha',
             imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736196591/media/toc-app-article-banner.png',
+          },
+          {
+            title: 'Designing IRL experiences that transcend traditional conference vibes (guest)',
+            type: GalleryItemType.video,
+            url: 'https://www.youtube.com/watch?v=3v3G1B1IfCA',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736198046/media/crypto-consumer-chronicles-farcon-2024-recap-thumbnail.png',
+          },
+          {
+            title: 'GM Farcaster FarCon 2024 Recap show (guest)',
+            type: GalleryItemType.video,
+            url: 'https://www.youtube.com/watch?v=2DaG__21jEo',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736198122/media/gmfarcaster-farcon-2024-recap-show-thumbnail.png',
+          },
+          {
+            title: 'episode 8: farhack ideas with dylan steck (guest)',
+            type: GalleryItemType.video,
+            url: 'https://open.spotify.com/episode/2xjDxiNAe3ozW05T90ytrz?si=hFu5qzuQQ6-g9AU0NukzCg',
+            imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736198246/media/doing-numbers-episode-8-farhack-ideas-with-dylan-steck-thumbnail.png',
           }
         ]
   }

@@ -265,7 +265,7 @@ export const posts: MediaItem[] = [
     },
     {
       "id": "2024-recap",
-      "date": "January 4, 2025",
+      "date": "January 6, 2025",
       "title": "2024 Recap",
       "description": 'An overview of everything I built and consumed in 2024',
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1729569683/media/2024-recap.png",
