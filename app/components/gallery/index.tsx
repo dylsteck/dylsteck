@@ -87,7 +87,7 @@ const Gallery = ({ id }: { id: string }) => {
   }
   const { description, items } = item;
 
-  const availableFilters = Array.from(new Set(items.map(item => item.type)));
+  const availableFilters = Array.from(new Set(items.map(item => item.type))).sort();
 
   const handleSetFilter = (newFilter: Type | null) => {
     if(filter !== newFilter){
