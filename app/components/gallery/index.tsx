@@ -5,29 +5,6 @@ import Link from 'next/link';
 import { allGalleryItems } from './items';
 import { GalleryItem as GalleryItemType, GalleryItemType as Type } from 'app/types';
 
-const getColorFromType = (type: Type, colorFormat: 'text' | 'bg') => {
-  switch(type){
-    case Type.article: {
-      return colorFormat === 'text' ? 'text-black' : 'bg-black'
-    }
-    case Type.nft: {
-      return colorFormat === 'text' ? 'text-purple-600' : 'bg-purple-600'
-    }
-    case Type.paper: {
-      return colorFormat === 'text' ? 'text-green-600' : 'bg-green-600'
-    }
-    case Type.product: {
-      return colorFormat === 'text' ? 'text-yellow-600' : 'bg-yellow-600'
-    }
-    case Type.video: {
-      return colorFormat === 'text' ? 'text-red-600' : 'bg-red-600'
-    }
-    default: {
-      return colorFormat === 'text' ? 'text-black' : 'bg-black'
-    }
-  }
-};
-
 interface GalleryItemProps {
   item: GalleryItemType;
 }
@@ -52,28 +29,36 @@ const GalleryItem: React.FC<GalleryItemProps> = ({ item }) => {
   );
 };
 
-const Filters = ({ filter, handlePress, availableFilters }: { filter: Type | null, handlePress: (value: Type | 'All') => void, availableFilters: Type[] }) => {
-  const Filter = ({ filterType }: { filterType: Type }) => {
-    return(
-      <button
-        className={`text-black ${filter === filterType ? 'bg-gray-400' : 'bg-gray-200'} rounded-full px-3.5 py-2 text-sm font-medium shadow-md hover:bg-gray-300 transition cursor-pointer`}
-        onClick={() => handlePress(filterType)}
-      >
-        {filterType}
-      </button>
+const Filters = ({
+  filter,
+  handlePress,
+  availableFilters,
+}: {
+  filter: Type | 'all' | null;
+  handlePress: (value: Type | 'all') => void;
+  availableFilters: Type[];
+}) => {
+  const renderFilter = (filterType: Type | 'all', isLast: boolean) => {
+    const displayName = filterType.toLowerCase();
+    const isActive = (filter === filterType) || (filterType === 'all' && filter === null);
+    return (
+      <React.Fragment key={filterType}>
+        <p
+          className={`cursor-pointer ${isActive ? 'font-semibold' : ''}`}
+          onClick={() => handlePress(filterType)}
+        >
+          {displayName}
+        </p>
+        {!isLast && <p>/</p>}
+      </React.Fragment>
     );
   };
 
-  return(
-    <div className="flex flex-row gap-2 items-center pb-4 overflow-x-auto">
-      <button
-        className={`text-black rounded-full px-3.5 py-2 text-sm font-medium shadow-md ${filter === null ? 'bg-gray-400' : 'bg-gray-200'} hover:bg-gray-300 transition curosr-pointer`}
-        onClick={() => handlePress('All')}>
-        All
-      </button>
-      {availableFilters.map(filterType => (
-        <Filter key={filterType} filterType={filterType} />
-      ))}
+  return (
+    <div className="flex flex-row gap-2 items-center">
+      {['all', ...availableFilters].map((filterType, index) =>
+        renderFilter(filterType as Type | 'all', index === availableFilters.length)
+      )}
     </div>
   );
 };
@@ -82,60 +67,49 @@ const Gallery = ({ id }: { id: string }) => {
   const [filter, setFilter] = useState<Type | null>(null);
   const [filteredItems, setFilteredItems] = useState<GalleryItemType[] | null>(null);
   const item = allGalleryItems.find((galleryItem) => galleryItem.id === id);
-  if(!item){
-    throw new Error("No item found for the given id");
+  if (!item) {
+    throw new Error('No item found for the given id');
   }
   const { description, items } = item;
 
-  const availableFilters = Array.from(new Set(items.map(item => item.type))).sort();
+  const availableFilters = Array.from(new Set(items.map((item) => item.type))).sort();
 
   const handleSetFilter = (newFilter: Type | null) => {
-    if(filter !== newFilter){
-      setFilter(newFilter);
-    }
-    else{
-      setFilter(null);
-    }
+    setFilter(newFilter !== filter ? newFilter : null);
   };
 
   const handleSetFilteredItems = (newFilteredItems: GalleryItemType[] | null) => {
-    if(filteredItems !== newFilteredItems){
-      setFilteredItems(newFilteredItems);
-    }
+    setFilteredItems(newFilteredItems);
   };
 
-  const handleFilterPress = (newFilter: Type | 'All') => {
-    if(newFilter === 'All'){
+  const handleFilterPress = (newFilter: Type | 'all') => {
+    if (newFilter === 'all') {
       handleSetFilter(null);
       handleSetFilteredItems(null);
-    }
-    else{
-      if(filter === newFilter && filteredItems !== null){
-        handleSetFilteredItems(null);
-      }
-      else{
-        const newlyFilteredItems = items.filter((item) => item.type === newFilter);
-        handleSetFilteredItems(newlyFilteredItems);
-      }
+    } else {
+      const newlyFilteredItems = items.filter((item) => item.type === newFilter);
       handleSetFilter(newFilter);
+      handleSetFilteredItems(newlyFilteredItems.length > 0 ? newlyFilteredItems : null);
     }
   };
 
   return (
     <>
-      <h1 className="text-2xl font-bold pb-4">{item.name}</h1>
-      <p className="pb-6 text-lg text-gray-700">
-        {item.description}
-      </p>
-      <Filters filter={filter} handlePress={handleFilterPress} availableFilters={availableFilters} />
+      <h1 className="text-2xl font-bold pb-1">{item.name}</h1>
+      <p className="text-lg text-gray-700">{item.description}</p>
+      <Filters
+        filter={filter === null ? 'all' : filter}
+        handlePress={handleFilterPress}
+        availableFilters={availableFilters}
+      />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 pt-4 w-full">
-       {(filter === null && filteredItems == null) ?
-          [...items].sort((a, b) => a.title.localeCompare(b.title)).map((item, index) => (
-            <GalleryItem key={index} item={item} />
-          )) :
-          [...(filteredItems ?? [])].sort((a, b) => a.title.localeCompare(b.title)).map((item, index) => (
-            <GalleryItem key={index} item={item} />
-        ))}
+        {(filter === null && filteredItems == null
+          ? [...items]
+              .sort((a, b) => a.title.localeCompare(b.title))
+              .map((item, index) => <GalleryItem key={index} item={item} />)
+          : [...(filteredItems ?? [])]
+              .sort((a, b) => a.title.localeCompare(b.title))
+              .map((item, index) => <GalleryItem key={index} item={item} />))}
       </div>
     </>
   );
