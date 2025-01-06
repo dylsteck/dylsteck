@@ -30,28 +30,30 @@ const getColorFromType = (type: GalleryItemType, colorFormat: 'text' | 'bg') => 
 }
 
 const MediaGridItem = ({key, item}: { key: number, item: GalleryItem }) => {
-    return (
-    <div className="flex flex-col">
+  return (
+    <div className="flex flex-col justify-between h-full">
       <Link href={item.url}>
-        <div className="w-[100%] flex flex-col items-center">
+        <div className="flex-1 flex items-center justify-center w-full">
           <img
-              src={item.imageUrl}
-              alt={item.title}
-              width={450} height={350}
-              className="w-full max-h-72 object-cover rounded-lg bg-top mt-1"
-            />
-            <p className="text-black/80 text-center pt-2 text-md">{item.title}</p> 
+            src={item.imageUrl}
+            alt={item.title}
+            width={450}
+            height={350}
+            className="w-full max-h-72 object-cover rounded-lg shadow-lg hover:scale-105 transition-transform"
+          />
         </div>
+        <p className="text-black/80 text-center pt-2 text-md">
+          {item.title}
+        </p>
       </Link>
     </div>
   );
 }
 
-const Filters = ({ filter, handlePress }: { filter: GalleryItemType | null, handlePress: (value: GalleryItemType | 'All') => void }) => {
-
+const Filters = ({ filter, handlePress, availableFilters }: { filter: GalleryItemType | null, handlePress: (value: GalleryItemType | 'All') => void, availableFilters: GalleryItemType[] }) => {
   const Filter = ({ filterType }: { filterType: GalleryItemType }) => {
     return(
-      <button 
+      <button
         className={`text-black ${filter === filterType ? 'bg-[#b7b7b7]' : 'bg-[#E2E3E2]'} rounded-xl px-3 py-2 text-sm cursor-pointer`}
         onClick={() => handlePress(filterType)}
       >
@@ -59,23 +61,19 @@ const Filters = ({ filter, handlePress }: { filter: GalleryItemType | null, hand
       </button>
     )
   }
-  const allFilters = Object.values(GalleryItemType);
   return(
     <div className="flex flex-row gap-2 items-center pb-2 overflow-x-scroll">
-      <button 
+      <button
         className={`text-black rounded-xl px-3 py-2 text-sm ${filter === null ? 'bg-[#b7b7b7]' : 'bg-[#E2E3E2]'} cursor-pointer`}
         onClick={() => handlePress('All')}>
         All
       </button>
-      <Filter filterType={GalleryItemType.article} />
-      <Filter filterType={GalleryItemType.nft} />
-      <Filter filterType={GalleryItemType.paper} />
-      <Filter filterType={GalleryItemType.product} />
-      <Filter filterType={GalleryItemType.video} />
+      {availableFilters.map(filterType => (
+        <Filter key={filterType} filterType={filterType} />
+      ))}
     </div>
   )
 }
-
 
 const Gallery = ({ id }: { id: string }) => {
   const [filter, setFilter] = useState<GalleryItemType | null>(null);
@@ -85,6 +83,8 @@ const Gallery = ({ id }: { id: string }) => {
     throw new Error("No item found for the given id")
   }
   const { description, items } = item;
+
+  const availableFilters = Array.from(new Set(items.map(item => item.type)));
 
   const handleSetFilter = (newFilter: GalleryItemType | null) => {
     if(filter !== newFilter){
@@ -124,16 +124,16 @@ const Gallery = ({ id }: { id: string }) => {
       <p className="pb-[2vh]">
         {item.description}
       </p>
-      <Filters filter={filter} handlePress={handleFilterPress} />
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 items-center pt-[1.5]">
-      {(filter === null && filteredItems == null) ? 
-        items.map((item, index) => (
-          <MediaGridItem key={index} item={item} />
-        )) : 
-        filteredItems?.map((item, index) => (
-          <MediaGridItem key={index} item={item} />
-      ))}
-    </div>
+      <Filters filter={filter} handlePress={handleFilterPress} availableFilters={availableFilters} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 pt-2 items-stretch w-full">
+        {(filter === null && filteredItems == null) ?
+          items.map((item, index) => (
+            <MediaGridItem key={index} item={item} />
+          )) :
+          filteredItems?.map((item, index) => (
+            <MediaGridItem key={index} item={item} />
+        ))}
+      </div>
     </>
   );
 };
