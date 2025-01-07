@@ -43,7 +43,7 @@ export function generateMetadata({ params }) {
       images: [ogImage],
     },
     other: {
-      "fc:frame": JSON.stringify(createFrame('Watch Video', ogImage)),
+      "fc:frame": JSON.stringify(createFrame('Watch Video', ogImage, `${appUrl}/video/${video.id}`)),
     },
   }
 }

@@ -49,7 +49,7 @@ export function generateMetadata({ params }) {
       images: [ogImage],
     },
     other: {
-      "fc:frame": JSON.stringify(createFrame('Read Post', ogImage)),
+      "fc:frame": JSON.stringify(createFrame('Read Post', ogImage, `${appUrl}/blog/${post.slug}`)),
     },
   };
 }
