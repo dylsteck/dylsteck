@@ -562,7 +562,7 @@ export const allGalleryItems: GalleryItems[] = [
           {
             title: 'Peter Thiel on the Triumph of the Counter-Elites',
             type: GalleryItemType.video,
-            url: 'https://www.youtube.com/watch?v=bhnfZhJWCWY',
+            url: 'https://www.youtube.com/watch?v=wwJV_NuN43Y',
             imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736196020/media/peter-thiel-bari-weiss-free-press-2024-thumbnail.jpg'
           },
           {
