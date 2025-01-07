@@ -738,7 +738,7 @@ export const allGalleryItems: GalleryItems[] = [
           {
             title: 'Riffing on React Server Components',
             type: GalleryItemType.video,
-            url: 'https://dylansteck.com/video/riffing-on-react-server-components',
+            url: 'https://dylansteck.com/video/k2hdHCKvjdU',
             imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1721684061/media/riffing-on-react-server-components.png',
           },
           {
@@ -762,7 +762,7 @@ export const allGalleryItems: GalleryItems[] = [
           {
             title: 'The Pendant Problem',
             type: GalleryItemType.video,
-            url: 'https://dylansteck.com/video/the-pendant-problem',
+            url: 'https://dylansteck.com/video/A0f3hlxcbIA',
             imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1715543714/media/the-pendant-problem-video-cover.jpg',
           },
           {
