@@ -11,9 +11,10 @@ export async function generateStaticParams() {
   }))
 }
 
-export function generateMetadata({ params }) {
-  let video = videos.find((video) => video.id === params.id)
-  let videoItem = videos.find((video) => video.id === params.id)
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const id = (await params).id
+  let video = videos.find((video) => video.id === id)
+  let videoItem = videos.find((video) => video.id === id)
   if (!video) {
     return
   }
@@ -48,8 +49,8 @@ export function generateMetadata({ params }) {
   }
 }
 
-export default function VideoPage({ params }){
-  const { id: ytId } = params
+export default async function VideoPage({ params }: { params: Promise<{ id: string }> }) {
+  const ytId = (await params).id
 
   return <Video ytId={ytId} />;
 };
