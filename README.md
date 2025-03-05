@@ -1,6 +1,6 @@
 # dylsteck
 
-![dylansteck.com homepage screenshot as of November 2024](https://i.imgur.com/qzO8QnN.png)
+![dylansteck.com homepage screenshot as of March 2025](https://i.imgur.com/n10UhsD.png)
 
 The homepage of Dylan Steck, live at [dylansteck.com](https://dylansteck.com)
 
@@ -18,4 +18,4 @@ Features/packages used include:
 
 Built on top of this [Next.js MDX boilerplate repo](https://github.com/vercel/examples/tree/main/solutions/blog)
 
-© 2024 MIT Licensed
+© 2025 MIT Licensed

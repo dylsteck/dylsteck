@@ -16,10 +16,10 @@ export function generateMetadata(){
       default: 'Dylan Steck',
       template: '%s | Dylan Steck',
     },
-    description: 'The homepage of Dylan Steck, a full-stack engineer focused on building software that gives people more agency.',
+    description: 'The homepage of Dylan Steck, an engineer at Base focused on building products onchain that give people more agency',
     openGraph: {
       title: 'Dylan Steck',
-      description: 'The homepage of Dylan Steck, a full-stack engineer focused on building software that gives people more agency.',
+      description: 'The homepage of Dylan Steck, an engineer at Base focused on building products onchain that give people more agency',
       images: [bannerImg],
       url: appUrl,
       siteName: 'Dylan Steck',

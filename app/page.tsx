@@ -11,10 +11,10 @@ export function generateMetadata(){
       default: 'Dylan Steck',
       template: '%s | Dylan Steck',
     },
-    description: 'The homepage of Dylan Steck, a full-stack engineer focused on building software that gives people more agency.',
+    description: 'The homepage of Dylan Steck, an engineer at Base focused on building products onchain that give people more agency',
     openGraph: {
       title: 'Dylan Steck',
-      description: 'The homepage of Dylan Steck, a full-stack engineer focused on building software that gives people more agency.',
+      description: 'The homepage of Dylan Steck, an engineer at Base focused on building products onchain that give people more agency',
       images: [bannerImg],
       url: appUrl,
       siteName: 'Dylan Steck',
@@ -44,11 +44,15 @@ export default function Home(){
             <h1 className="text-2xl font-semibold tracking-tighter">
             Dylan Steck
             </h1>
-            <p className="mb-4">
-            Currently building <Link className="underline" href="https://withcortex.com" target="_blank">Cortex</Link> and hacking at <Link className="underline" href="https://farhack.xyz" target="_blank">FarHack</Link>.
-            Full-stack engineer focused on building software that gives people more agency. 
-            </p>
-            <div className="my-8">
+            <div className="pt-3 flex flex-col items-start">
+              <p>
+                Engineer at <Link className="underline" href="https://base.org" target="_blank">Base</Link>
+              </p>
+              <p className="w-full md:max-w-[75%]">
+              Building products onchain that gives people more agency
+              </p>
+            </div>
+            <div className="pt-5">
               <Media />
             </div>
         </section>
