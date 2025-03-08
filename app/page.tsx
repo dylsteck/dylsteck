@@ -49,7 +49,7 @@ export default function Home(){
                 Engineer at <Link className="underline" href="https://base.org" target="_blank">Base</Link>
               </p>
               <p className="w-full md:max-w-[75%]">
-              Building products onchain that gives people more agency
+              Building products onchain that give people more agency
               </p>
             </div>
             <div className="pt-5">
