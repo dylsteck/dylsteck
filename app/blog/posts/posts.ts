@@ -268,7 +268,15 @@ export const posts: MediaItem[] = [
       "date": "January 7, 2025",
       "title": "2024 Recap",
       "description": 'An overview of everything I built and consumed in 2024',
-      "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736270857/2024-recap-jan-7-25.png",
+      "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736270857/media/2024-recap-jan-7-25.png",
+      "type": "blog",
+    },
+    {
+      "id": "the-farstack",
+      "date": "March 10, 2025",
+      "title": "The FarStack",
+      "description": 'How the Farcaster ecosystem now has its own stack for consumer growth',
+      "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1741544009/media/the-farstack-mar-10-25.png",
       "type": "blog",
     }
   ];
