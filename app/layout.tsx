@@ -8,6 +8,8 @@ import { appUrl, bannerImg, createFrame } from './sitemap'
 import Head from 'next/head'
 import Script from 'next/script'
 import FrameProvider from './components/frame-provider'
+import { SessionProvider } from 'next-auth/react'
+import { auth } from 'auth';
 
 export function generateMetadata(){
   return{
@@ -45,11 +47,12 @@ export function generateMetadata(){
 
 const cx = (...classes) => classes.filter(Boolean).join(' ')
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const session = await auth()
   return (
     <html
       lang="en"
@@ -65,9 +68,11 @@ export default function RootLayout({
       <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
         <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
           <Navbar />
-          <FrameProvider>
-            {children}
-          </FrameProvider>
+          <SessionProvider basePath={"/api/auth"} session={session}>
+            <FrameProvider>
+              {children}
+            </FrameProvider>
+          </SessionProvider>
           <Footer />
         </main>
         <Script
