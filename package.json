@@ -3,28 +3,25 @@
   "author": "@dylsteck",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
-    "@farcaster/frame-sdk": "^0.0.30",
+    "@farcaster/frame-sdk": "^0.0.35",
     "@tailwindcss/postcss": "4.0.9",
-    "@tanstack/react-query": "^5.67.1",
+    "@tanstack/react-query": "^5.74.4",
     "@types/node": "22.13.9",
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
     "geist": "1.3.1",
-    "next": "15.1.3",
+    "next": "15.3.1",
     "next-mdx-remote": "^5.0.0",
     "postcss": "^8.5.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "sugar-high": "^0.9.3",
     "tailwindcss": "4.0.9",
-    "typescript": "5.8.2",
-    "vercel": "^41.3.1",
-    "viem": "^2.23.6",
-    "wagmi": "^2.14.12"
+    "typescript": "5.8.2"
   }
 }

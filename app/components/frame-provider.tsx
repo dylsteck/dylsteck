@@ -8,11 +8,11 @@ export default function FrameProvider({ children }: { children: React.ReactNode 
 
     React.useEffect(() => {
         const load = async () => {
-        sdk.actions.ready();
+            sdk.actions.ready();
         };
         if (sdk && !isSDKLoaded) {
-        setIsSDKLoaded(true);
-        load();
+            setIsSDKLoaded(true);
+            load();
         }
     }, [isSDKLoaded]);
 
