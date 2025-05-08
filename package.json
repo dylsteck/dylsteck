@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@farcaster/frame-sdk": "^0.0.38",
+    "@coinbase/onchainkit": "^0.38.13",
     "@tailwindcss/postcss": "4.0.9",
     "@tanstack/react-query": "^5.75.5",
     "@types/node": "22.13.9",

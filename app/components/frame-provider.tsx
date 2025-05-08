@@ -1,24 +1,20 @@
-"use client";
+'use client';
 
-import sdk from "@farcaster/frame-sdk";
-import React from "react";
+import { useMiniKit } from "@coinbase/onchainkit/minikit";
+import { useEffect } from "react";
 
-export default function FrameProvider({ children }: { children: React.ReactNode }){
-    const [isSDKLoaded, setIsSDKLoaded] = React.useState<boolean>(false);
+export function FrameProvider({ children }: { children: React.ReactNode }){
+  const { setFrameReady, isFrameReady } = useMiniKit();
 
-    React.useEffect(() => {
-        const load = async () => {
-            sdk.actions.ready();
-        };
-        if (sdk && !isSDKLoaded) {
-            setIsSDKLoaded(true);
-            load();
-        }
-    }, [isSDKLoaded]);
+  useEffect(() => {
+    if (!isFrameReady) {
+      setFrameReady();
+    }
+  }, [setFrameReady, isFrameReady]);
 
-    return(
-        <>
-            {children}
-        </>
-    )
+  return (
+    <>
+      {children}
+    </>
+  )
 }
