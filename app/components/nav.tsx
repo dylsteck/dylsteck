@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import DSIcon from './icons/ds-icon'
+import LinksHover from './links-hover'
 
 const navItems = {
   '/': {
@@ -34,13 +35,7 @@ export function Navbar() {
                   </Link>
                 )
               })}
-              <Link
-                href="https://nf.td/dylan"
-                className="cursor-pointer transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1"
-                target="_blank"
-              >
-                links
-              </Link>
+              <LinksHover />
             </div>
           </div>
         </nav>
