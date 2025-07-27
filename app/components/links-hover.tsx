@@ -41,18 +41,20 @@ export default function LinksHover(): React.JSX.Element {
       </span>
       
       {isVisible && (
-        <div className="inline-flex items-center gap-1">
-          {socialLinks.map((link, index) => (
-            <Link
-              key={index}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 py-1 px-2 m-1"
-            >
-              {link.text.toLowerCase()}
-            </Link>
-          ))}
+        <div className={`${isMobile ? 'overflow-x-auto scrollbar-hide max-w-[200px] sm:max-w-[300px]' : 'inline-flex items-center gap-1'}`}>
+          <div className="inline-flex items-center gap-1 whitespace-nowrap">
+            {socialLinks.map((link, index) => (
+              <Link
+                key={index}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 py-1 px-2 m-1 flex-shrink-0"
+              >
+                {link.text.toLowerCase()}
+              </Link>
+            ))}
+          </div>
         </div>
       )}
     </div>
