@@ -114,7 +114,7 @@ export async function GET() {
     })
 
     content += `## About\n\n`
-    content += `Dylan Steck is an engineer at Base, focused on building products onchain that give people more agency.\n`
+    content += `Dylan Steck is an engineer at [Base](https://base.org), focused on building products onchain that give people more agency.\n`
     content += `This export contains all the markdown content from his personal website at dylansteck.com.\n`
 
     return new NextResponse(content, {

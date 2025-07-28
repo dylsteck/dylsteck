@@ -1,4 +1,4 @@
-import { appUrl, iconImg } from "../../sitemap";
+import { appUrl, bannerImg, iconImg } from "../../sitemap";
 
 export async function GET() {
   const config = {
@@ -8,12 +8,25 @@ export async function GET() {
       "signature": "MHg3ZWQ3OGZiNmE4NDkwYTZiNTUxNWI3NjY2NTlmMTZmMzkzMmUyMmUwYWY0M2Q0NTY3MWM4OGMxMTc1NGFlNTk4MmIwMGQ0ZWRiM2Y0Mjg0NzkxNGYwMTI4ZjE0NDE1YjEzYWM5NGY3MTMwMGJkNzY2MGE3ZTEyZmRjZjNlY2I3OTFj"
     },
     frame: {
-      version: "0.0.1",
+      version: "1",
       name: "Dylan Steck",
+      subtitle: "The homepage of Dylan Steck",
+      tagline: "The homepage of Dylan Steck",
+      description: "The homepage of Dylan Steck, an engineer at Base building products onchain",
       iconUrl: iconImg,
       splashImageUrl: iconImg,
       splashBackgroundColor: "#000000",
       homeUrl: appUrl,
+      heroImageUrl: bannerImg,
+      ogImageUrl: bannerImg,
+      ogTitle: "Dylan Steck",
+      ogDescription: "The homepage of Dylan Steck, an engineer at Base building products onchain",
+      noindex: false,
+      primaryCategory: "news-media",
+      requiredChains: [],
+      requiredCapabilities: ['actions.ready'],
+      canonicalDomain: "dylansteck.com",
+      tags: ["dylsteck", "blog", "news", "media", "homepage"]
     },
   };
 
