@@ -278,5 +278,13 @@ export const posts: MediaItem[] = [
       "description": 'How the Farcaster ecosystem now has its own stack for consumer growth',
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1741544009/media/the-farstack-mar-10-25.png",
       "type": "blog",
+    },
+    {
+      "id": "when-wallets-meet-social",
+      "date": "July 30, 2025",
+      "title": "When Wallets Meet Social",
+      "description": 'Why wallets are turning into social apps and social apps are turning into wallets',
+      "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1753843913/media/when-wallets-meet-social-jul-30.png",
+      "type": "blog",
     }
   ];
