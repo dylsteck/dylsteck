@@ -44,6 +44,7 @@ export function generateMetadata({ params }) {
     },
     other: {
       "fc:frame": JSON.stringify(createFrame('Watch Video', ogImage, `${appUrl}/video/${video.id}`)),
+      "fc:miniapp": JSON.stringify(createFrame('Watch Video', ogImage, `${appUrl}/video/${video.id}`)),
     },
   }
 }

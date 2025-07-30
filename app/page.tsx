@@ -34,6 +34,7 @@ export function generateMetadata(){
     },
     other: {
       "fc:frame": JSON.stringify(createFrame()),
+      "fc:miniapp": JSON.stringify(createFrame()),
     },
   } as Metadata
 }

@@ -50,6 +50,7 @@ export function generateMetadata({ params }) {
     },
     other: {
       "fc:frame": JSON.stringify(createFrame('Read Post', ogImage, `${appUrl}/blog/${post.slug}`)),
+      "fc:miniapp": JSON.stringify(createFrame('Read Post', ogImage, `${appUrl}/blog/${post.slug}`)),
     },
   };
 }
