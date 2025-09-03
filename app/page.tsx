@@ -1,6 +1,7 @@
 import React from "react";
 import Link from 'next/link'
 import Media from './components/media'
+import Carousel from './components/carousel'
 import { Metadata } from 'next'
 import { appUrl, bannerImg, createMiniAppEmbed } from './sitemap'
 import DSGrayIcon from './components/icons/ds-gray-icon'
@@ -65,12 +66,9 @@ export default function Home(){
             </section>
             <section className="fixed top-[200px] left-0 w-full bottom-0 bg-white dark:bg-black z-20">
                 <div className="flex flex-col md:flex-row h-full">
-                    <div className="w-full md:w-1/2 md:border-r border-b md:border-b-0 border-neutral-200 dark:border-neutral-800 h-full">
-                        <div className="grid grid-cols-2 h-full">
-                            <div className="bg-neutral-300 dark:bg-neutral-700 border-r border-b border-neutral-200 dark:border-neutral-800"></div>
-                            <div className="bg-neutral-300 dark:bg-neutral-700 border-b border-neutral-200 dark:border-neutral-800"></div>
-                            <div className="bg-neutral-300 dark:bg-neutral-700 border-r border-neutral-200 dark:border-neutral-800"></div>
-                            <div className="bg-neutral-300 dark:bg-neutral-700"></div>
+                    <div className="w-full md:w-1/2 md:border-r border-b md:border-b-0 border-neutral-200 dark:border-neutral-800 flex-1 md:h-full flex items-center justify-center">
+                        <div className="w-full h-full min-h-[40vh] md:min-h-0 flex items-center justify-center pt-16 md:pt-0">
+                            <Carousel />
                         </div>
                     </div>
                     <div className="w-full md:w-1/2 h-full overflow-y-auto p-2 pt-0 md:p-4 text-black dark:text-white">
