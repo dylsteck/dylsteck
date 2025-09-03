@@ -71,5 +71,9 @@ export async function generateMetadata({ params }) {
 export default async function ArticlePage({ params }){
   const { id } = await params;
 
-  return <ArticleRedirect id={id} />;
+  return (
+    <div className="max-w-xl mx-4 lg:mx-auto px-2 md:px-0">
+      <ArticleRedirect id={id} />
+    </div>
+  );
 };
