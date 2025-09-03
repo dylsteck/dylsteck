@@ -52,5 +52,9 @@ export function generateMetadata({ params }) {
 export default function VideoPage({ params }){
   const { id: ytId } = params
 
-  return <Video ytId={ytId} />;
+  return (
+    <div className="max-w-xl mx-4 lg:mx-auto px-2 md:px-0">
+      <Video ytId={ytId} />
+    </div>
+  );
 };

@@ -61,5 +61,9 @@ export function generateMetadata({ params }) {
 export default function ArticlePage({ params }){
   const { id } = params
 
-  return <ArticleRedirect id={id} />;
+  return (
+    <div className="max-w-xl mx-4 lg:mx-auto px-2 md:px-0">
+      <ArticleRedirect id={id} />
+    </div>
+  );
 };

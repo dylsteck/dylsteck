@@ -11,7 +11,7 @@ const navItems = {
 export function Navbar() {
   return (
     <>
-      <nav className="fixed top-0 left-0 z-50 p-4">
+      <nav className="fixed top-0 left-0 w-full z-50 bg-white dark:bg-black p-4">
         <div className="flex flex-row items-center">
           <Link
             href="/"
@@ -33,7 +33,7 @@ export function Navbar() {
           <LinksHover />
         </div>
       </nav>
-      <div className="fixed top-[68px] left-0 w-full h-px bg-neutral-200 dark:bg-neutral-800 z-40" />
+      <div className="fixed top-[68px] left-0 w-full h-px bg-neutral-200 dark:bg-neutral-800 z-50" />
     </>
   )
 }
