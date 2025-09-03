@@ -44,7 +44,7 @@ export function generateMetadata(){
 export default function Home(){
     return(
         <>
-            <section className="fixed top-[68px] left-0 w-full bg-white dark:bg-black z-30 border-b border-neutral-200 dark:border-neutral-800">
+            <section className="md:fixed md:top-[68px] left-0 w-full bg-white dark:bg-black md:z-30 border-b border-neutral-200 dark:border-neutral-800">
                 <div className="flex flex-row">
                     <div className="w-full md:w-1/2 border-r border-neutral-200 dark:border-neutral-800 py-8 flex items-center justify-center">
                         <DSGrayIcon />
@@ -64,16 +64,16 @@ export default function Home(){
                     </div>
                 </div>
             </section>
-            <section className="fixed top-[200px] left-0 w-full bottom-0 bg-white dark:bg-black z-20">
-                <div className="flex flex-col md:flex-row h-full">
+            <section className="md:fixed md:top-[200px] left-0 w-full md:bottom-0 bg-white dark:bg-black md:z-20">
+                <div className="flex flex-col md:flex-row md:h-full">
                     <div className="w-full md:w-1/2 md:border-r border-b md:border-b-0 border-neutral-200 dark:border-neutral-800 flex-1 md:h-full flex items-center justify-center">
                         <div className="w-full h-full min-h-[40vh] md:min-h-0 flex items-center justify-center pt-16 md:pt-0">
                             <Carousel />
                         </div>
                     </div>
-                    <div className="w-full md:w-1/2 h-full overflow-y-auto p-2 pt-0 md:p-4 text-black dark:text-white">
-                        <Media />
-                    </div>
+                                         <div className="w-full md:w-1/2 md:h-full md:overflow-y-auto p-2 pt-0 md:p-4 text-black dark:text-white">
+                         <Media />
+                     </div>
                 </div>
             </section>
         </>

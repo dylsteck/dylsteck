@@ -65,11 +65,13 @@ export default function RootLayout({
       <Head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </Head>
-      <body className="antialiased max-w-xl mx-4 lg:mx-auto">
+      <body className="antialiased">
         <MiniAppProvider>
           <Navbar />
-          <main className="flex-auto min-w-0 pt-20 pb-20 flex flex-col px-2 md:px-0">
-            {children}
+          <main className="flex-auto min-w-0 pt-20 pb-4 flex flex-col">
+            <div className="max-w-xl mx-4 lg:mx-auto px-2 md:px-0 w-full">
+              {children}
+            </div>
           </main>
           <Footer />
         </MiniAppProvider>
