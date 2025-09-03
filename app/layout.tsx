@@ -7,6 +7,7 @@ import Footer from './components/footer'
 import { appUrl, bannerImg, createFrame } from './sitemap'
 import Head from 'next/head'
 import Script from 'next/script'
+import Link from 'next/link'
 import { FrameProvider } from './components/frame-provider'
 import { MiniKitProvider } from '@coinbase/onchainkit/minikit'
 
@@ -65,8 +66,8 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </Head>
       <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
+        <Navbar />
         <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
-          <Navbar />
           <MiniKitProvider chain={null as any}>
             <FrameProvider>
               {children}
