@@ -5,10 +5,12 @@
 The homepage of Dylan Steck, live at [dylansteck.com](https://dylansteck.com)
 
 ## Features
-The site is optimized for performance and SEO, requires minimal outside dependencies, and also has [Farcaster mini app](https://miniapps.farcaster.xyz) support using [MiniKit](https://docs.base.org/builderkits/minikit/overview)
+
+The site is optimized for performance and SEO, requires minimal outside dependencies, and works as a [Farcaster mini app](https://miniapps.farcaster.xyz)
 
 Features/packages used include:
-- [MiniKit](https://docs.base.org/builderkits/minikit/overview)
+
+- [Farcaster mini app SDK](https://miniapps.farcaster.xyz)
 - [Geist](https://vercel.com/font)
 - [TailwindCSS](https://tailwindcss.com/)
 - [Next.js](https://nextjs.org/) App Router
