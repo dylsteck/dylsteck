@@ -286,5 +286,13 @@ export const posts: MediaItem[] = [
       "description": 'Why wallets are turning into social apps and social apps are turning into wallets',
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1753843913/media/when-wallets-meet-social-jul-30.png",
       "type": "blog",
+    },
+    {
+      "id": "embedded-apps",
+      "date": "October 20, 2025",
+      "title": "Embedded apps",
+      "description": 'An update on how app stores are forming inside of other apps, both in crypto and AI',
+      "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1753843913/media/when-wallets-meet-social-jul-30.png",
+      "type": "blog",
     }
   ];
