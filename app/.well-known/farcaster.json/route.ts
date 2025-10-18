@@ -22,9 +22,10 @@ export async function GET() {
       ogTitle: "Dylan Steck",
       ogDescription: "The homepage of Dylan Steck, an engineer at Base building products onchain",
       noindex: false,
+      webhookUrl: "https://api.neynar.com/f/app/485da491-ac40-4352-bf1c-e1ca8013d62a/event",
       primaryCategory: "news-media",
       requiredChains: [],
-      requiredCapabilities: ['actions.ready'],
+      requiredCapabilities: ['actions.addMiniApp', 'actions.ready'],
       canonicalDomain: "dylansteck.com",
       tags: ["dylsteck", "blog", "news", "media", "homepage"]
     },
