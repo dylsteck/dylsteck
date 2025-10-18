@@ -73,13 +73,8 @@ export function MiniAppProvider({
   const handleAddMiniApp = useCallback(async (): Promise<AddMiniAppResult | null> => {
     try {
       const result = await sdk.actions.addMiniApp();
-      if (result) {
-        console.log("Mini App added successfully", result);
-        return result;
-      }
-      return null;
+      return result;
     } catch (error) {
-      console.error("[error] adding Mini App", error);
       return null;
     }
   }, []);
