@@ -4,6 +4,8 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import { highlight } from 'sugar-high'
 import React from 'react'
 import Gallery from './gallery'
+import TweetComponent from './tweet'
+import Cast from './cast'
 
 function Table({ data }) {
   let headers = data.headers.map((header, index) => (
@@ -98,7 +100,9 @@ let components = {
   a: CustomLink,
   code: Code,
   Table,
-  Gallery
+  Gallery,
+  Tweet: TweetComponent,
+  Cast
 }
 
 export function CustomMDX(props) {
