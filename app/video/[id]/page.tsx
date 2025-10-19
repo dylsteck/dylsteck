@@ -19,13 +19,12 @@ export function generateMetadata({ params }) {
   }
 
   let ogImage = videoItem?.banner;
-  let siteTitle = videoItem?.title ? `${videoItem?.title} | Dylan Steck` : 'Dylan Steck';
 
   return {
-    title: siteTitle,
+    title: videoItem?.title,
     description: videoItem?.description,
     openGraph: {
-      title: siteTitle,
+      title: videoItem?.title,
       description: videoItem?.description,
       type: 'video.episode',
       date: videoItem?.date,
@@ -38,7 +37,7 @@ export function generateMetadata({ params }) {
     },
     twitter: {
       card: 'summary_large_image',
-      title: siteTitle,
+      title: videoItem?.title,
       description: videoItem?.description,
       images: [ogImage],
     },

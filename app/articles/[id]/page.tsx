@@ -27,13 +27,12 @@ export function generateMetadata({ params }) {
     image,
   } = post.metadata;
   let ogImage = postItem?.banner;
-  let siteTitle = `${title} | Dylan Steck`;
 
   return {
-    title: siteTitle,
+    title,
     description,
     openGraph: {
-      title: siteTitle,
+      title,
       description,
       type: 'article',
       publishedTime: new Date(publishedTime).toISOString(),
@@ -46,7 +45,7 @@ export function generateMetadata({ params }) {
     },
     twitter: {
       card: 'summary_large_image',
-      title: siteTitle,
+      title,
       description,
       images: [ogImage],
     },

@@ -25,13 +25,12 @@ export function generateMetadata({ params }) {
     image,
   } = post.metadata;
   let ogImage = postItem?.banner;
-  let siteTitle = `${title} | Dylan Steck`;
 
   return {
-    title: siteTitle,
+    title,
     description,
     openGraph: {
-      title: siteTitle,
+      title,
       description,
       type: 'article',
       publishedTime: new Date(publishedTime).toISOString(),
@@ -44,7 +43,7 @@ export function generateMetadata({ params }) {
     },
     twitter: {
       card: 'summary_large_image',
-      title: siteTitle,
+      title,
       description,
       images: [ogImage],
     },
@@ -71,7 +70,7 @@ export default function Blog({ params }) {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'NewsArticle',
-            headline: `${post.metadata.title} | Dylan Steck`,
+            headline: post.metadata.title,
             datePublished: new Date(post.metadata.publishedAt).toISOString(),
             dateModified: new Date(post.metadata.publishedAt).toISOString(),
             description: post.metadata.summary,
