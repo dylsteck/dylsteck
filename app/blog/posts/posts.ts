@@ -292,7 +292,7 @@ export const posts: MediaItem[] = [
       "date": "October 20, 2025",
       "title": "Embedded apps",
       "description": 'An update on how app stores are forming inside of other apps, both in crypto and AI',
-      "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1753843913/media/when-wallets-meet-social-jul-30.png",
+      "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1760918642/media/embedded-apps-oct-20.png",
       "type": "blog",
     }
   ];

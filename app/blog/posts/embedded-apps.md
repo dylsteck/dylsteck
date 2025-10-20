@@ -12,15 +12,15 @@ New tech paradigms require ways for end users to access them in order for their 
 
 My day job is working on a mini app platform at Base with [Base app](https://base.app) and our suite of developer tools, and funny enough before this I was working on products for [Farcaster Frames](https://dtech.vision/farcaster/frames/), so for the past few years now I've been focused on embedded apps. In this post I want to go over what I've been seeing in these two ecosystems I've been watching closely, what I think they can actually learn from each other, and question if embedded apps are even the right model.
 
-## The rise of embedded everything
+## Embedded everything
 
-If you step back and look at what's happening across tech right now, there's a clear pattern: platforms are trying to become the home for third-party apps. It's not just about being a super app anymore—it's about becoming the operating system layer for specific verticals.
+If you take a step back and look at what's happening in tech right now, there's a clean pattern: platforms are trying to become meta-platforms/app stores for third-party apps. It's not just about building super apps, it's about building the operating system layer for specific verticals.
 
 This shift is happening for a few key reasons:
 
-1. **App store friction**: [Apple](https://apple.com) and Google's 30% tax and rigid review processes have pushed developers to look for alternative distribution channels. The EU's Digital Markets Act forcing Apple to allow alternative app stores is just the beginning—developers want to distribute their apps on their own terms.
+**1. App store friction**. Apple and Google's 30% tax and rigid review processes have pushed developers to look for other ways to distrubute their software. The EU's Digital Markets Act forcing Apple to allow alternative app stores is just the beginning(although we haven't seen that in effect yet), but that's just the begining. Developers want to distribute their apps on their terms and monetize their work: that's what the open web is supposed to be for!
 
-The frustration here is real and visceral for builders. [Los](https://x.com/downloadlos) from [Danger Testing](https://x.com/dangertesting), who ships an app every week, recently got hit with the classic "Guideline 4.2 - Design - Minimum Functionality" rejection—a catch-all that essentially means "we decided this shouldn't exist but won't tell you why." After working for 6 days straight on an app, he got a rejection saying it was "not app like." 
+The frustration here is real and visceral for builders. [Los](https://x.com/downloadlos) from [Danger Testing](https://x.com/dangertesting), who ships an app "at the speed of culture" every week, recently got hit with the "Guideline 4.2 - Design - Minimum Functionality" rejection in an Apple App Store review—a catch-all that essentially means "we decided this shouldn't exist but won't tell you why." After working for 6 days straight on an app, he got a rejection saying it was "not app like."
 
 <Tweet id="1976701536643252487" />
 
@@ -28,9 +28,9 @@ What's wild is that AI coding tools have made it easier than ever to build apps�
 
 This is exactly why embedded apps are exploding—they route around the damage. You can't reject a Telegram mini app. You can't tell someone their Frame "isn't app-like." The distribution is permissionless.
 
-1. **Context is king**: When you open a mini app in Telegram or a Frame in Farcaster, it already knows who you are. No more sign-up flows, no more connecting wallets, no more OAuth dances. The app just works because it inherits the platform's context.
+**2. Context is king**: When you open a mini app in Telegram or a Frame in Farcaster, it already knows who you are. No more sign-up flows, no more connecting wallets, no more OAuth dances. The app just works because it inherits the platform's context.
 
-2. **Network effects on steroids**: When someone shares a mini app in a group chat or social feed, everyone can instantly use it. No app store links, no downloads, no friction. Just tap and go.
+**3. Network effects on steroids**: When someone shares a mini app in a group chat or social feed, everyone can instantly use it. No app store links, no downloads, no friction. Just tap and go.
 
 ## Crypto's embedded ecosystem
 
