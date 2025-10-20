@@ -1,0 +1,9 @@
+{
+  "MD033": {
+    "allowed_elements": ["Tweet", "Cast"]
+  },
+  "MD013": false,
+  "MD009": false,
+  "MD047": false
+}
+

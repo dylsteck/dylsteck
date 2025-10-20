@@ -1,6 +1,4 @@
-'use client'
-
-import { FarcasterEmbed } from 'react-farcaster-embed/dist/client'
+import { FarcasterEmbed } from 'react-farcaster-embed'
 
 interface CastProps {
   url: string
