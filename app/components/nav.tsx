@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import DSIcon from './icons/ds-icon'
 import LinksHover from './links-hover'
 import { useMiniApp } from './mini-app-provider'
@@ -8,12 +9,16 @@ import { useMiniApp } from './mini-app-provider'
 const navItems = {
   '/': {
     name: 'home',
+  },
+  '/apps': {
+    name: 'apps',
   }
 }
 
 export function Navbar() {
   const { isInClient, context, addMiniApp } = useMiniApp()
-  
+  const pathname = usePathname()
+
   const showAddButton = isInClient && !context?.client?.added
 
   return (
