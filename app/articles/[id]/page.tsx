@@ -13,9 +13,10 @@ export async function generateStaticParams() {
   }))
 }
 
-export function generateMetadata({ params }) {
-  let post = getBlogPosts().find((post) => post.slug === params.id);
-  let postItem = posts.find((post) => post.id === params.id);
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  let post = getBlogPosts().find((post) => post.slug === id);
+  let postItem = posts.find((post) => post.id === id);
   if (!post) {
     return;
   }
@@ -57,8 +58,8 @@ export function generateMetadata({ params }) {
 }
 
 // redirects `/articles/[id]` slugs from the old site to `/blog/[id]`
-export default function ArticlePage({ params }){
-  const { id } = params
+export default async function ArticlePage({ params }){
+  const { id } = await params;
 
   return <ArticleRedirect id={id} />;
 };

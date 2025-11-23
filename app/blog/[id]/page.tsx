@@ -11,9 +11,10 @@ export async function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }) {
-  let post = getBlogPosts().find((post) => post.slug === params.id);
-  let postItem = posts.find((post) => post.id === params.id);
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  let post = getBlogPosts().find((post) => post.slug === id);
+  let postItem = posts.find((post) => post.id === id);
   if (!post) {
     return;
   }
@@ -54,8 +55,9 @@ export function generateMetadata({ params }) {
   };
 }
 
-export default function Blog({ params }) {
-  let post = getBlogPosts().find((post) => post.slug === params.id);
+export default async function Blog({ params }) {
+  const { id } = await params;
+  let post = getBlogPosts().find((post) => post.slug === id);
 
   if (!post) {
     notFound();
