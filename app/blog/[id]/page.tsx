@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { CustomMDX } from 'app/components/mdx';
 import { formatDate, getBlogPosts } from 'app/blog/utils';
 import { posts } from '../posts/posts';
-import { appUrl, bannerImg, createFrame } from 'app/sitemap';
+import { appUrl, bannerImg, createMiniAppEmbed } from 'app/sitemap';
 
 export async function generateStaticParams() {
   let posts = getBlogPosts();
@@ -25,8 +25,17 @@ export async function generateMetadata({ params }) {
     summary: description,
     image,
   } = post.metadata;
-  const ogImage = `${appUrl}/api/og/blog/${id}`;
-  const miniappImage = `${appUrl}/api/og/blog/${id}?miniapp=true`;
+  
+  const postYear = new Date(postItem?.date || publishedTime).getFullYear();
+  const useLegacyImage = postYear <= 2023;
+  
+  const ogImage = useLegacyImage 
+    ? (postItem?.banner || bannerImg)
+    : `${appUrl}/api/og/blog/${id}`;
+  
+  const miniappImage = useLegacyImage
+    ? (postItem?.banner || bannerImg)
+    : `${appUrl}/api/og/blog/${id}?miniapp=true`;
 
   return {
     title,
@@ -50,8 +59,8 @@ export async function generateMetadata({ params }) {
       images: [ogImage],
     },
     other: {
-      "fc:frame": JSON.stringify(createFrame('Read Post', miniappImage, `${appUrl}/blog/${post.slug}`)),
-      "fc:miniapp": JSON.stringify(createFrame('Read Post', miniappImage, `${appUrl}/blog/${post.slug}`)),
+      "fc:frame": JSON.stringify(createMiniAppEmbed('Read Post', miniappImage, `${appUrl}/blog/${post.slug}`)),
+      "fc:miniapp": JSON.stringify(createMiniAppEmbed('Read Post', miniappImage, `${appUrl}/blog/${post.slug}`)),
     },
   };
 }

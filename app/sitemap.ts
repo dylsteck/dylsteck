@@ -5,7 +5,7 @@ export const appUrl = process.env.NEXT_PUBLIC_URL || 'https://dylansteck.com';
 export const bannerImg = 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704144251/media/dsmetacard.png'
 export const iconImg = 'https://i.imgur.com/DDrGKML.png';
 
-export function createFrame(title = 'Launch Site', imageUrl = bannerImg, url = appUrl) {
+export function createMiniAppEmbed(title = 'Launch Site', imageUrl = bannerImg, url = appUrl) {
   return {
     version: "next",
     imageUrl: imageUrl,

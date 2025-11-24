@@ -5,7 +5,7 @@ import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import { Navbar } from './components/nav'
 import Footer from './components/footer'
-import { appUrl, bannerImg, createFrame } from './sitemap'
+import { appUrl, bannerImg, createMiniAppEmbed } from './sitemap'
 import Head from 'next/head'
 import Script from 'next/script'
 import { MiniAppProvider } from './components/mini-app-provider'
@@ -39,8 +39,8 @@ export function generateMetadata(){
       },
     },
     other: {
-      "fc:frame": JSON.stringify(createFrame()),
-      "fc:miniapp": JSON.stringify(createFrame()),
+      "fc:frame": JSON.stringify(createMiniAppEmbed()),
+      "fc:miniapp": JSON.stringify(createMiniAppEmbed()),
     },
   } as Metadata
 }

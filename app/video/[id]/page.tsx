@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { videos } from '../videos';
 import { MediaItem } from 'app/types';
 import Video from 'app/components/video';
-import { appUrl, createFrame } from 'app/sitemap';
+import { appUrl, createMiniAppEmbed } from 'app/sitemap';
 
 export async function generateStaticParams() {
   return videos.map((video) => ({
@@ -43,8 +43,8 @@ export async function generateMetadata({ params }) {
       images: [ogImage],
     },
     other: {
-      "fc:frame": JSON.stringify(createFrame('Watch Video', ogImage, `${appUrl}/video/${video.id}`)),
-      "fc:miniapp": JSON.stringify(createFrame('Watch Video', ogImage, `${appUrl}/video/${video.id}`)),
+      "fc:frame": JSON.stringify(createMiniAppEmbed('Watch Video', ogImage, `${appUrl}/video/${video.id}`)),
+      "fc:miniapp": JSON.stringify(createMiniAppEmbed('Watch Video', ogImage, `${appUrl}/video/${video.id}`)),
     },
   }
 }
