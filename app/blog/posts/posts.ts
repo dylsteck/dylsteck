@@ -294,5 +294,13 @@ export const posts: MediaItem[] = [
       "description": 'An update on how app stores are forming inside of other apps, both in crypto and AI',
       "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1760931475/media/embedded-apps-oct-21.png",
       "type": "blog",
+    },
+    {
+      "id": "bring-your-coin-with-you",
+      "date": "November 23, 2025",
+      "title": "Bring your coin with you",
+      "description": "A new way for apps and creators to use coins",
+      "banner": "",
+      "type": "blog",
     }
   ];
