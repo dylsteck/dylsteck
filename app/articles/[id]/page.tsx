@@ -27,7 +27,8 @@ export async function generateMetadata({ params }) {
     summary: description,
     image,
   } = post.metadata;
-  let ogImage = postItem?.banner;
+  const ogImage = `${appUrl}/api/og/blog/${id}`;
+  const miniappImage = `${appUrl}/api/og/blog/${id}?miniapp=true`;
 
   return {
     title,
@@ -51,8 +52,8 @@ export async function generateMetadata({ params }) {
       images: [ogImage],
     },
     other: {
-      "fc:frame": JSON.stringify(createFrame('Read Post', ogImage, `${appUrl}/blog/${post.slug}`)),
-      "fc:miniapp": JSON.stringify(createFrame('Read Post', ogImage, `${appUrl}/blog/${post.slug}`)),
+      "fc:frame": JSON.stringify(createFrame('Read Post', miniappImage, `${appUrl}/blog/${post.slug}`)),
+      "fc:miniapp": JSON.stringify(createFrame('Read Post', miniappImage, `${appUrl}/blog/${post.slug}`)),
     },
   };
 }
