@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { appUrl, bannerImg, createFrame } from '../sitemap'
+import { appUrl, bannerImg, createMiniAppEmbed } from '../sitemap'
 import AppsGrid from './grid'
 
 type App = {
@@ -80,8 +80,8 @@ export function generateMetadata() {
       },
     },
     other: {
-      'fc:frame': JSON.stringify(createFrame()),
-      'fc:miniapp': JSON.stringify(createFrame()),
+      'fc:frame': JSON.stringify(createMiniAppEmbed()),
+      'fc:miniapp': JSON.stringify(createMiniAppEmbed()),
     },
   } as Metadata
 }
