@@ -24,13 +24,21 @@ export default function Carousel() {
   if (allMedia.length === 0) return null
 
   const currentItem = allMedia[currentIndex]
+  const origin = typeof window !== "undefined" ? window.location.origin : "https://dylansteck.com";
+
+  const postYear = new Date(currentItem?.date).getFullYear();
+  const useLegacyImage = postYear <= 2023;
+  
+  const banner = useLegacyImage 
+    ? (currentItem?.banner)
+    : `${origin}/api/og/blog/${currentItem.id}`;
 
   return (
     <div className="w-full h-full flex items-center justify-center p-4 md:p-10">
       <Link href={`/${currentItem.type}/${currentItem.id}`} className="max-w-full max-h-full flex items-center justify-center">
         <img
           key={currentIndex}
-          src={currentItem.banner}
+          src={banner}
           alt={currentItem.title}
           className="max-w-full max-h-full object-contain cursor-pointer"
           style={{
