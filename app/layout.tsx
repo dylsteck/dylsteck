@@ -67,13 +67,13 @@ export default function RootLayout({
       </Head>
       <body className="antialiased">
         <MiniAppProvider>
-          <Navbar />
-          <main className="flex-auto min-w-0 pt-20 pb-4 flex flex-col">
-            <div className="max-w-xl mx-4 lg:mx-auto px-2 md:px-0 w-full">
+          {/* <Navbar /> */}
+          <main className="flex-auto min-w-0 flex flex-col">
+            <div className="w-full h-full">
               {children}
             </div>
           </main>
-          <Footer />
+          {/* <Footer /> */}
         </MiniAppProvider>
         <Script
           strategy="afterInteractive"
