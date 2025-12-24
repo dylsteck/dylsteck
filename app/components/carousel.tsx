@@ -24,14 +24,13 @@ export default function Carousel() {
   if (allMedia.length === 0) return null
 
   const currentItem = allMedia[currentIndex]
-  const origin = typeof window !== "undefined" ? window.location.origin : "https://dylansteck.com";
-
   const postYear = new Date(currentItem?.date).getFullYear();
   const useLegacyImage = postYear <= 2023;
   
+  // Use relative URL to avoid hydration mismatch - works on both server and client
   const banner = useLegacyImage 
     ? (currentItem?.banner)
-    : `${origin}/api/og/blog/${currentItem.id}`;
+    : `/api/og/blog/${currentItem.id}`;
 
   return (
     <div className="w-full h-full flex items-center justify-center p-4 md:p-10">

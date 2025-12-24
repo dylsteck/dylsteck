@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import DSIcon from './icons/ds-icon'
+import DS3DIcon from './icons/ds-3d-icon'
 import LinksHover from './links-hover'
 import { useMiniApp } from './mini-app-provider'
 
@@ -28,9 +28,9 @@ export function Navbar() {
           <div className="flex flex-row items-center">
             <Link
               href="/"
-              className="cursor-pointer transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1"
+              className="cursor-pointer transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex items-center relative py-1 px-2 m-1"
             >
-              <DSIcon />
+              <DS3DIcon size="small" />
             </Link>
             {Object.entries(navItems).map(([path, { name }]) => {
               return (

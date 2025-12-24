@@ -4,7 +4,7 @@ import Media from './components/media'
 import Carousel from './components/carousel'
 import { Metadata } from 'next'
 import { appUrl, bannerImg, createMiniAppEmbed } from './sitemap'
-import DS3DIcon from './components/icons/ds-3d-icon'
+import Hologram from './components/hologram'
 
 export function generateMetadata(){
   return{
@@ -47,7 +47,7 @@ export default function Home(){
             <section className="md:fixed md:top-[68px] left-0 right-0 w-full bg-white dark:bg-black md:z-30 border-b border-neutral-200 dark:border-neutral-800">
                 <div className="flex flex-row">
                     <div className="w-full md:w-1/2 border-r border-neutral-200 dark:border-neutral-800 py-8 flex items-center justify-center">
-                        <DS3DIcon />
+                        <Hologram />
                     </div>
                     <div className="w-full md:w-1/2 px-8 py-8">
                         <h1 className="text-2xl font-semibold tracking-tighter">
