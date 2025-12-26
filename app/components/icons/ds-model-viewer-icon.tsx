@@ -49,7 +49,11 @@ export default function DSModelViewerIcon({ size = 'large' }: { size?: 'small' |
     
     modelViewer.setAttribute('src', '/models/ds-grey.glb')
     modelViewer.setAttribute('auto-rotate', '')
+    modelViewer.setAttribute('auto-rotate-delay', '0')
+    modelViewer.setAttribute('rotation-speed', '1') // Ensures smooth horizontal spin
+    modelViewer.setAttribute('shadow-intensity', '1')
     modelViewer.setAttribute('camera-controls', 'false')
+    modelViewer.setAttribute('interaction-prompt', 'none')
     modelViewer.setAttribute('interaction-policy', 'none')
     modelViewer.style.width = '100%'
     modelViewer.style.height = '100%'
@@ -68,7 +72,7 @@ export default function DSModelViewerIcon({ size = 'large' }: { size?: 'small' |
     ? { width: '36px', height: '36px' }
     : { width: '300px', height: '360px' }
   
-  const opacity = size === 'small' ? 0.8 : 0.5
+  const opacity = size === 'small' ? 0.8 : 0.8
 
   return (
     <div ref={containerRef} style={{ opacity, ...dimensions }} />
