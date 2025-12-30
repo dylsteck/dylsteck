@@ -1,6 +1,6 @@
 {
   "MD033": {
-    "allowed_elements": ["Tweet", "Cast"]
+    "allowed_elements": ["Tweet", "Cast", "Gallery"]
   },
   "MD013": false,
   "MD009": false,

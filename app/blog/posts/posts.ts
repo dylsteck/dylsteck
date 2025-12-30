@@ -302,5 +302,13 @@ export const posts: MediaItem[] = [
       "description": "A new way for apps and creators to use coins",
       "banner": "",
       "type": "blog",
-    }
+    },
+    {
+      "id": "2025-recap",
+      "date": "December 31, 2025",
+      "title": "2025 Recap",
+      "description": "2025 Recap",
+      "banner": "",
+      "type": "blog",
+    },
   ];

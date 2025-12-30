@@ -95,7 +95,7 @@ const Gallery = ({ id }: { id: string }) => {
 
   return (
     <>
-      <h1 className="text-2xl font-bold pb-1">{item.name}</h1>
+      <p className="text-3xl font-semibold">{item.name}</p>
       <p className="text-lg text-gray-700">{item.description}</p>
       <Filters
         filter={filter === null ? 'all' : filter}
