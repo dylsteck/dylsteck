@@ -808,5 +808,183 @@ export const allGalleryItems: GalleryItems[] = [
             imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1736198246/media/doing-numbers-episode-8-farhack-ideas-with-dylan-steck-thumbnail.png',
           }
         ]
+  },
+  { 
+    name: 'Best of 2025',
+    description: 'My favorite products, content, and writing from 2025',
+    id: '2025-recap-best',
+    articleSlug: '2025-recap',
+    items: [
+        {
+          title: 'Training the Idea Muscle',
+          type: GalleryItemType.article,
+          url: 'https://sfalexandria.com/posts/rileys-ideas/',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767020715/media/ideas-guy_riley_walz.webp',
+        },
+        {
+          title: 'Crypto Trends Report 2025 Edition',
+          type: GalleryItemType.article,
+          url: 'https://x.com/AlanaDLevin/status/1990804860027965727',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767021472/media/crypto_trends_report_2025_alana_levin.png',
+        },
+        {
+          title: 'Why My Generation Is Turning to ‘Financial Nihilism’',
+          type: GalleryItemType.article,
+          url: 'https://www.wsj.com/personal-finance/financial-nihilism-gen-z-gambling-meme-stocks-options-kyla-scanlon-7ae4f2aa',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767021607/media/financial-nihilism-gen-z-gambling-meme-stocks-options-kyla-scanlon.jpg',
+        },
+        {
+          title: 'Free and Valuable',
+          type: GalleryItemType.article,
+          url: 'https://jacob.energy/free-valuable.html',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767021711/media/free-valuable-hero.png',
+        },
+        {
+          title: 'The future of media is a bank',
+          type: GalleryItemType.article,
+          url: 'https://dirt-media.notion.site/The-future-of-media-is-a-bank-241471f2a18b80ac99f5cd0168ff4a0f',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767021881/media/the_future_of_media_is_a_bank_hero.jpg',
+        },
+        {
+          title: 'Malleable software',
+          type: GalleryItemType.article,
+          url: 'https://www.inkandswitch.com/essay/malleable-software/',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767021988/media/malleable_software_ink_and_switch_hero.jpg',
+        },
+        {
+          title: 'The Diplomat Season 3',
+          type: GalleryItemType.video,
+          url: 'https://www.netflix.com/title/81288983',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767022459/media/the_diplomat_netflix_hero.jpg',
+        },
+        {
+          title: 'Claude Code',
+          type: GalleryItemType.product,
+          url: 'https://www.claude.com/product/claude-code',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767022681/media/claude_code_hero.webp',
+        },
+        {
+          title: 'My Top Songs 2025',
+          type: GalleryItemType.music,
+          url: 'https://open.spotify.com/playlist/37i9dQZEVXdipEfhbmL2ls?si=268fbb12a43e4219',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767023473/media/spotify_wrapped_2025_hero.jpg',
+        },
+        {
+          title: 'fomo',
+          type: GalleryItemType.product,
+          url: 'https://fomo.family',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767023578/media/fomo_hero_2025.png',
+        },
+        {
+          title: 'Danger Testing',
+          type: GalleryItemType.product,
+          url: 'https://www.dangertesting.com',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767023783/media/danger_testing_hero_2025.png',
+        },
+        {
+          title: 'Wabi',
+          type: GalleryItemType.product,
+          url: 'https://wabi.ai',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767024517/media/wabi_ai_hero.jpg',
+        },
+        {
+          title: 'Noice',
+          type: GalleryItemType.product,
+          url: 'https://noice.so',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767026836/media/noice_so_hero.png',
+        },
+        {
+          title: 'Gizmo',
+          type: GalleryItemType.product,
+          url: 'https://gizmo.party',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767027050/media/gizmo_app_icon.webp',
+        },
+        {
+          title: 'Doji',
+          type: GalleryItemType.product,
+          url: 'https://doji.com',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767027104/media/doji_app_hero_2025.png',
+        },
+        {
+          title: 'Illusion of Life',
+          type: GalleryItemType.product,
+          url: 'https://illusionoflife.inc',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767026950/media/illusion_of_life_2025_hero.jpg',
+        },
+        {
+          title: 'Wishlist',
+          type: GalleryItemType.product,
+          url: 'https://base.app/app/wishlist.holiday',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767035322/media/wishlist_miniapp_hero.png',
+        },
+        {
+          title: 'Control The Stream',
+          type: GalleryItemType.product,
+          url: 'https://base.app/app/controlthestream.tv',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767035265/media/control_the_stream_miniapp_hero.png',
+        }
+      ]
+  }, 
+  {
+    name: '2025 Recap',
+    description: 'Every project and piece of content I launched or helped work on this year',
+    id: '2025-recap-portfolio',
+    articleSlug: '2025-recap',
+    items: [
+        {
+          title: 'The FarStack',
+          type: GalleryItemType.article,
+          url: 'https://dylansteck.com/blog/the-farstack',
+          imageUrl: 'https://dylansteck.com/api/og/blog/the-farstack',
+        },
+        {
+          title: 'When Wallets Meet Social',
+          type: GalleryItemType.article,
+          url: 'https://dylansteck.com/blog/when-wallets-meet-social',
+          imageUrl: 'https://dylansteck.com/api/og/blog/when-wallets-meet-social',
+        },
+        {
+          title: 'Embedded apps',
+          type: GalleryItemType.article,
+          url: 'https://dylansteck.com/blog/embedded-apps',
+          imageUrl: 'https://dylansteck.com/api/og/blog/embedded-apps',
+        },
+        {
+          title: 'Bring your coin with you',
+          type: GalleryItemType.article,
+          url: 'https://dylansteck.com/blog/bring-your-coin-with-you',
+          imageUrl: 'https://dylansteck.com/api/og/blog/bring-your-coin-with-you',
+        },
+        {
+          title: 'Purple People #39 - @dylsteck.eth',
+          type: GalleryItemType.video,
+          url: 'https://www.youtube.com/watch?v=7png4kEXn1o',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704142857/media/PurpleBanner.png',
+        },
+        {
+          title: 'Base app',
+          type: GalleryItemType.product,
+          url: 'https://base.app',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767022855/media/base_app_hero_dec_25.png',
+        },
+        {
+          title: 'This Week In Mini Apps: Coinbase Wallet',
+          type: GalleryItemType.video,
+          url: 'https://x.com/i/broadcasts/1nAJEgYwqwlKL',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767024125/media/this_week_in_miniapps_cbw_jul112025_hero.png',
+        },
+        {
+          title: 'Zero to Frames V2 in 60 Minutes',
+          type: GalleryItemType.video,
+          url: 'https://x.com/i/broadcasts/1MYxNwZAQwwKw',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767024241/media/zero_to_framesv2_in_60mins_feb72025_hero.png',
+        },
+        {
+          title: 'FarCon NYC: Builders Day Awards and Interviews',
+          type: GalleryItemType.video,
+          url: 'https://www.youtube.com/watch?v=ddvtQxqXSOE',
+          imageUrl: 'https://res.cloudinary.com/dz3c2rl2o/image/upload/v1767035649/media/farcon_nyc_builders_day_awards_and_interview_thumbnail.png',
+        }
+      ]
   }
 ]
