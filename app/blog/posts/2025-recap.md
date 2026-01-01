@@ -56,7 +56,7 @@ The last thing I want to point out on this subject is that this shift isn't just
 
 I was already using AI quite a bit in my programming workflow but this year completely changed both my workflow and what I thought could be possible here. I would say this is mainly due to progress that's been made in coding agents like Claude Code and even Cursor's agent/new model Composer. Using these tools properly has helped me move faster(easily double or triple my output), learn more, and take on larger tasks that would've felt nearly impossible or out of scope beforehand. 
 
-Three key features that have helped me out a ton are:
+Four key features that have helped me out a ton are:
 
 - Plan mode. Pioneered by Claude Code (like many agentic coding features were this year), this functionality has the agent focus on researching a plan for your task and even asks you clarifying questions to make the plan and its subsequent todos richer. 
 - Cloud agents. Whether it's using the Cursor background agent or most recently using Claude Code in Slack (which is extremely useful), being able to prompt an agent (or even multiple instances) to look into something while you're on the go is very useful and lets you both prototype and squash bugs faster.
