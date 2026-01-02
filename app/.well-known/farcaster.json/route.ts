@@ -28,9 +28,6 @@ export async function GET() {
       requiredCapabilities: ['actions.addMiniApp', 'actions.ready'],
       canonicalDomain: "dylansteck.com",
       tags: ["dylsteck", "blog", "news", "media", "homepage"]
-    },
-    "baseBuilder": {
-        "allowedAddresses": ["0x8342A48694A74044116F330db5050a267b28dD85"],
     }
   };
 

@@ -39,6 +39,7 @@ export function generateMetadata(){
       },
     },
     other: {
+      "base:app_id": '689795f24e177e29024ef622',
       "fc:frame": JSON.stringify(createMiniAppEmbed()),
       "fc:miniapp": JSON.stringify(createMiniAppEmbed()),
     },
