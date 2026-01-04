@@ -1,5 +1,5 @@
 import { appUrl } from 'app/sitemap'
-import { getBlogPosts } from 'app/blog/utils'
+import { getBlogPosts, processMarkdownComponents } from 'app/blog/utils'
 import { posts } from 'app/blog/posts/posts';
 
 function escapeXml(unsafe: string): string {
@@ -46,17 +46,8 @@ function convertMarkdownToHTML(markdown: string): string {
 }
 
 function processMarkdownForRSS(content: string): string {
-  let processed = content;
-
-  // Replace Tweet components with text references
-  processed = processed.replace(/<Tweet\s+id="([^"]+)"\s*\/>/g, (match, id) => {
-    return `[Tweet: https://x.com/x/status/${id}]`;
-  });
-
-  // Replace Cast components with text references
-  processed = processed.replace(/<Cast\s+id="([^"]+)"\s*\/>/g, (match, id) => {
-    return `[Cast: https://farcaster.xyz/${id}]`;
-  });
+  // Process MDX components (Tweet, Cast, Gallery)
+  let processed = processMarkdownComponents(content);
 
   // Convert markdown to HTML
   processed = convertMarkdownToHTML(processed);

@@ -3,6 +3,7 @@ import fs from 'fs'
 import path from 'path'
 import { socialLinks } from '../lib/constants'
 import { videos } from '../video/videos'
+import { processMarkdownComponents } from '../blog/utils'
 
 function readFileContent(filePath: string): string {
   try {
@@ -98,7 +99,10 @@ export async function GET() {
     // Add each markdown file's content with better headers
     sortedFiles.forEach((filePath) => {
       const relativePath = path.relative(projectRoot, filePath)
-      const fileContent = readFileContent(filePath)
+      let fileContent = readFileContent(filePath)
+      
+      // Process MDX components (Tweet, Cast, Gallery)
+      fileContent = processMarkdownComponents(fileContent)
       
       // Generate better header based on file type
       if (relativePath.includes('app/blog/posts/')) {

@@ -88,3 +88,23 @@ export function formatDate(date: string, includeRelative = false) {
 
   return `${fullDate} (${formattedDate})`
 }
+
+// Process MDX components in markdown content (Tweet, Cast, Gallery)
+export function processMarkdownComponents(content: string): string {
+  let processed = content;
+
+  // Replace Tweet components with text references
+  processed = processed.replace(/<Tweet\s+id="([^"]+)"\s*\/>/g, (match, id) => {
+    return `[Tweet: https://x.com/x/status/${id}]`;
+  });
+
+  // Replace Cast components with text references
+  processed = processed.replace(/<Cast\s+url="([^"]+)"\s*\/>/g, (match, url) => {
+    return `[Cast: ${url}]`;
+  });
+
+  // Remove Gallery components
+  processed = processed.replace(/<Gallery\s+id="[^"]+"\s*\/>/g, '');
+
+  return processed;
+}
