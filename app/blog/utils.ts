@@ -1,5 +1,7 @@
 import fs from 'fs'
 import path from 'path'
+import { allGalleryItems } from 'app/components/gallery/items'
+import { GalleryItemType } from 'app/types'
 
 type Metadata = {
   title: string
@@ -103,8 +105,45 @@ export function processMarkdownComponents(content: string): string {
     return `[Cast: ${url}]`;
   });
 
-  // Remove Gallery components
-  processed = processed.replace(/<Gallery\s+id="[^"]+"\s*\/>/g, '');
+  // Convert Gallery components to markdown format
+  processed = processed.replace(/<Gallery\s+id="([^"]+)"\s*\/>/g, (match, id) => {
+    const gallery = allGalleryItems.find((item) => item.id === id);
+    if (!gallery) {
+      return ''; // Return empty if gallery not found
+    }
+
+    // Group items by type
+    const itemsByType = new Map<string, Array<{ title: string; url: string }>>();
+    
+    gallery.items.forEach((item) => {
+      const typeName = item.type; // item.type is already the enum value string (e.g., "Article")
+      if (!itemsByType.has(typeName)) {
+        itemsByType.set(typeName, []);
+      }
+      itemsByType.get(typeName)!.push({ title: item.title, url: item.url });
+    });
+
+    // Sort types alphabetically
+    const sortedTypes = Array.from(itemsByType.keys()).sort();
+
+    // Build markdown
+    let markdown = `${gallery.name}\n${gallery.description}\n\n`;
+
+    sortedTypes.forEach((typeName) => {
+      // Pluralize category name (e.g., "Article" -> "Articles", "NFT" -> "NFTs", "Music" stays "Music")
+      const pluralName = typeName === 'NFT' ? 'NFTs' : typeName === 'Music' ? 'Music' : `${typeName}s`;
+      markdown += `${pluralName}\n`;
+      const items = itemsByType.get(typeName)!;
+      // Sort items alphabetically by title
+      items.sort((a, b) => a.title.localeCompare(b.title));
+      items.forEach((item) => {
+        markdown += `- [${item.title}](${item.url})\n`;
+      });
+      markdown += '\n';
+    });
+
+    return markdown.trim();
+  });
 
   return processed;
 }
