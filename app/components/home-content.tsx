@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Hologram from './hologram'
 import DSModelViewerIcon from './icons/ds-model-viewer-icon'
 import AquaBubble from './aqua-bubble'
+import BubbleModal from './bubble-modal'
 
 function CurvedLabelBubble({ 
     text, 
@@ -60,10 +61,23 @@ function CurvedLabelBubble({
 export default function HomeContent() {
     const [showHologram, setShowHologram] = useState(false)
     const [isPopped, setIsPopped] = useState(false)
+    const [openModal, setOpenModal] = useState<'feed' | 'apps' | null>(null)
 
     const handleHologramClick = () => {
         setIsPopped(true)
         setTimeout(() => setShowHologram(true), 300)
+    }
+
+    const handleFeedClick = () => {
+        setOpenModal('feed')
+    }
+
+    const handleAppsClick = () => {
+        setOpenModal('apps')
+    }
+
+    const handleCloseModal = () => {
+        setOpenModal(null)
     }
 
     return(
@@ -83,6 +97,7 @@ export default function HomeContent() {
                             size={120} 
                             className="top-0 -left-52"
                             floatDelay={0.5}
+                            onClick={handleFeedClick}
                         />
 
                         {/* Apps Bubble */}
@@ -91,6 +106,7 @@ export default function HomeContent() {
                             size={130} 
                             className="top-48 -left-52"
                             floatDelay={2}
+                            onClick={handleAppsClick}
                         />
 
                         {/* The "Trapped" Hologram Bubble */}
@@ -130,6 +146,24 @@ export default function HomeContent() {
                     </div>
                 </div>
             )}
+
+            {/* Feed Modal */}
+            <BubbleModal
+                isOpen={openModal === 'feed'}
+                onClose={handleCloseModal}
+                title="feed"
+            >
+                {/* Content will be added here later */}
+            </BubbleModal>
+
+            {/* Apps Modal */}
+            <BubbleModal
+                isOpen={openModal === 'apps'}
+                onClose={handleCloseModal}
+                title="apps"
+            >
+                {/* Content will be added here later */}
+            </BubbleModal>
 
             <style jsx global>{`
                 @keyframes slide-in-from-bottom-right {
