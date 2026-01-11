@@ -4,6 +4,7 @@ import { videos } from '../videos';
 import { MediaItem } from 'app/types';
 import Video from 'app/components/video';
 import { appUrl, createMiniAppEmbed } from 'app/sitemap';
+import BackNav from 'app/components/back-nav';
 
 export async function generateStaticParams() {
   return videos.map((video) => ({
@@ -53,8 +54,11 @@ export default async function VideoPage({ params }){
   const { id: ytId } = await params;
 
   return (
-    <div className="max-w-xl mx-4 lg:mx-auto px-2 md:px-0">
-      <Video ytId={ytId} />
-    </div>
+    <>
+      <BackNav />
+      <div className="max-w-xl mx-4 lg:mx-auto px-2 md:px-0 pt-20">
+        <Video ytId={ytId} />
+      </div>
+    </>
   );
 };

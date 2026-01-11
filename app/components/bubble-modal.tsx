@@ -1,19 +1,21 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface BubbleModalProps {
   isOpen: boolean
   onClose: () => void
   children?: React.ReactNode
   title?: string
+  isClosing?: boolean
 }
 
 export default function BubbleModal({ 
   isOpen, 
   onClose, 
   children,
-  title 
+  title,
+  isClosing = false
 }: BubbleModalProps) {
   const modalRef = useRef<HTMLDivElement>(null)
   const backdropRef = useRef<HTMLDivElement>(null)
@@ -45,7 +47,7 @@ export default function BubbleModal({
     }
   }
 
-  if (!isOpen) return null
+  if (!isOpen && !isClosing) return null
 
   return (
     <>
@@ -53,7 +55,9 @@ export default function BubbleModal({
       <div
         ref={backdropRef}
         onClick={handleBackdropClick}
-        className="fixed inset-0 z-40 bg-black/30 dark:bg-black/50 backdrop-blur-md animate-fade-in"
+        className={`fixed inset-0 z-40 bg-black/30 dark:bg-black/50 backdrop-blur-md ${
+          isClosing ? 'animate-fade-out' : 'animate-fade-in'
+        }`}
       />
 
       {/* Modal */}
@@ -61,7 +65,9 @@ export default function BubbleModal({
         ref={modalRef}
         className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
       >
-        <div className="relative w-full max-w-2xl max-h-[90vh] pointer-events-auto overflow-hidden animate-bubble-in bubble-modal-container">
+        <div className={`relative w-full max-w-2xl max-h-[90vh] pointer-events-auto overflow-hidden ${
+          isClosing ? 'animate-bubble-pop-out' : 'animate-bubble-in bubble-modal-container'
+        }`}>
           {/* Main Bubble Container */}
           <div className="relative w-full h-full bg-white/70 dark:bg-black/70 backdrop-blur-2xl rounded-[4rem] border border-white/30 dark:border-white/15 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,255,255,0.1)_inset] overflow-hidden">
             {/* Glossy Overlay - Top Highlight */}
@@ -117,7 +123,7 @@ export default function BubbleModal({
             {/* Content */}
             <div className="relative z-10 p-6 sm:p-8 md:p-10 overflow-y-auto max-h-[90vh] scrollbar-hide">
               {title && (
-                <h2 className="text-xl sm:text-2xl font-bold mb-6 text-neutral-900 dark:text-neutral-100 uppercase tracking-wider">
+                <h2 className="text-xl sm:text-2xl font-bold mb-6 text-neutral-900 dark:text-neutral-100 tracking-wider">
                   {title}
                 </h2>
               )}
@@ -167,12 +173,44 @@ export default function BubbleModal({
           }
         }
 
+        @keyframes bubble-pop-out {
+          0% {
+            opacity: 1;
+            transform: scale(1) translate(0, 0);
+          }
+          50% {
+            opacity: 0.7;
+            transform: scale(0.5) translate(0, 0);
+          }
+          100% {
+            opacity: 0;
+            transform: scale(0.3) translate(0, 0);
+          }
+        }
+
+        @keyframes fade-out {
+          from {
+            opacity: 1;
+          }
+          to {
+            opacity: 0;
+          }
+        }
+
         .animate-fade-in {
           animation: fade-in 0.3s ease-out;
         }
 
+        .animate-fade-out {
+          animation: fade-out 0.4s ease-in;
+        }
+
         .animate-bubble-in {
           animation: bubble-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .animate-bubble-pop-out {
+          animation: bubble-pop-out 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .bubble-modal-container {

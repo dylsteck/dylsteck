@@ -1,10 +1,12 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Hologram from './hologram'
 import DSModelViewerIcon from './icons/ds-model-viewer-icon'
 import AquaBubble from './aqua-bubble'
 import BubbleModal from './bubble-modal'
+import FeedContent from './feed-content'
 
 function CurvedLabelBubble({ 
     text, 
@@ -59,9 +61,11 @@ function CurvedLabelBubble({
 }
 
 export default function HomeContent() {
+    const router = useRouter()
     const [showHologram, setShowHologram] = useState(false)
     const [isPopped, setIsPopped] = useState(false)
     const [openModal, setOpenModal] = useState<'feed' | 'apps' | null>(null)
+    const [isClosingModal, setIsClosingModal] = useState(false)
 
     const handleHologramClick = () => {
         setIsPopped(true)
@@ -70,14 +74,33 @@ export default function HomeContent() {
 
     const handleFeedClick = () => {
         setOpenModal('feed')
+        setIsClosingModal(false)
     }
 
     const handleAppsClick = () => {
         setOpenModal('apps')
+        setIsClosingModal(false)
     }
 
     const handleCloseModal = () => {
-        setOpenModal(null)
+        setIsClosingModal(true)
+        setTimeout(() => {
+            setOpenModal(null)
+            setIsClosingModal(false)
+        }, 400)
+    }
+
+    const handleFeedItemClick = (url: string) => {
+        setIsClosingModal(true)
+        // Start navigation during animation (~100ms delay)
+        setTimeout(() => {
+            router.push(url)
+        }, 100)
+        // Close modal after animation completes
+        setTimeout(() => {
+            setOpenModal(null)
+            setIsClosingModal(false)
+        }, 400)
     }
 
     return(
@@ -152,8 +175,9 @@ export default function HomeContent() {
                 isOpen={openModal === 'feed'}
                 onClose={handleCloseModal}
                 title="feed"
+                isClosing={isClosingModal && openModal === 'feed'}
             >
-                {/* Content will be added here later */}
+                <FeedContent onItemClick={handleFeedItemClick} />
             </BubbleModal>
 
             {/* Apps Modal */}
