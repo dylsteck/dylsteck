@@ -8,6 +8,7 @@ import AquaBubble from './aqua-bubble'
 import BubbleModal from './bubble-modal'
 import FeedContent from './feed-content'
 import MediaGrid from './media-grid'
+import AboutText from './about-text'
 
 function CurvedLabelBubble({ 
     text, 
@@ -115,6 +116,11 @@ export default function HomeContent() {
                 <div className="relative">
                     <DSModelViewerIcon size="large" />
                 </div>
+            </div>
+
+            {/* Engineer at Base - Bottom left */}
+            <div className="fixed bottom-6 left-6 z-30 pointer-events-auto">
+                <AboutText />
             </div>
 
             {/* Scrollable Media Grid - Commented out for now */}

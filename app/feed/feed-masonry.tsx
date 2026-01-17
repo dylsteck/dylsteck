@@ -227,13 +227,13 @@ function FeedMasonryItem({ item, index, shouldAnimate }: { item: FeedItem; index
       style={shouldAnimate ? { animationDelay: `${Math.min(index * 50, 500)}ms` } : undefined}
     >
       <div className="transition-all duration-300 hover:opacity-90">
-        <div className="relative w-full mb-2">
+        {/* Fixed aspect ratio container: 1200x630 (OG image standard) */}
+        <div className="relative w-full mb-2 aspect-[1200/630] overflow-hidden rounded-sm">
           <Image
             src={item.imageUrl}
             alt={item.title}
-            width={600}
-            height={800}
-            className="w-full h-auto object-cover rounded-sm"
+            fill
+            className="object-cover"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         </div>

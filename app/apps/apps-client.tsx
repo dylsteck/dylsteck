@@ -2,14 +2,7 @@
 
 import { useEffect } from 'react'
 import AppsGrid from './grid'
-
-type App = {
-  id: number
-  name: string
-  imageUrl: string
-  url: string
-  hidden?: boolean
-}
+import type { App } from './page'
 
 interface AppsPageClientProps {
   apps: App[]
@@ -29,7 +22,7 @@ export default function AppsPageClient({ apps }: AppsPageClientProps) {
   }, [])
 
   return (
-    <div className="min-h-screen w-full bg-black">
+    <div className="min-h-screen w-full bg-white dark:bg-black">
       <AppsGrid apps={apps} />
     </div>
   )

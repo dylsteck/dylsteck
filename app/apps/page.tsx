@@ -2,8 +2,7 @@ import { Metadata } from 'next'
 import { appUrl, bannerImg, createMiniAppEmbed } from '../sitemap'
 import AppsPageClient from './apps-client'
 
-type App = {
-  id: number
+export type App = {
   name: string
   imageUrl: string
   url: string
@@ -12,42 +11,45 @@ type App = {
 
 const apps: App[] = [
   {
-    id: 1,
     name: 'bec.watch',
     imageUrl: 'https://i.imgur.com/ylSBHuG.png',
-    url: 'https://bec.watch',
+    url: 'https://becwatch.vercel.app',
   },
   {
-    id: 2,
     name: 'Casterscan',
     imageUrl:
       'https://proxy.wrpcd.net/?url=https%3A%2F%2Fi.imgur.com%2FPD1XTs5.jpeg&s=b941d7bb7bc34acf57038dc3cea0360a5a2a453e4a00044a4ebf2b2c98c1827f',
     url: 'https://casterscan.com',
   },
   {
-    id: 3,
     name: 'FarHack',
     imageUrl: 'https://farhack.xyz/icons/icon-512x512.png',
     url: 'https://farhack.xyz',
   },
   {
-    id: 4,
     name: 'litecast',
     imageUrl: 'https://i.imgur.com/ghxT2nT.png',
-    url: 'https://github.com/dylsteck/litecast',
+    url: 'https://litecast.xyz',
   },
   {
-    id: 5,
     name: 'tap',
     imageUrl: 'https://i.imgur.com/8Knijje.png',
     url: 'https://tap.computer',
   },
   {
-    id: 6,
-    name: 'Prompt Arena',
-    imageUrl: 'https://promptarena.xyz/splash.png',
+    name: 'prompt arena',
+    imageUrl: 'https://i.imgur.com/gqX2VkV.png',
     url: 'https://promptarena.xyz',
-    hidden: true,
+  },
+  {
+    name: 'Base',
+    imageUrl: 'https://res.cloudinary.com/base-app/image/upload/f_auto/v1766017009/7c0c93f6-8252-41d2-9696-594a07232e86.png',
+    url: 'https://base.xyz',
+  },
+  {
+    name: 'The Terminal',
+    imageUrl: 'https://i.imgur.com/zXbk9g9.png',
+    url: 'https://farcaster.xyz/yb/0x80ad5a55',
   },
 ]
 
