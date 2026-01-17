@@ -7,6 +7,7 @@ import DSModelViewerIcon from './icons/ds-model-viewer-icon'
 import AquaBubble from './aqua-bubble'
 import BubbleModal from './bubble-modal'
 import FeedContent from './feed-content'
+import TypewriterText from './typewriter-text'
 
 function CurvedLabelBubble({ 
     text, 
@@ -188,6 +189,14 @@ export default function HomeContent() {
             >
                 {/* Content will be added here later */}
             </BubbleModal>
+
+            {/* Typewriter Text - Bottom Right */}
+            <div className="fixed bottom-6 left-[50%] sm:left-[55%] z-10 max-w-xs sm:max-w-sm text-xs sm:text-sm text-neutral-500 dark:text-neutral-500 leading-relaxed">
+                <TypewriterText 
+                    text="Dylan Steck is an engineer building products onchain that give people more agency. He is currently working at Base and exploring new personal interfaces."
+                    speed={30}
+                />
+            </div>
 
             <style jsx global>{`
                 @keyframes slide-in-from-bottom-right {
