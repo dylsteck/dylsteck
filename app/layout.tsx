@@ -5,6 +5,7 @@ import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import { Navbar } from './components/nav'
 import Footer from './components/footer'
+import Topbar from './components/topbar'
 import { appUrl, bannerImg, createMiniAppEmbed } from './sitemap'
 import Head from 'next/head'
 import Script from 'next/script'
@@ -65,8 +66,9 @@ export default function RootLayout({
       <Head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </Head>
-      <body className="antialiased">
+      <body className="antialiased bg-white dark:bg-black">
         <MiniAppProvider>
+          <Topbar />
           {/* <Navbar /> */}
           <main className="flex-auto min-w-0 flex flex-col">
             <div className="w-full h-full">

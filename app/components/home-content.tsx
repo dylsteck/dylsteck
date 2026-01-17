@@ -7,7 +7,7 @@ import DSModelViewerIcon from './icons/ds-model-viewer-icon'
 import AquaBubble from './aqua-bubble'
 import BubbleModal from './bubble-modal'
 import FeedContent from './feed-content'
-import TypewriterText from './typewriter-text'
+import MediaGrid from './media-grid'
 
 function CurvedLabelBubble({ 
     text, 
@@ -106,50 +106,54 @@ export default function HomeContent() {
 
     return(
         <>
-            <div className="fixed inset-0 flex items-center justify-center bg-white dark:bg-black overflow-hidden">
+            {/* Main page background */}
+            <div className="fixed inset-0 bg-white dark:bg-black -z-10" />
+
+
+            {/* The 3D Logo - Fixed and always visible */}
+            <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-20">
                 <div className="relative">
-                    {/* The 3D Logo */}
-                    <div className="relative z-0">
-                        <DSModelViewerIcon size="large" />
-                    </div>
-
-                    {/* The Bubbles Container */}
-                    <div className="absolute inset-0 z-10 pointer-events-none">
-                        {/* Feed Bubble */}
-                        <CurvedLabelBubble 
-                            text="feed" 
-                            size={120} 
-                            className="top-0 -left-52"
-                            floatDelay={0.5}
-                            onClick={handleFeedClick}
-                        />
-
-                        {/* Apps Bubble */}
-                        <CurvedLabelBubble 
-                            text="apps" 
-                            size={130} 
-                            className="top-48 -left-52"
-                            floatDelay={2}
-                            onClick={handleAppsClick}
-                        />
-
-                        {/* The "Trapped" Hologram Bubble */}
-                        {!isPopped && (
-                            <CurvedLabelBubble 
-                                text="meet me" 
-                                size={150} 
-                                className="-top-4 -right-48"
-                                floatDelay={1.5}
-                                onClick={handleHologramClick}
-                            >
-                                <div className="scale-[0.4] transition-all duration-500 group-hover:scale-[0.45] group-hover:brightness-110">
-                                    <Hologram />
-                                </div>
-                            </CurvedLabelBubble>
-                        )}
-                    </div>
+                    <DSModelViewerIcon size="large" />
                 </div>
             </div>
+
+            {/* Scrollable Media Grid - Commented out for now */}
+            {/* <div className="relative z-10 bg-white dark:bg-black min-h-screen">
+                <MediaGrid />
+            </div> */}
+
+            {/* The Bubbles Container - Commented out for now */}
+            {/* <div className="absolute inset-0 z-10 pointer-events-none">
+                <CurvedLabelBubble 
+                    text="feed" 
+                    size={120} 
+                    className="top-0 -left-52"
+                    floatDelay={0.5}
+                    onClick={handleFeedClick}
+                />
+
+                <CurvedLabelBubble 
+                    text="apps" 
+                    size={130} 
+                    className="top-48 -left-52"
+                    floatDelay={2}
+                    onClick={handleAppsClick}
+                />
+
+                {!isPopped && (
+                    <CurvedLabelBubble 
+                        text="meet me" 
+                        size={150} 
+                        className="-top-4 -right-48"
+                        floatDelay={1.5}
+                        onClick={handleHologramClick}
+                    >
+                        <div className="scale-[0.4] transition-all duration-500 group-hover:scale-[0.45] group-hover:brightness-110">
+                            <Hologram />
+                        </div>
+                    </CurvedLabelBubble>
+                )}
+            </div> */}
 
             {/* Full size hologram after pop */}
             {showHologram && (
@@ -189,14 +193,6 @@ export default function HomeContent() {
             >
                 {/* Content will be added here later */}
             </BubbleModal>
-
-            {/* Typewriter Text - Bottom Right */}
-            <div className="fixed bottom-6 left-[50%] sm:left-[55%] z-10 max-w-xs sm:max-w-sm text-xs sm:text-sm text-neutral-500 dark:text-neutral-500 leading-relaxed">
-                <TypewriterText 
-                    text="Dylan Steck is an engineer building products onchain that give people more agency. He is currently working at Base and exploring new personal interfaces."
-                    speed={30}
-                />
-            </div>
 
             <style jsx global>{`
                 @keyframes slide-in-from-bottom-right {

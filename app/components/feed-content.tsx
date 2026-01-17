@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import { useState } from 'react'
 import { TabType, MediaItem } from 'app/types'
 import { videos } from 'app/video/videos'
 import { posts } from 'app/blog/posts/posts'
@@ -10,31 +10,18 @@ interface FeedContentProps {
 }
 
 export default function FeedContent({ onItemClick }: FeedContentProps) {
-    const allItems = posts.concat(videos)
-    const [activeTab, setActiveTab] = React.useState<TabType>('all')
-    const [activeItems, setActiveItems] = React.useState<MediaItem[]>(allItems)
+    const [activeTab, setActiveTab] = useState<TabType>('all')
 
-    const handleTabClick = (newTab: TabType) => {
-        if (newTab !== activeTab) {
-            setActiveTab(newTab)
-            switch (newTab) {
-                case 'all': {
-                    setActiveItems(allItems)
-                    break
-                }
-                case 'blog': {
-                    setActiveItems(posts)
-                    break
-                }
-                case 'video': {
-                    setActiveItems(videos)
-                    break
-                }
-            }
-        }
-    }
+    // Calculate active items from activeTab during render - no need for separate state
+    // Following React best practices: https://react.dev/learn/you-might-not-need-an-effect
+    const activeItems = activeTab === 'all' 
+        ? posts.concat(videos)
+        : activeTab === 'blog' 
+            ? posts 
+            : videos
 
-    const sortedItems = activeItems.sort(
+    // Sort items during render
+    const sortedItems = [...activeItems].sort(
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     )
 
@@ -43,7 +30,7 @@ export default function FeedContent({ onItemClick }: FeedContentProps) {
             {/* Tabs */}
             <div className="mb-6 flex flex-row gap-2 items-center text-neutral-700 dark:text-neutral-300">
                 <button
-                    onClick={() => handleTabClick('all')}
+                    onClick={() => setActiveTab('all')}
                     className={`cursor-pointer transition-all duration-200 hover:opacity-70 ${
                         activeTab === 'all' ? 'font-semibold text-neutral-900 dark:text-neutral-100' : ''
                     }`}
@@ -52,7 +39,7 @@ export default function FeedContent({ onItemClick }: FeedContentProps) {
                 </button>
                 <span className="text-neutral-400 dark:text-neutral-600">/</span>
                 <button
-                    onClick={() => handleTabClick('blog')}
+                    onClick={() => setActiveTab('blog')}
                     className={`cursor-pointer transition-all duration-200 hover:opacity-70 ${
                         activeTab === 'blog' ? 'font-semibold text-neutral-900 dark:text-neutral-100' : ''
                     }`}
@@ -61,7 +48,7 @@ export default function FeedContent({ onItemClick }: FeedContentProps) {
                 </button>
                 <span className="text-neutral-400 dark:text-neutral-600">/</span>
                 <button
-                    onClick={() => handleTabClick('video')}
+                    onClick={() => setActiveTab('video')}
                     className={`cursor-pointer transition-all duration-200 hover:opacity-70 ${
                         activeTab === 'video' ? 'font-semibold text-neutral-900 dark:text-neutral-100' : ''
                     }`}

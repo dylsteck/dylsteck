@@ -6,6 +6,10 @@ interface CastProps {
 }
 
 export default function Cast({ url, ...props }: CastProps) {
-  return <FarcasterEmbed url={url} {...props} />
+  return (
+    <div className="max-w-[600px] mx-auto my-6">
+      <FarcasterEmbed url={url} {...props} />
+    </div>
+  )
 }
 

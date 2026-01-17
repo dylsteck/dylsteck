@@ -25,10 +25,10 @@ export default function AppsGrid({ apps }: AppsGridProps) {
 
   return (
     <div className="w-full max-w-5xl mx-auto px-6 pt-24 pb-12 flex flex-col items-center min-h-screen">
-      <div className="relative w-full max-w-md mb-16 group">
-        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+      <div className="relative w-full max-w-sm mb-12 group">
+        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <svg
-            className="h-5 w-5 text-neutral-400 group-focus-within:text-white transition-colors duration-200"
+            className="h-4 w-4 text-neutral-300 group-focus-within:text-white transition-colors duration-200"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
@@ -43,10 +43,11 @@ export default function AppsGrid({ apps }: AppsGridProps) {
         </div>
         <input
           type="text"
-          className="block w-full pl-11 pr-4 py-3 bg-neutral-800/50 border border-neutral-700/50 rounded-xl text-neutral-200 placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-white/20 focus:bg-neutral-800/80 transition-all duration-200 backdrop-blur-md text-lg"
+          className="block w-full pl-9 pr-3 py-2 bg-neutral-800/40 border border-neutral-700/40 rounded-lg text-neutral-200 placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-neutral-500/50 focus:bg-neutral-800/60 transition-all duration-200 text-sm"
           placeholder="Search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          aria-label="Search apps"
         />
       </div>
 

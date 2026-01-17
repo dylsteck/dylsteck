@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { appUrl, bannerImg, createMiniAppEmbed } from '../sitemap'
-import AppsGrid from './grid'
+import AppsPageClient from './apps-client'
 
 type App = {
   id: number
@@ -87,9 +87,5 @@ export function generateMetadata() {
 }
 
 export default function AppsPage() {
-  return (
-    <div className="min-h-screen w-full bg-black">
-      <AppsGrid apps={apps} />
-    </div>
-  )
+  return <AppsPageClient apps={apps} />
 }

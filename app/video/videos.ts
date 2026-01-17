@@ -86,7 +86,7 @@ export const videos: MediaItem[] = [
         "date": "November 7, 2023",
         "title": "OpenAI DevDay Recap",
         "description": "I had an amazing time at OpenAI's inaugural Dev Day and caught a glimpse of how their new products will push instruction, knowledge, and actions into the hands of more users and developers.",
-        "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1715546786/media/openai-dev-day-video-cover_wg8pmr.jpg",
+        "banner": "https://res.cloudinary.com/dz3c2rl2o/image/upload/v1704262637/media/openai-dev-day-recap-yt-thumbnail.jpg",
         "type": 'video'
     },
     {

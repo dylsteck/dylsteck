@@ -3,7 +3,6 @@ import { CustomMDX } from 'app/components/mdx';
 import { formatDate, getBlogPosts } from 'app/blog/utils';
 import { posts } from '../posts/posts';
 import { appUrl, bannerImg, createMiniAppEmbed } from 'app/sitemap';
-import BackNav from 'app/components/back-nav';
 
 export async function generateStaticParams() {
   let posts = getBlogPosts();
@@ -75,9 +74,8 @@ export default async function Blog({ params }) {
   }
 
   return (
-    <>
-      <BackNav />
-      <section className="max-w-xl mx-4 lg:mx-auto px-2 md:px-0 pt-20">
+    <div className="min-h-screen w-full bg-white dark:bg-black">
+      <section className="max-w-4xl mx-auto px-6 sm:px-8 pt-12 sm:pt-16">
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -117,6 +115,6 @@ export default async function Blog({ params }) {
         <CustomMDX source={post.content} />
       </article>
     </section>
-    </>
+    </div>
   );
 }

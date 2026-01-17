@@ -31,6 +31,21 @@
 
 html {
   min-width: 360px;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+body {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 .prose .anchor {
@@ -79,28 +94,28 @@ html {
 }
 
 .prose img {
-  /* Don't apply styles to next/image */
-  @apply m-0;
+  /* Center images and add spacing */
+  @apply mx-auto my-6 block;
 }
 
 .prose p {
-  @apply my-4 text-neutral-800 dark:text-neutral-200;
+  @apply my-4 text-black dark:text-white;
 }
 
 .prose h1 {
-  @apply text-4xl font-medium tracking-tight mt-6 mb-2;
+  @apply text-4xl font-medium tracking-tight mt-6 mb-2 text-black dark:text-white;
 }
 
 .prose h2 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
+  @apply text-xl font-medium tracking-tight mt-6 mb-2 text-black dark:text-white;
 }
 
 .prose h3 {
-  @apply text-xl font-medium tracking-tight mt-6 mb-2;
+  @apply text-xl font-medium tracking-tight mt-6 mb-2 text-black dark:text-white;
 }
 
 .prose h4 {
-  @apply text-lg font-medium tracking-tight mt-6 mb-2;
+  @apply text-lg font-medium tracking-tight mt-6 mb-2 text-black dark:text-white;
 }
 
 .prose strong {
@@ -108,18 +123,18 @@ html {
 }
 
 .prose ul {
-  @apply list-disc pl-6;
+  @apply list-disc pl-6 text-black dark:text-white;
 }
 
 .prose ol {
-  @apply list-decimal pl-6;
+  @apply list-decimal pl-6 text-black dark:text-white;
 }
 
-.prose > :first-child {
-  /* Override removing top margin, causing layout shift */
-  margin-top: 1.25em !important;
-  margin-bottom: 1.25em !important;
-}
+  .prose > :first-child {
+    /* Override removing top margin, causing layout shift */
+    margin-top: 1.25em !important;
+    margin-bottom: 1.25em !important;
+  }
 
 pre::-webkit-scrollbar {
   display: none;
@@ -163,6 +178,18 @@ table {
     display: none; /* Chrome, Safari, Opera */
   }
 
+  /* Hide scrollbar on body/html */
+  body.scrollbar-hide,
+  html.scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  body.scrollbar-hide::-webkit-scrollbar,
+  html.scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
   /* Aqua Aesthetic Utilities */
   .aqua-glossy {
     background: linear-gradient(180deg, 
@@ -195,5 +222,110 @@ table {
 
   .animate-float {
     animation: float 8s ease-in-out infinite;
+  }
+
+  /* Masonry Grid */
+  .masonry-grid {
+    column-count: 1;
+    column-gap: 1.5rem;
+  }
+
+  .masonry-grid > * {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    vertical-align: top;
+  }
+
+  /* Mobile: vertical list with less spacing - disable masonry columns */
+  @media (max-width: 639px) {
+    .feed-grid {
+      column-count: 1 !important;
+      column-gap: 0;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    
+    .feed-grid > * {
+      margin-bottom: 0.5rem;
+      break-inside: auto !important;
+    }
+    
+    /* Blog and video items get more spacing */
+    .feed-grid > a {
+      margin-bottom: 1.5rem !important;
+    }
+    
+    /* Farcaster casts get minimal spacing on mobile */
+    .feed-grid .farcaster-embed-wrapper {
+      margin-bottom: -5% !important;
+      transform: scale(0.9);
+      width: 111%; /* Compensate for scale (1/0.9) */
+    }
+    
+    .feed-grid .farcaster-embed-wrapper .farcaster-embed-container {
+      margin-bottom: 0 !important;
+      margin-top: 0 !important;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .masonry-grid {
+      column-count: 2;
+      column-gap: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .masonry-grid {
+      column-count: 3;
+      column-gap: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .masonry-grid {
+      column-count: 3;
+      column-gap: 2rem;
+    }
+  }
+
+  /* Make Farcaster embeds smaller - only in feed, not in blog posts */
+  .feed-grid .farcaster-embed-wrapper {
+    transform: scale(0.85);
+    transform-origin: top left;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    display: inline-block;
+    width: 117.65%; /* Compensate for scale (1/0.85) */
+    margin-left: 0;
+    margin-right: 0;
+    overflow: hidden;
+    max-width: 100%;
+    /* Reduce bottom spacing */
+    margin-bottom: 0.5rem !important;
+  }
+
+  .feed-grid .farcaster-embed-wrapper .farcaster-embed-container {
+    font-size: 0.9em;
+  }
+
+  /* Feed items fade-in animation */
+  @keyframes feed-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .feed-item-fade-in {
+    animation: feed-fade-in 0.4s ease-out forwards;
+    opacity: 0;
   }
 }
