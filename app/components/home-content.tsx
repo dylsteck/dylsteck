@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Hologram from './hologram'
-import DSModelViewerIcon from './icons/ds-model-viewer-icon'
+import DS3DIcon from './icons/ds-3d-icon'
 import AquaBubble from './aqua-bubble'
 import BubbleModal from './bubble-modal'
 import FeedContent from './feed-content'
@@ -113,8 +113,8 @@ export default function HomeContent() {
 
             {/* The 3D Logo - Fixed and always visible */}
             <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-20">
-                <div className="relative">
-                    <DSModelViewerIcon size="large" />
+                <div className="relative scale-125 -mt-16">
+                    <DS3DIcon size="large" />
                 </div>
             </div>
 
