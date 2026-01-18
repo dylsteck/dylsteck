@@ -129,39 +129,47 @@ function Model({ size = 'large' }: { size?: 'small' | 'large' }) {
     return clone
   }, [scene])
 
-  // Center and scale the model
-  useEffect(() => {
-    if (clonedScene) {
-      const box = new THREE.Box3().setFromObject(clonedScene)
-      const center = box.getCenter(new THREE.Vector3())
-      const sizeObj = box.getSize(new THREE.Vector3())
-      
-      // Center the model
-      clonedScene.position.x = -center.x
-      clonedScene.position.y = -center.y
-      clonedScene.position.z = -center.z
-      
-      // Scale based on size prop
-      const maxDim = Math.max(sizeObj.x, sizeObj.y, sizeObj.z)
-      const baseScale = size === 'small' ? 1.9 : 3.5
-      const scale = baseScale / maxDim
-      clonedScene.scale.set(scale, scale, scale)
-      
-      // Move down slightly for small size to prevent top clipping
-      if (size === 'small') {
-        clonedScene.position.y -= 0.1
-      }
-      
-      // Apply holographic material to all meshes
-      clonedScene.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
-          const holoMaterial = new HolographicMaterial()
-          holoMaterial.transparent = true
-          holoMaterial.side = THREE.DoubleSide
-          child.material = holoMaterial
-        }
-      })
+  // Center and scale the model - use useMemo to ensure consistent positioning
+  const positionedScene = useMemo(() => {
+    if (!clonedScene) return clonedScene
+    
+    // Create a fresh clone to avoid mutations
+    const scene = clonedScene.clone(true)
+    
+    // Reset scale first
+    scene.scale.set(1, 1, 1)
+    
+    const box = new THREE.Box3().setFromObject(scene)
+    const center = box.getCenter(new THREE.Vector3())
+    const sizeObj = box.getSize(new THREE.Vector3())
+    
+    // Center the model and move down slightly to prevent top clipping
+    scene.position.x = -center.x
+    scene.position.y = -center.y - 0.15
+    scene.position.z = -center.z
+    
+    // Scale based on size prop - use smaller scale to prevent clipping
+    const maxDim = Math.max(sizeObj.x, sizeObj.y, sizeObj.z)
+    const baseScale = size === 'small' ? 1.9 : 2.5
+    const scale = baseScale / maxDim
+    scene.scale.set(scale, scale, scale)
+    
+    // Move down slightly for small size to prevent top clipping
+    if (size === 'small') {
+      scene.position.y -= 0.1
     }
+    
+    // Apply holographic material to all meshes
+    scene.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        const holoMaterial = new HolographicMaterial()
+        holoMaterial.transparent = true
+        holoMaterial.side = THREE.DoubleSide
+        child.material = holoMaterial
+      }
+    })
+    
+    return scene
   }, [clonedScene, size])
 
   // Rotate the model and update shader time
@@ -182,7 +190,7 @@ function Model({ size = 'large' }: { size?: 'small' | 'large' }) {
 
   return (
     <group ref={meshRef}>
-      <primitive object={clonedScene} />
+      {positionedScene && <primitive object={positionedScene} />}
     </group>
   )
 }
@@ -190,11 +198,11 @@ function Model({ size = 'large' }: { size?: 'small' | 'large' }) {
 export default function DS3DIcon({ size = 'large' }: { size?: 'small' | 'large' }) {
   const containerClass = size === 'small' 
     ? 'w-[36px] h-[36px] opacity-80 mt-0.5 mb-1' 
-    : 'w-[300px] h-[360px]'
+    : 'w-[350px] h-[350px]'
   
   const cameraConfig = size === 'small'
     ? { position: [0, 0, 2.5] as [number, number, number], fov: 65 }
-    : { position: [0, 0, 5] as [number, number, number], fov: 50 }
+    : { position: [0, 0, 4.5] as [number, number, number], fov: 45 }
 
   return (
     <div className={containerClass}>

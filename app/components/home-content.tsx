@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import Hologram from './hologram'
 import DS3DIcon from './icons/ds-3d-icon'
 import AquaBubble from './aqua-bubble'
@@ -64,6 +64,7 @@ function CurvedLabelBubble({
 
 export default function HomeContent() {
     const router = useRouter()
+    const pathname = usePathname()
     const [showHologram, setShowHologram] = useState(false)
     const [isPopped, setIsPopped] = useState(false)
     const [openModal, setOpenModal] = useState<'feed' | 'apps' | null>(null)
@@ -113,9 +114,7 @@ export default function HomeContent() {
 
             {/* The 3D Logo - Fixed and always visible */}
             <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-20">
-                <div className="relative scale-125 -mt-16">
-                    <DS3DIcon size="large" />
-                </div>
+                <DS3DIcon size="large" />
             </div>
 
             {/* Engineer at Base - Bottom left */}
