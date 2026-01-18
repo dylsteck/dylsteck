@@ -1,12 +1,14 @@
 'use client'
 
-import { useEffect, useState, useTransition, useCallback, useRef } from 'react'
+import { useEffect, useState, useTransition, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { FeedItem } from 'app/api/feed/types'
 import { FarcasterEmbed } from 'react-farcaster-embed/dist/client'
 import FeedFilter from '../components/feed-filter'
+import { useFeed } from '../hooks/use-feed'
+import useSWR from 'swr'
 
 type FilterType = 'all' | 'blog' | 'farcaster' | 'video'
 
@@ -27,104 +29,79 @@ export default function FeedMasonry() {
   const searchParams = useSearchParams()
   const [isPending, startTransition] = useTransition()
   
-  const [items, setItems] = useState<FeedItem[]>([])
-  const [loading, setLoading] = useState(true)
   const [shouldAnimate, setShouldAnimate] = useState(false)
-  
-  // Farcaster pagination state
-  const [farcasterCursor, setFarcasterCursor] = useState<string | null>(null)
-  const [hasMoreFarcaster, setHasMoreFarcaster] = useState(false)
-  const [loadingMore, setLoadingMore] = useState(false)
+  const [allItems, setAllItems] = useState<FeedItem[]>([])
+  const [currentCursor, setCurrentCursor] = useState<string | null>(null)
+  const [loadMoreKey, setLoadMoreKey] = useState<string | null>(null)
   
   // Ref for intersection observer
   const loadMoreRef = useRef<HTMLDivElement>(null)
   
   const activeFilters = parseFiltersFromUrl(searchParams)
 
-  // Initial feed load
+  // Use SWR hook for initial feed
+  const { items: initialItems, farcasterCursor, hasMoreFarcaster, isLoading } = useFeed()
+
+  // Track when initial load completes to set animation
   useEffect(() => {
-    const startTime = Date.now()
-    
-    async function fetchFeed() {
-      try {
-        const response = await fetch('/api/feed')
-        const data = await response.json()
-        const feedItems: FeedItem[] = data.items || []
+    if (!isLoading && initialItems.length > 0 && allItems.length === 0) {
+      setAllItems(initialItems)
+      setCurrentCursor(farcasterCursor)
+      // Set animation if load took a while (handled by SWR's timing)
+      setShouldAnimate(true)
+    }
+  }, [isLoading, initialItems, farcasterCursor, allItems.length])
+
+  // SWR hook for loading more Farcaster posts (only fetches when loadMoreKey is set)
+  const { data: moreFarcasterData, isLoading: loadingMore } = useSWR<{
+    items: FeedItem[]
+    nextCursor: string | null
+  }>(
+    loadMoreKey,
+    async (url: string) => {
+      const response = await fetch(url)
+      if (!response.ok) throw new Error('Failed to fetch more Farcaster posts')
+      return response.json()
+    },
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    }
+  )
+
+  // Merge new Farcaster items when they load
+  useEffect(() => {
+    if (moreFarcasterData?.items && moreFarcasterData.items.length > 0) {
+      setAllItems(prevItems => {
+        // Merge new Farcaster items with existing items
+        const existingIds = new Set(prevItems.map(item => item.id))
+        const newItems = moreFarcasterData.items.filter((item: FeedItem) => !existingIds.has(item.id))
         
-        // Sort by timestamp
-        const sortedItems = feedItems.sort((a, b) => {
+        // Combine and sort
+        const combined = [...prevItems, ...newItems]
+        combined.sort((a, b) => {
           const timestampA = a.dateTimestamp ?? new Date(a.date).getTime()
           const timestampB = b.dateTimestamp ?? new Date(b.date).getTime()
           return timestampB - timestampA
         })
         
-        // Debug: Log blog posts order
-        const blogPosts = sortedItems.filter(item => item.type === 'blog').slice(0, 5)
-        console.log('Top 5 blog posts after sorting:', blogPosts.map(p => ({ title: p.title, date: p.date, timestamp: p.dateTimestamp })))
-        
-        const loadTime = Date.now() - startTime
-        if (loadTime > 100) {
-          setShouldAnimate(true)
-        }
-        
-        setItems(sortedItems)
-        setFarcasterCursor(data.farcasterCursor || null)
-        setHasMoreFarcaster(data.hasMoreFarcaster || false)
-        setLoading(false)
-      } catch (error) {
-        console.error('Error fetching feed:', error)
-        setLoading(false)
-      }
-    }
-
-    fetchFeed()
-  }, [])
-
-  // Load more Farcaster posts
-  const loadMoreFarcaster = useCallback(async () => {
-    if (loadingMore || !hasMoreFarcaster || !farcasterCursor) return
-    
-    setLoadingMore(true)
-    
-    try {
-      const response = await fetch(`/api/feed/farcaster?cursor=${encodeURIComponent(farcasterCursor)}&limit=25`)
-      const data = await response.json()
+        return combined
+      })
       
-      if (data.items && data.items.length > 0) {
-        setItems(prevItems => {
-          // Merge new Farcaster items with existing items
-          const existingIds = new Set(prevItems.map(item => item.id))
-          const newItems = data.items.filter((item: FeedItem) => !existingIds.has(item.id))
-          
-          // Combine and sort
-          const combined = [...prevItems, ...newItems]
-          combined.sort((a, b) => {
-            const timestampA = a.dateTimestamp ?? new Date(a.date).getTime()
-            const timestampB = b.dateTimestamp ?? new Date(b.date).getTime()
-            return timestampB - timestampA
-          })
-          
-          return combined
-        })
-      }
-      
-      setFarcasterCursor(data.nextCursor || null)
-      setHasMoreFarcaster(data.hasMore || false)
-    } catch (error) {
-      console.error('Error loading more Farcaster posts:', error)
-    } finally {
-      setLoadingMore(false)
+      setCurrentCursor(moreFarcasterData.nextCursor)
+      setLoadMoreKey(null) // Reset to allow next load
     }
-  }, [loadingMore, hasMoreFarcaster, farcasterCursor])
+  }, [moreFarcasterData])
 
   // Intersection observer for infinite scroll
   useEffect(() => {
-    if (!loadMoreRef.current || loading) return
+    if (!loadMoreRef.current || isLoading) return
     
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && hasMoreFarcaster && !loadingMore) {
-          loadMoreFarcaster()
+        if (entries[0].isIntersecting && hasMoreFarcaster && !loadingMore && currentCursor && !loadMoreKey) {
+          // Trigger SWR to fetch more by setting the loadMoreKey
+          setLoadMoreKey(`/api/feed/farcaster?cursor=${encodeURIComponent(currentCursor)}&limit=25`)
         }
       },
       { threshold: 0.1, rootMargin: '200px' }
@@ -133,7 +110,7 @@ export default function FeedMasonry() {
     observer.observe(loadMoreRef.current)
     
     return () => observer.disconnect()
-  }, [hasMoreFarcaster, loadingMore, loading, loadMoreFarcaster])
+  }, [hasMoreFarcaster, loadingMore, isLoading, currentCursor, loadMoreKey])
 
   const handleFilterChange = (newFilters: FilterType[]) => {
     startTransition(() => {
@@ -150,13 +127,13 @@ export default function FeedMasonry() {
   }
 
   const filteredItems = activeFilters.includes('all')
-    ? items
-    : items.filter(item => activeFilters.includes(item.type as FilterType))
+    ? allItems
+    : allItems.filter(item => activeFilters.includes(item.type as FilterType))
 
   // Show load more only when filtering includes Farcaster
-  const showLoadMore = hasMoreFarcaster && (activeFilters.includes('all') || activeFilters.includes('farcaster'))
+  const showLoadMore = hasMoreFarcaster && (activeFilters.includes('all') || activeFilters.includes('farcaster')) && currentCursor
 
-  if (loading) {
+  if (isLoading) {
     return (
       <>
         <div className="pt-8 sm:pt-9">
@@ -207,7 +184,7 @@ function FeedMasonryItem({ item, index, shouldAnimate }: { item: FeedItem; index
         <FarcasterEmbed 
           castData={item.castData}
           options={{
-            hideFarcasterLogo: true,
+            hideFarcasterLogo: false,
             silentError: true
           }}
         />

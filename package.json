@@ -28,6 +28,7 @@
     "react-farcaster-embed": "^1.11.0",
     "react-tweet": "^3.2.2",
     "sugar-high": "^0.9.3",
+    "swr": "^2.3.8",
     "tailwindcss": "4.1.17",
     "three": "^0.182.0"
   },

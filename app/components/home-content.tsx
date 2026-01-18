@@ -4,63 +4,11 @@ import { useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Hologram from './hologram'
 import DS3DIcon from './icons/ds-3d-icon'
-import AquaBubble from './aqua-bubble'
 import BubbleModal from './bubble-modal'
 import FeedContent from './feed-content'
 import MediaGrid from './media-grid'
 import AboutText from './about-text'
 
-function CurvedLabelBubble({ 
-    text, 
-    size = 150, 
-    className = '', 
-    floatDelay = 0, 
-    onClick,
-    children
-}: { 
-    text: string, 
-    size?: number, 
-    className?: string, 
-    floatDelay?: number,
-    onClick?: () => void,
-    children?: React.ReactNode
-}) {
-    const curveId = `curve-${text.toLowerCase().replace(/\s+/g, '-')}`
-    return (
-        <div 
-            className={`absolute pointer-events-auto group animate-float ${className}`}
-            style={{ animationDelay: `${floatDelay}s` }}
-        >
-            {/* Curved Label */}
-            <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-48 h-24 pointer-events-none z-30">
-                <svg viewBox="0 0 100 50" className="w-full h-full overflow-visible" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <path 
-                            id={curveId}
-                            d="M 15,40 A 35,35 0 0,1 85,40" 
-                        />
-                    </defs>
-                    <text 
-                        className="text-[9px] font-black uppercase tracking-[0.4em] fill-black dark:fill-white" 
-                        style={{ textShadow: '0 0 10px rgba(0, 0, 0, 0.2)' }}
-                    >
-                        <textPath href={`#${curveId}`} startOffset="50%" textAnchor="middle">
-                            {text}
-                        </textPath>
-                    </text>
-                </svg>
-            </div>
-
-            <AquaBubble 
-                size={size} 
-                onClick={onClick}
-                className="group-hover:scale-105 transition-transform"
-            >
-                {children}
-            </AquaBubble>
-        </div>
-    )
-}
 
 export default function HomeContent() {
     const router = useRouter()
