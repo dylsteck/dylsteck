@@ -8,17 +8,16 @@ import * as THREE from 'three'
 // Preload the GLB model
 useGLTF.preload('/models/ds-grey.glb')
 
-// Holographic shader material
+// Holographic shader material - Blue/Gray theme
 const HolographicMaterial = shaderMaterial(
   {
     uTime: 0,
-    uColor1: new THREE.Color('#00ffff'),
-    uColor2: new THREE.Color('#ff00ff'),
-    uColor3: new THREE.Color('#00ff88'),
+    uColor1: new THREE.Color('#4a90d9'),  // Steel blue
+    uColor2: new THREE.Color('#6b7b8c'),  // Blue gray
+    uColor3: new THREE.Color('#3a5f82'),  // Dark steel blue
     uFresnelPower: 2.0,
     uScanlineSpeed: 0.5,
-    uRainbowIntensity: 0.6,
-    uGlowIntensity: 1.2,
+    uGlowIntensity: 1.0,
   },
   // Vertex shader
   `
@@ -44,7 +43,6 @@ const HolographicMaterial = shaderMaterial(
     uniform vec3 uColor3;
     uniform float uFresnelPower;
     uniform float uScanlineSpeed;
-    uniform float uRainbowIntensity;
     uniform float uGlowIntensity;
     
     varying vec3 vNormal;
@@ -52,57 +50,46 @@ const HolographicMaterial = shaderMaterial(
     varying vec2 vUv;
     varying vec3 vWorldPosition;
     
-    // HSV to RGB conversion
-    vec3 hsv2rgb(vec3 c) {
-      vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
-      vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
-      return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
-    }
-    
     void main() {
       // Calculate fresnel effect (edge glow)
       vec3 viewDir = normalize(vViewPosition);
       float fresnel = pow(1.0 - abs(dot(viewDir, vNormal)), uFresnelPower);
       
-      // Animated rainbow hue based on position, normal, and time
-      float hueShift = dot(vNormal, vec3(0.5, 0.8, 0.3)) * 0.5 + 0.5;
-      hueShift += uTime * 0.1;
-      hueShift += vWorldPosition.y * 0.2;
+      // Subtle color variation based on position and normal
+      float normalInfluence = dot(vNormal, vec3(0.5, 0.8, 0.3)) * 0.5 + 0.5;
       
-      // Create iridescent color
-      vec3 rainbow = hsv2rgb(vec3(fract(hueShift), 0.7, 1.0));
-      
-      // Mix base colors with time
-      float colorMix = sin(uTime * 0.5 + vWorldPosition.y * 2.0) * 0.5 + 0.5;
+      // Mix base colors with subtle time animation
+      float colorMix = sin(uTime * 0.3 + vWorldPosition.y * 1.5) * 0.5 + 0.5;
       vec3 baseColor = mix(uColor1, uColor2, colorMix);
-      baseColor = mix(baseColor, uColor3, sin(uTime * 0.3 + vWorldPosition.x * 2.0) * 0.5 + 0.5);
+      baseColor = mix(baseColor, uColor3, sin(uTime * 0.2 + vWorldPosition.x * 1.5) * 0.3 + 0.35);
       
-      // Blend rainbow with base colors
-      vec3 holoColor = mix(baseColor, rainbow, uRainbowIntensity);
+      // Add subtle blue highlight based on normal
+      vec3 blueHighlight = vec3(0.5, 0.7, 0.9);
+      baseColor = mix(baseColor, blueHighlight, normalInfluence * 0.3);
       
-      // Animated scanlines
-      float scanline = sin(vWorldPosition.y * 40.0 + uTime * uScanlineSpeed * 10.0) * 0.5 + 0.5;
+      // Animated scanlines (subtle)
+      float scanline = sin(vWorldPosition.y * 30.0 + uTime * uScanlineSpeed * 8.0) * 0.5 + 0.5;
       scanline = smoothstep(0.4, 0.6, scanline);
       
-      // Horizontal shimmer
-      float shimmer = sin(vWorldPosition.x * 20.0 + uTime * 2.0) * 0.5 + 0.5;
-      shimmer *= sin(vWorldPosition.z * 15.0 - uTime * 1.5) * 0.5 + 0.5;
+      // Subtle shimmer
+      float shimmer = sin(vWorldPosition.x * 15.0 + uTime * 1.5) * 0.5 + 0.5;
+      shimmer *= sin(vWorldPosition.z * 12.0 - uTime * 1.2) * 0.5 + 0.5;
       
       // Combine effects
-      vec3 finalColor = holoColor;
-      finalColor += fresnel * uGlowIntensity * holoColor;
-      finalColor += scanline * 0.1 * vec3(1.0, 1.0, 1.0);
-      finalColor += shimmer * 0.15 * rainbow;
+      vec3 finalColor = baseColor;
+      finalColor += fresnel * uGlowIntensity * 0.6 * baseColor;
+      finalColor += scanline * 0.05 * vec3(0.7, 0.8, 1.0);
+      finalColor += shimmer * 0.08 * vec3(0.6, 0.75, 0.95);
       
-      // Edge glow
+      // Edge glow - blue tinted
       float edgeGlow = pow(fresnel, 1.5) * uGlowIntensity;
-      finalColor += edgeGlow * vec3(0.5, 0.8, 1.0);
+      finalColor += edgeGlow * vec3(0.4, 0.6, 0.9);
       
       // Transparency based on fresnel (more transparent in center, opaque at edges)
-      float alpha = 0.7 + fresnel * 0.3;
+      float alpha = 0.75 + fresnel * 0.25;
       
-      // Add some noise/flicker
-      float flicker = sin(uTime * 15.0) * 0.02 + 1.0;
+      // Subtle flicker
+      float flicker = sin(uTime * 12.0) * 0.015 + 1.0;
       finalColor *= flicker;
       
       gl_FragColor = vec4(finalColor, alpha);
@@ -124,7 +111,6 @@ declare global {
         uColor3?: THREE.Color
         uFresnelPower?: number
         uScanlineSpeed?: number
-        uRainbowIntensity?: number
         uGlowIntensity?: number
         transparent?: boolean
         side?: THREE.Side
@@ -219,8 +205,8 @@ export default function DS3DIcon({ size = 'large' }: { size?: 'small' | 'large' 
       >
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} intensity={0.3} />
-        <pointLight position={[-5, -5, -5]} intensity={0.2} color="#00ffff" />
-        <pointLight position={[5, -5, 5]} intensity={0.2} color="#ff00ff" />
+        <pointLight position={[-5, -5, -5]} intensity={0.2} color="#4a90d9" />
+        <pointLight position={[5, -5, 5]} intensity={0.2} color="#6b7b8c" />
         <Model size={size} />
       </Canvas>
     </div>
