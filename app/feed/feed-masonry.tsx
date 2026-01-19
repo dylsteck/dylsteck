@@ -5,7 +5,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { FeedItem } from 'app/api/feed/types'
-import { FarcasterEmbed } from 'react-farcaster-embed/dist/client'
 import FeedFilter from '../components/feed-filter'
 import { useFeed } from '../hooks/use-feed'
 import useSWR from 'swr'
@@ -176,19 +175,30 @@ export default function FeedMasonry() {
 
 function FeedMasonryItem({ item, index, shouldAnimate }: { item: FeedItem; index: number; shouldAnimate: boolean }) {
   if (item.type === 'farcaster' && item.castData) {
+    const castHash = item.castData.hash
+    const username = item.castData.author?.username || 'dylsteck.eth'
+    const imageUrl = `https://wrpcd.net/cdn-cgi/image/anim=false,fit=contain,f=auto,w=3186/https%3A%2F%2Fclient.warpcast.com%2Fv2%2Fcast-collectibles%2Fimage%3FcastHash=${castHash}`
+    const farcasterUrl = `https://farcaster.xyz/${username}/${castHash}`
+    
     return (
-      <div 
-        className={`farcaster-embed-wrapper ${shouldAnimate ? 'feed-item-fade-in' : ''}`}
+      <Link
+        href={farcasterUrl}
+        className={`group block ${shouldAnimate ? 'feed-item-fade-in' : ''}`}
         style={shouldAnimate ? { animationDelay: `${Math.min(index * 50, 500)}ms` } : undefined}
       >
-        <FarcasterEmbed 
-          castData={item.castData}
-          options={{
-            hideFarcasterLogo: false,
-            silentError: true
-          }}
-        />
-      </div>
+        <div className="transition-all duration-300 hover:opacity-90">
+          <div className="relative w-full mb-2 rounded-sm">
+            <img
+              src={imageUrl}
+              alt={item.title || 'Farcaster cast'}
+              className="w-full h-auto rounded-sm"
+            />
+          </div>
+          <p className="text-sm text-neutral-500 dark:text-neutral-500 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">
+            {item.title || item.text?.substring(0, 100) || 'Farcaster post'}
+          </p>
+        </div>
+      </Link>
     )
   }
 
