@@ -16,7 +16,6 @@ const HolographicMaterial = shaderMaterial(
     uColor2: new THREE.Color('#6b7b8c'),  // Blue gray
     uColor3: new THREE.Color('#3a5f82'),  // Dark steel blue
     uFresnelPower: 2.0,
-    uScanlineSpeed: 0.5,
     uGlowIntensity: 1.0,
   },
   // Vertex shader
@@ -42,7 +41,6 @@ const HolographicMaterial = shaderMaterial(
     uniform vec3 uColor2;
     uniform vec3 uColor3;
     uniform float uFresnelPower;
-    uniform float uScanlineSpeed;
     uniform float uGlowIntensity;
     
     varying vec3 vNormal;
@@ -67,10 +65,6 @@ const HolographicMaterial = shaderMaterial(
       vec3 blueHighlight = vec3(0.5, 0.7, 0.9);
       baseColor = mix(baseColor, blueHighlight, normalInfluence * 0.3);
       
-      // Animated scanlines (subtle)
-      float scanline = sin(vWorldPosition.y * 30.0 + uTime * uScanlineSpeed * 8.0) * 0.5 + 0.5;
-      scanline = smoothstep(0.4, 0.6, scanline);
-      
       // Subtle shimmer
       float shimmer = sin(vWorldPosition.x * 15.0 + uTime * 1.5) * 0.5 + 0.5;
       shimmer *= sin(vWorldPosition.z * 12.0 - uTime * 1.2) * 0.5 + 0.5;
@@ -78,7 +72,6 @@ const HolographicMaterial = shaderMaterial(
       // Combine effects
       vec3 finalColor = baseColor;
       finalColor += fresnel * uGlowIntensity * 0.6 * baseColor;
-      finalColor += scanline * 0.05 * vec3(0.7, 0.8, 1.0);
       finalColor += shimmer * 0.08 * vec3(0.6, 0.75, 0.95);
       
       // Edge glow - blue tinted
@@ -110,7 +103,6 @@ declare global {
         uColor2?: THREE.Color
         uColor3?: THREE.Color
         uFresnelPower?: number
-        uScanlineSpeed?: number
         uGlowIntensity?: number
         transparent?: boolean
         side?: THREE.Side
