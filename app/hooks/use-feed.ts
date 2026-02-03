@@ -1,86 +1,78 @@
-import useSWR from 'swr'
+import { useMemo } from 'react'
+import useSWRInfinite from 'swr/infinite'
 import { FeedItem } from 'app/api/feed/types'
+import { CACHE_SECONDS, FARCASTER_PAGE_LIMIT } from 'app/lib/constants'
+import { sortFeedItems } from 'app/lib/feed-utils'
 
 interface FeedResponse {
   items: FeedItem[]
-  farcasterCursor: string | null
-  hasMoreFarcaster: boolean
-}
-
-interface FarcasterResponse {
-  items: FeedItem[]
   nextCursor: string | null
+  hasMore: boolean
 }
 
-// Fetcher function for initial feed
-async function fetchFeed(): Promise<FeedResponse> {
-  const response = await fetch('/api/feed')
+// Fetcher function for feed pages
+async function fetchFeedPage(url: string): Promise<FeedResponse> {
+  const response = await fetch(url)
   if (!response.ok) {
     throw new Error('Failed to fetch feed')
   }
   const data = await response.json()
-  
-  // Sort by timestamp
-  const sortedItems = (data.items || []).sort((a: FeedItem, b: FeedItem) => {
-    const timestampA = a.dateTimestamp ?? new Date(a.date).getTime()
-    const timestampB = b.dateTimestamp ?? new Date(b.date).getTime()
-    return timestampB - timestampA
-  })
-  
-  return {
-    items: sortedItems,
-    farcasterCursor: data.farcasterCursor || null,
-    hasMoreFarcaster: data.hasMoreFarcaster || false
-  }
-}
 
-// Fetcher function for more Farcaster posts
-async function fetchMoreFarcaster(url: string): Promise<FarcasterResponse> {
-  const response = await fetch(url)
-  if (!response.ok) {
-    throw new Error('Failed to fetch more Farcaster posts')
-  }
-  const data = await response.json()
   return {
     items: data.items || [],
-    nextCursor: data.nextCursor || null
+    nextCursor: data.nextCursor || null,
+    hasMore: data.hasMore || false
   }
 }
 
 export function useFeed() {
-  const { data, error, isLoading } = useSWR<FeedResponse>(
-    '/api/feed',
-    fetchFeed,
+  const getKey = (pageIndex: number, previousPageData: FeedResponse | null) => {
+    if (pageIndex === 0) return '/api/feed'
+    const nextCursor = previousPageData?.nextCursor
+    if (!nextCursor) return null
+    return `/api/feed?cursor=${encodeURIComponent(nextCursor)}&limit=${FARCASTER_PAGE_LIMIT}`
+  }
+
+  const { data, error, isValidating, size, setSize } = useSWRInfinite<FeedResponse>(
+    getKey,
+    fetchFeedPage,
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: true,
-      dedupingInterval: 300000, // 5 minutes
+      dedupingInterval: CACHE_SECONDS.RECENT * 1000,
     }
   )
 
-  return {
-    items: data?.items || [],
-    farcasterCursor: data?.farcasterCursor || null,
-    hasMoreFarcaster: data?.hasMoreFarcaster || false,
-    isLoading,
-    error
+  const pages = data || []
+  const items = useMemo(() => {
+    const merged = pages.flatMap((page) => page.items)
+    if (merged.length === 0) return merged
+
+    const existingIds = new Set<string>()
+    const uniqueItems = merged.filter((item) => {
+      if (existingIds.has(item.id)) return false
+      existingIds.add(item.id)
+      return true
+    })
+
+    return sortFeedItems(uniqueItems)
+  }, [pages])
+  const lastPage = pages[pages.length - 1]
+  const hasMore = lastPage ? lastPage.hasMore : false
+  const isLoading = !data && !error
+  const isLoadingMore = isValidating && size > 1
+
+  const loadMore = () => {
+    if (!hasMore || isLoadingMore) return
+    setSize((prev) => prev + 1)
   }
-}
-
-export function useMoreFarcaster(cursor: string | null, enabled: boolean) {
-  const { data, error, isLoading } = useSWR<FarcasterResponse>(
-    enabled && cursor ? `/api/feed/farcaster?cursor=${encodeURIComponent(cursor)}&limit=25` : null,
-    fetchMoreFarcaster,
-    {
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
-  )
 
   return {
-    items: data?.items || [],
-    nextCursor: data?.nextCursor || null,
+    items,
+    hasMore,
     isLoading,
-    error
+    isLoadingMore,
+    loadMore,
+    error,
   }
 }

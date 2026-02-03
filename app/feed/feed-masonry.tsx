@@ -5,18 +5,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { FeedItem } from 'app/api/feed/types'
-import FeedFilter from '../components/feed-filter'
+import FeedFilter, { FILTER_OPTIONS, FilterType } from '../components/feed-filter'
 import { useFeed } from '../hooks/use-feed'
-import useSWR from 'swr'
-
-type FilterType = 'all' | 'blog' | 'farcaster' | 'video'
+import { buildFarcasterCastImageUrl } from 'app/lib/feed-utils'
 
 function parseFiltersFromUrl(searchParams: URLSearchParams): FilterType[] {
   const filterParam = searchParams.get('filter')
   if (!filterParam) return ['all']
   
   const filters = filterParam.split(',').filter((f): f is FilterType => {
-    return ['all', 'blog', 'farcaster', 'video'].includes(f)
+    return FILTER_OPTIONS.includes(f as FilterType)
   })
   
   return filters.length > 0 ? filters : ['all']
@@ -29,68 +27,27 @@ export default function FeedMasonry() {
   const [isPending, startTransition] = useTransition()
   
   const [shouldAnimate, setShouldAnimate] = useState(false)
-  const [allItems, setAllItems] = useState<FeedItem[]>([])
-  const [currentCursor, setCurrentCursor] = useState<string | null>(null)
-  const [loadMoreKey, setLoadMoreKey] = useState<string | null>(null)
   
   // Ref for intersection observer
   const loadMoreRef = useRef<HTMLDivElement>(null)
   
   const activeFilters = parseFiltersFromUrl(searchParams)
 
-  // Use SWR hook for initial feed
-  const { items: initialItems, farcasterCursor, hasMoreFarcaster, isLoading } = useFeed()
+  const {
+    items: allItems,
+    hasMore,
+    isLoading,
+    isLoadingMore,
+    loadMore,
+  } = useFeed()
 
   // Track when initial load completes to set animation
   useEffect(() => {
-    if (!isLoading && initialItems.length > 0 && allItems.length === 0) {
-      setAllItems(initialItems)
-      setCurrentCursor(farcasterCursor)
+    if (!isLoading && allItems.length > 0) {
       // Set animation if load took a while (handled by SWR's timing)
       setShouldAnimate(true)
     }
-  }, [isLoading, initialItems, farcasterCursor, allItems.length])
-
-  // SWR hook for loading more Farcaster posts (only fetches when loadMoreKey is set)
-  const { data: moreFarcasterData, isLoading: loadingMore } = useSWR<{
-    items: FeedItem[]
-    nextCursor: string | null
-  }>(
-    loadMoreKey,
-    async (url: string) => {
-      const response = await fetch(url)
-      if (!response.ok) throw new Error('Failed to fetch more Farcaster posts')
-      return response.json()
-    },
-    {
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
-  )
-
-  // Merge new Farcaster items when they load
-  useEffect(() => {
-    if (moreFarcasterData?.items && moreFarcasterData.items.length > 0) {
-      setAllItems(prevItems => {
-        // Merge new Farcaster items with existing items
-        const existingIds = new Set(prevItems.map(item => item.id))
-        const newItems = moreFarcasterData.items.filter((item: FeedItem) => !existingIds.has(item.id))
-        
-        // Combine and sort
-        const combined = [...prevItems, ...newItems]
-        combined.sort((a, b) => {
-          const timestampA = a.dateTimestamp ?? new Date(a.date).getTime()
-          const timestampB = b.dateTimestamp ?? new Date(b.date).getTime()
-          return timestampB - timestampA
-        })
-        
-        return combined
-      })
-      
-      setCurrentCursor(moreFarcasterData.nextCursor)
-      setLoadMoreKey(null) // Reset to allow next load
-    }
-  }, [moreFarcasterData])
+  }, [isLoading, allItems.length])
 
   // Intersection observer for infinite scroll
   useEffect(() => {
@@ -98,9 +55,8 @@ export default function FeedMasonry() {
     
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && hasMoreFarcaster && !loadingMore && currentCursor && !loadMoreKey) {
-          // Trigger SWR to fetch more by setting the loadMoreKey
-          setLoadMoreKey(`/api/feed/farcaster?cursor=${encodeURIComponent(currentCursor)}&limit=25`)
+        if (entries[0].isIntersecting && hasMore && !isLoadingMore) {
+          loadMore()
         }
       },
       { threshold: 0.1, rootMargin: '200px' }
@@ -109,7 +65,7 @@ export default function FeedMasonry() {
     observer.observe(loadMoreRef.current)
     
     return () => observer.disconnect()
-  }, [hasMoreFarcaster, loadingMore, isLoading, currentCursor, loadMoreKey])
+  }, [hasMore, isLoadingMore, isLoading, loadMore])
 
   const handleFilterChange = (newFilters: FilterType[]) => {
     startTransition(() => {
@@ -130,7 +86,7 @@ export default function FeedMasonry() {
     : allItems.filter(item => activeFilters.includes(item.type as FilterType))
 
   // Show load more only when filtering includes Farcaster
-  const showLoadMore = hasMoreFarcaster && (activeFilters.includes('all') || activeFilters.includes('farcaster')) && currentCursor
+  const showLoadMore = hasMore && (activeFilters.includes('all') || activeFilters.includes('farcaster'))
 
   if (isLoading) {
     return (
@@ -163,7 +119,7 @@ export default function FeedMasonry() {
             ref={loadMoreRef} 
             className="flex justify-center py-8"
           >
-            {loadingMore && (
+            {isLoadingMore && (
               <div className="text-neutral-500 text-sm">Loading more...</div>
             )}
           </div>
@@ -176,9 +132,8 @@ export default function FeedMasonry() {
 function FeedMasonryItem({ item, index, shouldAnimate }: { item: FeedItem; index: number; shouldAnimate: boolean }) {
   if (item.type === 'farcaster' && item.castData) {
     const castHash = item.castData.hash
-    const username = item.castData.author?.username || 'dylsteck.eth'
-    const imageUrl = `https://wrpcd.net/cdn-cgi/image/anim=false,fit=contain,f=auto,w=3186/https%3A%2F%2Fclient.warpcast.com%2Fv2%2Fcast-collectibles%2Fimage%3FcastHash=${castHash}`
-    const farcasterUrl = `https://farcaster.xyz/${username}/${castHash}`
+    const imageUrl = buildFarcasterCastImageUrl(castHash)
+    const farcasterUrl = item.url
     
     return (
       <Link

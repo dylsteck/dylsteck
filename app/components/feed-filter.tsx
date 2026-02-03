@@ -1,8 +1,7 @@
 'use client'
 
-import { FeedItemType } from 'app/api/feed/types'
-
 export type FilterType = 'all' | 'blog' | 'farcaster' | 'video'
+export const FILTER_OPTIONS: FilterType[] = ['all', 'blog', 'farcaster', 'video']
 
 interface FeedFilterProps {
   activeFilters: FilterType[]
@@ -10,8 +9,6 @@ interface FeedFilterProps {
 }
 
 export default function FeedFilter({ activeFilters, onFilterChange }: FeedFilterProps) {
-  const filters: FilterType[] = ['all', 'blog', 'farcaster', 'video']
-
   const handleFilterClick = (filter: FilterType) => {
     if (filter === 'all') {
       onFilterChange(['all'])
@@ -37,7 +34,7 @@ export default function FeedFilter({ activeFilters, onFilterChange }: FeedFilter
     <div className="w-full">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 py-1.5">
         <div className="flex items-center gap-4 sm:gap-6">
-          {filters.map((filter) => {
+          {FILTER_OPTIONS.map((filter) => {
             const isActive = activeFilters.includes(filter)
             const label = filter === 'farcaster' ? 'Cast' : filter.charAt(0).toUpperCase() + filter.slice(1)
             

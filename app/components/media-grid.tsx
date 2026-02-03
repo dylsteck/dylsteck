@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { FeedItem } from 'app/api/feed/types'
 import MediaGridItem from './media-grid-item'
+import { useFeed } from '../hooks/use-feed'
 
 type ItemSize = 'small' | 'medium' | 'large'
 
@@ -16,27 +17,9 @@ interface PositionedItem extends FeedItem {
 const ITEMS_PER_PAGE = 8
 
 export default function MediaGrid() {
-  const [allItems, setAllItems] = useState<FeedItem[]>([])
+  const { items: allItems, isLoading } = useFeed()
   const [displayedItems, setDisplayedItems] = useState<PositionedItem[]>([])
-  const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
-
-  useEffect(() => {
-    async function fetchFeed() {
-      try {
-        const response = await fetch('/api/feed')
-        const data = await response.json()
-        const feedItems: FeedItem[] = data.items || []
-        setAllItems(feedItems)
-        setLoading(false)
-      } catch (error) {
-        console.error('Error fetching feed:', error)
-        setLoading(false)
-      }
-    }
-
-    fetchFeed()
-  }, [])
 
   useEffect(() => {
     if (allItems.length === 0) return
@@ -77,7 +60,7 @@ export default function MediaGrid() {
   }, [allItems, page])
 
   const handleScroll = useCallback(() => {
-    if (loading) return
+    if (isLoading) return
     
     const scrollTop = window.scrollY || document.documentElement.scrollTop
     const windowHeight = window.innerHeight
@@ -90,14 +73,14 @@ export default function MediaGrid() {
         setPage(prev => prev + 1)
       }
     }
-  }, [loading, page, allItems.length])
+  }, [isLoading, page, allItems.length])
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [handleScroll])
 
-  if (loading) {
+  if (isLoading) {
     return null
   }
 
