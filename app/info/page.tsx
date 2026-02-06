@@ -1,5 +1,7 @@
+import Image from 'next/image'
 import { Metadata } from 'next'
 import { appUrl, bannerImg, createMiniAppEmbed } from '../sitemap'
+import BaseIcon from '../components/icons/base-icon'
 
 export function generateMetadata() {
   return {
@@ -41,6 +43,13 @@ export default function InfoPage() {
     <div className="min-h-screen w-full bg-white dark:bg-black pt-8 sm:pt-9">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 py-12">
         <div className="max-w-xl">
+          <Image
+            src="/dylan.png"
+            alt="Dylan Steck"
+            width={260}
+            height={260}
+            className="mb-8 h-auto w-[260px] opacity-95"
+          />
         <p className="text-left text-sm text-neutral-900 dark:text-neutral-100 mb-6">
           As a kid I had a few blogs I wanted to customize, and that led me to learn coding online. The more I learned about programming and the world of tech, the more I was hooked to the idea of anyone anywhere being able to build anything.
         </p>
@@ -51,7 +60,7 @@ export default function InfoPage() {
           When I got to college I had been building websites online already and knew I wanted to spend my time actually building apps. I fortunately got down the crypto rabbit hole at the right time, found out about Farcaster, and through a series of internships and projects dove head first into the space. Around the time I had helped out with FarCon LA and was doing work at Neynar, I dropped out of college to keep pursuing this dream.
         </p>
         <p className="text-left text-sm text-neutral-900 dark:text-neutral-100">
-          Now I work on Base app at Base, where I help figure out how all our building blocks can fit together so we can bring more people onchain.
+          Now I work on <a href="https://base.app" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:opacity-70 transition-opacity">Base app</a> at <span className="inline-flex items-center mx-0.5 align-middle"><BaseIcon className="w-3.5 h-3.5 text-[rgb(0,0,255)] dark:text-white" /></span> Base, where I help figure out how all our onchain legos can fit together so we can bring more people onchain.
         </p>
         </div>
       </div>
