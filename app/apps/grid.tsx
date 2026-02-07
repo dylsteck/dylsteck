@@ -10,9 +10,10 @@ interface AppsGridProps {
 
 export default function AppsGrid({ apps }: AppsGridProps) {
   return (
-    <div className="max-w-7xl mx-auto px-6 sm:px-8 min-h-screen flex flex-col justify-center">
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-x-8 gap-y-12 w-full">
-        {apps.map((app, index) => (
+    <div className="max-w-7xl mx-auto px-6 sm:px-8 min-h-screen flex flex-col">
+      <div className="flex-1 flex items-center justify-center">
+        <div className="grid grid-cols-3 md:grid-cols-4 gap-x-8 sm:gap-x-14 gap-y-8 sm:gap-y-14">
+          {apps.map((app, index) => (
           <Link
             key={index}
             href={app.url}
@@ -36,7 +37,9 @@ export default function AppsGrid({ apps }: AppsGridProps) {
             </span>
           </Link>
         ))}
+        </div>
       </div>
+      <p className="text-sm text-neutral-500 dark:text-neutral-500 text-center pb-8">A collection of apps I've built or contributed to. See more on <a href="https://github.com/dylsteck" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:opacity-70 transition-opacity">GitHub</a>.</p>
     </div>
   )
 }
