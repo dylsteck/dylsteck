@@ -16,10 +16,18 @@ const getTweet = unstable_cache(
 export default async function TweetComponent({ id, ...props }: TweetProps) {
   try {
     const tweet = await getTweet(id)
-    return tweet ? <EmbeddedTweet tweet={tweet} {...props} /> : <TweetNotFound />
+    return (
+      <div className="max-w-[600px] mx-auto my-6">
+        {tweet ? <EmbeddedTweet tweet={tweet} {...props} /> : <TweetNotFound />}
+      </div>
+    )
   } catch (error) {
     console.error(error)
-    return <TweetNotFound error={error} />
+    return (
+      <div className="max-w-[600px] mx-auto my-6">
+        <TweetNotFound error={error} />
+      </div>
+    )
   }
 }
 

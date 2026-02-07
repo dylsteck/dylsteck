@@ -74,7 +74,8 @@ export default async function Blog({ params }) {
   }
 
   return (
-    <section>
+    <div className="min-h-screen w-full bg-white dark:bg-black">
+      <section className="max-w-4xl mx-auto px-6 sm:px-8 pt-12 sm:pt-16">
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -114,5 +115,6 @@ export default async function Blog({ params }) {
         <CustomMDX source={post.content} />
       </article>
     </section>
+    </div>
   );
 }

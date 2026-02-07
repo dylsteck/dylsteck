@@ -3,10 +3,8 @@ import 'react-farcaster-embed/dist/styles.css'
 import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
-import { Navbar } from './components/nav'
-import Footer from './components/footer'
+import Topbar from './components/topbar'
 import { appUrl, bannerImg, createMiniAppEmbed } from './sitemap'
-import Head from 'next/head'
 import Script from 'next/script'
 import { MiniAppProvider } from './components/mini-app-provider'
 
@@ -46,7 +44,7 @@ export function generateMetadata(){
   } as Metadata
 }
 
-const cx = (...classes) => classes.filter(Boolean).join(' ')
+const cx = (...classes: (string | boolean | undefined | null)[]) => classes.filter(Boolean).join(' ')
 
 export default function RootLayout({
   children,
@@ -62,17 +60,15 @@ export default function RootLayout({
         GeistMono.variable
       )}
     >
-      <Head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-      </Head>
-      <body className="antialiased max-w-xl mx-4 mt-8 lg:mx-auto">
-        <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
-          <MiniAppProvider>
-            <Navbar />
-            {children}
-          </MiniAppProvider>
-          <Footer />
-        </main>
+      <body className="antialiased bg-white dark:bg-black">
+        <MiniAppProvider>
+          <Topbar />
+          <main className="flex-auto min-w-0 flex flex-col">
+            <div className="w-full h-full">
+              {children}
+            </div>
+          </main>
+        </MiniAppProvider>
         <Script
           strategy="afterInteractive"
           src="https://dylsteck-analytics.up.railway.app/umami.js"

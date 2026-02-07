@@ -52,5 +52,11 @@ export async function generateMetadata({ params }) {
 export default async function VideoPage({ params }){
   const { id: ytId } = await params;
 
-  return <Video ytId={ytId} />;
+  return (
+    <div className="min-h-screen w-full bg-white dark:bg-black">
+      <div className="max-w-xl mx-4 lg:mx-auto px-2 md:px-0 pt-8 sm:pt-9">
+        <Video ytId={ytId} />
+      </div>
+    </div>
+  );
 };
