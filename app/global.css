@@ -312,6 +312,22 @@ table {
     font-size: 0.9em;
   }
 
+  /* Slide-in animation for hologram */
+  @keyframes slide-in-from-bottom-right {
+    from {
+      transform: translateX(100%) translateY(calc(100vh - 200px));
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0) translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-slide-in-from-bottom-right {
+    animation: slide-in-from-bottom-right 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
   /* Feed items fade-in animation */
   @keyframes feed-fade-in {
     from {

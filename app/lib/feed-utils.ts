@@ -1,5 +1,6 @@
-import { FeedItem } from 'app/api/feed/types'
+import { FarcasterCastData, FeedItem } from 'app/api/feed/types'
 import {
+  CACHE_SECONDS,
   DEFAULT_FARCASTER_USERNAME,
   FARCASTER_API_BASE,
   FARCASTER_BASE_URL,
@@ -8,19 +9,7 @@ import {
   WARPCAST_CDN_BASE,
 } from './constants'
 
-type FarcasterCast = {
-  hash: string
-  timestamp?: string
-  text?: string
-  author?: {
-    username?: string
-  }
-  embeds?: {
-    images?: { url: string }[]
-    videos?: { thumbnailUrl?: string; imageUrl?: string }[]
-    urls?: { openGraph?: { image?: string } }[]
-  }
-}
+type FarcasterCast = FarcasterCastData
 
 export function buildFarcasterProfileCastsUrl({
   fid = FARCASTER_FID,
@@ -131,4 +120,34 @@ export function sortFeedItems(items: FeedItem[]): FeedItem[] {
     const timestampB = b.dateTimestamp ?? parseDate(b.date)
     return timestampB - timestampA
   })
+}
+
+export async function fetchFarcasterCasts({
+  cursor,
+  limit,
+}: {
+  cursor?: string | null
+  limit: number
+}): Promise<{ casts: FarcasterCast[]; nextCursor: string | null }> {
+  try {
+    const url = buildFarcasterProfileCastsUrl({ limit, cursor })
+
+    const response = await fetch(url, {
+      next: { revalidate: cursor ? CACHE_SECONDS.OLD : CACHE_SECONDS.RECENT }
+    })
+
+    if (!response.ok) {
+      console.error(`Farcaster API error: ${response.status} ${response.statusText}`)
+      return { casts: [], nextCursor: null }
+    }
+
+    const data = await response.json()
+    return {
+      casts: data.result?.casts || [],
+      nextCursor: data.next?.cursor || null
+    }
+  } catch (error) {
+    console.error('Error fetching Farcaster posts:', error)
+    return { casts: [], nextCursor: null }
+  }
 }

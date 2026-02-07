@@ -4,47 +4,16 @@ import { videos } from 'app/video/videos'
 import { FeedItem } from './types'
 import {
   CACHE_CONTROL,
-  CACHE_SECONDS,
   FARCASTER_INITIAL_LIMIT,
   FARCASTER_MAX_LIMIT,
   FARCASTER_PAGE_LIMIT,
 } from 'app/lib/constants'
 import {
-  buildFarcasterProfileCastsUrl,
+  fetchFarcasterCasts,
   parseDate,
   sortFeedItems,
   transformFarcasterCast,
 } from 'app/lib/feed-utils'
-
-async function fetchFarcasterPosts({
-  cursor,
-  limit,
-}: {
-  cursor?: string | null
-  limit: number
-}) {
-  try {
-    const url = buildFarcasterProfileCastsUrl({ limit, cursor })
-
-    const response = await fetch(url, {
-      next: { revalidate: cursor ? CACHE_SECONDS.OLD : CACHE_SECONDS.RECENT }
-    })
-
-    if (!response.ok) {
-      console.error(`Farcaster API error: ${response.status} ${response.statusText}`)
-      return { casts: [], nextCursor: null }
-    }
-
-    const data = await response.json()
-    return {
-      casts: data.result?.casts || [],
-      nextCursor: data.next?.cursor || null
-    }
-  } catch (error) {
-    console.error('Error fetching Farcaster posts:', error)
-    return { casts: [], nextCursor: null }
-  }
-}
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -57,7 +26,7 @@ export async function GET(request: Request) {
 
   try {
     if (cursor) {
-      const farcasterResult = await fetchFarcasterPosts({ cursor, limit })
+      const farcasterResult = await fetchFarcasterCasts({ cursor, limit })
       const farcasterItems: FeedItem[] = farcasterResult.casts
         .map(transformFarcasterCast)
         .filter((item): item is FeedItem => item !== null)
@@ -75,16 +44,16 @@ export async function GET(request: Request) {
       })
     }
 
-    const farcasterPromise = fetchFarcasterPosts({ limit })
+    const farcasterPromise = fetchFarcasterCasts({ limit })
 
     // Transform blog posts (static - always included)
     const blogItems: FeedItem[] = posts.map(post => {
       // Use banner if available, otherwise fallback to OG image endpoint
       // Use relative path for same-origin images (Next.js Image handles these)
-      const imageUrl = post.banner && post.banner.trim() 
-        ? post.banner 
+      const imageUrl = post.banner && post.banner.trim()
+        ? post.banner
         : `/api/og/blog/${post.id}`
-      
+
       return {
         id: `blog-${post.id}`,
         type: 'blog' as const,
@@ -117,7 +86,7 @@ export async function GET(request: Request) {
 
     const allItems = sortFeedItems([...blogItems, ...videoItems, ...farcasterItems])
 
-    return NextResponse.json({ 
+    return NextResponse.json({
       items: allItems,
       nextCursor: farcasterResult.nextCursor,
       hasMore: !!farcasterResult.nextCursor

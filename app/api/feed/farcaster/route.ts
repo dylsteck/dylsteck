@@ -1,34 +1,7 @@
 import { NextResponse } from 'next/server'
 import { FeedItem } from '../types'
-import { CACHE_CONTROL, CACHE_SECONDS, FARCASTER_MAX_LIMIT, FARCASTER_PAGE_LIMIT } from 'app/lib/constants'
-import { buildFarcasterProfileCastsUrl, sortFeedItems, transformFarcasterCast } from 'app/lib/feed-utils'
-
-async function fetchFarcasterPage(cursor?: string, limit: number = FARCASTER_PAGE_LIMIT) {
-  try {
-    const url = buildFarcasterProfileCastsUrl({ limit, cursor: cursor || null })
-
-    const response = await fetch(url, {
-      // Use Next.js cache with appropriate revalidation
-      next: {
-        revalidate: cursor ? CACHE_SECONDS.OLD : CACHE_SECONDS.RECENT
-      }
-    })
-
-    if (!response.ok) {
-      console.error(`Farcaster API error: ${response.status} ${response.statusText}`)
-      return { casts: [], nextCursor: null }
-    }
-
-    const data = await response.json()
-    return {
-      casts: data.result?.casts || [],
-      nextCursor: data.next?.cursor || null
-    }
-  } catch (error) {
-    console.error('Error fetching Farcaster posts:', error)
-    return { casts: [], nextCursor: null }
-  }
-}
+import { CACHE_CONTROL, FARCASTER_MAX_LIMIT, FARCASTER_PAGE_LIMIT } from 'app/lib/constants'
+import { fetchFarcasterCasts, sortFeedItems, transformFarcasterCast } from 'app/lib/feed-utils'
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -37,7 +10,7 @@ export async function GET(request: Request) {
   const limit = Math.min(Number.isFinite(limitParam) ? limitParam : FARCASTER_PAGE_LIMIT, FARCASTER_MAX_LIMIT)
 
   try {
-    const result = await fetchFarcasterPage(cursor, limit)
+    const result = await fetchFarcasterCasts({ cursor, limit })
 
     const items = result.casts
       .map(transformFarcasterCast)
@@ -51,7 +24,6 @@ export async function GET(request: Request) {
       hasMore: !!result.nextCursor
     }, {
       headers: {
-        // Cache response in browser/CDN
         'Cache-Control': cursor ? CACHE_CONTROL.OLD : CACHE_CONTROL.RECENT
       }
     })

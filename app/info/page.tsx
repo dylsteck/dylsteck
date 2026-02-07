@@ -42,14 +42,14 @@ export function generateMetadata() {
 export default function InfoPage() {
   return (
     <div className="min-h-screen w-full bg-white dark:bg-black pt-8 sm:pt-9">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 py-6">
         <div className="max-w-xl">
           <Image
             src="/dylan.png"
             alt="Dylan Steck"
             width={260}
             height={260}
-            className="mb-8 h-auto w-[260px] opacity-95"
+            className="mb-7 h-auto w-[260px] opacity-95"
           />
         <p className="text-left text-sm text-neutral-900 dark:text-neutral-100 mb-6">
           As a kid I had a few blogs I wanted to customize, and that led me to learn coding online. The more I learned about programming and the world of tech, the more I was hooked to the idea of anyone anywhere being able to build anything.
@@ -63,7 +63,7 @@ export default function InfoPage() {
         <p className="text-left text-sm text-neutral-900 dark:text-neutral-100">
           Now I work on <a href="https://base.app" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:opacity-70 transition-opacity">Base app</a> at <span className="inline-flex items-center mx-0.5 align-middle"><BaseIcon className="w-3.5 h-3.5 text-[rgb(0,0,255)] dark:text-white" /></span> Base, where I help figure out how all our onchain legos can fit together so we can bring more people onchain. In my free time, I'm exploring what interfaces for agentic coding and work will look like.
         </p>
-        <div className="mt-10">
+        <div className="mt-6">
           <p className="text-left text-sm text-neutral-900 dark:text-neutral-300 mb-3">Links</p>
           <div className="flex flex-wrap gap-x-4 gap-y-2">
             <a href="https://app.ens.domains/dylsteck.eth" target="_blank" rel="noopener noreferrer" className="text-sm text-neutral-900 dark:text-white hover:opacity-70 transition-opacity">ENS</a>
