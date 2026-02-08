@@ -20,6 +20,7 @@ export async function GET() {
     const blogPostsDir = path.join(appDir, 'blog', 'posts')
     if (fs.existsSync(blogPostsDir)) {
       content += `## Blog Posts\n\n`
+      content += `> For agents: Use \`curl -H "Accept: text/markdown"\` when fetching blog posts to receive markdown content.\n\n`
       const blogFiles = fs.readdirSync(blogPostsDir)
         .filter(file => file.endsWith('.md'))
         .sort()
