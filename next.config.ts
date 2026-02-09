@@ -1,6 +1,20 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+    async redirects() {
+        return [
+            {
+                source: '/blog',
+                destination: '/feed?filter=blog',
+                permanent: true,
+            },
+            {
+                source: '/video',
+                destination: '/feed?filter=video',
+                permanent: true,
+            },
+        ];
+    },
     images: {
         // Allow same-origin API routes (OG images)
         unoptimized: false,

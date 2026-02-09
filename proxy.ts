@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   // Check if this is a blog post request with Accept: text/markdown header
   const pathname = request.nextUrl.pathname;
   const acceptHeader = request.headers.get('accept') || '';

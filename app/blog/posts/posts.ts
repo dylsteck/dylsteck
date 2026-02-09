@@ -311,4 +311,12 @@ export const posts: MediaItem[] = [
       "banner": "",
       "type": "blog",
     },
+    {
+      "id": "agentic-workspaces",
+      "date": "February 9, 2026",
+      "title": "Agentic Workspaces",
+      "description": "Agentic Workspaces",
+      "banner": "",
+      "type": "blog",
+    },
   ];
