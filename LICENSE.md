@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2025 Dylan Steck
+Copyright (c) 2026 Dylan Steck
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
