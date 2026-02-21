@@ -10,6 +10,7 @@ The site is optimized for performance and SEO, requires minimal outside dependen
 
 Features/packages used include:
 
+- [Resend](https://resend.com) - Email subscriptions and newsletter broadcasts
 - [Farcaster mini app SDK](https://miniapps.farcaster.xyz)
 - [Geist](https://vercel.com/font)
 - [TailwindCSS](https://tailwindcss.com/)
@@ -17,6 +18,7 @@ Features/packages used include:
 - [MDX](https://mdxjs.com/) and Markdown support
 - Optimized for SEO (sitemap, robots, JSON-LD schema)
 - RSS feed
+- Email newsletter (subscribe on homepage and blog posts; send via PR label or `bun run send-newsletter <slug>`). See [docs/NEWSLETTER.md](docs/NEWSLETTER.md).
 
 Originally built on top of this [Next.js MDX boilerplate repo](https://github.com/vercel/examples/tree/main/solutions/blog)
 

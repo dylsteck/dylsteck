@@ -1,6 +1,7 @@
 import { appUrl } from 'app/sitemap'
-import { getBlogPosts, processMarkdownComponents } from 'app/blog/utils'
-import { posts } from 'app/blog/posts/posts';
+import { getBlogPosts } from 'app/blog/utils'
+import { processMarkdownForRSS } from 'app/lib/markdown-to-html'
+import { posts } from 'app/blog/posts/posts'
 
 function escapeXml(unsafe: string): string {
   return unsafe.replace(/[<>&'"]/g, (c: string): string => {
@@ -13,46 +14,6 @@ function escapeXml(unsafe: string): string {
       default: return c;
     }
   });
-}
-
-function convertMarkdownToHTML(markdown: string): string {
-  let html = markdown;
-
-  // Convert headings (must be done before other conversions)
-  html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-  html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-  html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
-
-  // Convert bold text
-  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-
-  // Convert italic text (single asterisk or underscore)
-  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-  html = html.replace(/_(.*?)_/g, '<em>$1</em>');
-
-  // Convert links [text](url)
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
-
-  // Convert line breaks to paragraphs
-  html = html.split('\n\n').map(para => {
-    // Don't wrap if it's already an HTML tag
-    if (para.trim().startsWith('<')) {
-      return para;
-    }
-    return para.trim() ? `<p>${para.trim()}</p>` : '';
-  }).join('\n');
-
-  return html;
-}
-
-function processMarkdownForRSS(content: string): string {
-  // Process MDX components (Tweet, Cast, Gallery)
-  let processed = processMarkdownComponents(content);
-
-  // Convert markdown to HTML
-  processed = convertMarkdownToHTML(processed);
-
-  return processed;
 }
 
 export async function GET() {

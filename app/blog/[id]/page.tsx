@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { CustomMDX } from 'app/components/mdx';
+import SubscribeForm from 'app/components/subscribe-form';
 import { formatDate, getBlogPosts } from 'app/blog/utils';
 import { posts } from '../posts/posts';
 import { appUrl, bannerImg, createMiniAppEmbed } from 'app/sitemap';
@@ -114,6 +115,7 @@ export default async function Blog({ params }) {
       <article className="prose">
         <CustomMDX source={post.content} />
       </article>
+      <SubscribeForm variant="inline" />
     </section>
     </div>
   );
