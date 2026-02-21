@@ -59,7 +59,7 @@ ${bodyHtml}
 
   const { data: createData, error: createError } = await resend.broadcasts.create({
     name: `Newsletter: ${title}`,
-    audienceId: audienceId as string,
+    segmentId: audienceId as string,
     from: process.env.RESEND_FROM || 'Dylan Steck <onboarding@resend.dev>',
     subject: `New post: ${title}`,
     html: emailHtml,

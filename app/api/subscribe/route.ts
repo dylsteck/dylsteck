@@ -42,7 +42,7 @@ export async function POST(request: Request) {
 
   const { data, error } = await resend.contacts.create({
     email,
-    audienceId: segmentId,
+    segments: [{ id: segmentId }],
   })
 
   if (error) {

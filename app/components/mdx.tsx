@@ -114,6 +114,7 @@ export function CustomMDX(props) {
     <MDXRemote
       {...props}
       components={{ ...components, ...(props.components || {}) }}
+      options={{ parseFrontmatter: true, blockJS: false }}
     />
   )
 }
