@@ -1,7 +1,6 @@
-"use client";
 import React from "react";
 import { TabType, MediaItem } from "app/types";
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 import { videos } from "app/video/videos";
 import { posts } from "app/blog/posts/posts";
 
@@ -43,7 +42,7 @@ export default function Media(){
               {activeItems.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((item, index) => {
                   return(
                     <div className="w-full flex flex-col" key={index}>
-                       <Link href={`/${item.type}/${item.id}`}>
+                       <Link to={item.type === 'blog' ? '/blog/$id' : '/video/$id'} params={{ id: item.id }}>
                           <p className="text-neutral-900 dark:text-neutral-100 tracking-tight">
                               {item.title}
                           </p>
