@@ -1,7 +1,4 @@
-'use client';
-
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { allGalleryItems } from './items';
 import { GalleryItem as GalleryItemType, GalleryItemType as Type } from 'app/types';
 
@@ -11,8 +8,8 @@ interface GalleryItemProps {
 
 const GalleryItem: React.FC<GalleryItemProps> = ({ item }) => {
   return (
-    <Link href={item.url} target="_blank">
-      <div 
+    <a href={item.url} target="_blank" rel="noopener noreferrer">
+      <div
         className="relative w-full aspect-video rounded-lg overflow-hidden shadow-lg cursor-pointer hover:scale-105 transition-transform"
       >
         <img
@@ -25,7 +22,7 @@ const GalleryItem: React.FC<GalleryItemProps> = ({ item }) => {
       <p className="text-black/80 text-center pt-2 text-lg font-medium">
         {item.title}
       </p>
-    </Link>
+    </a>
   );
 };
 
@@ -70,7 +67,7 @@ const Gallery = ({ id }: { id: string }) => {
   if (!item) {
     throw new Error('No item found for the given id');
   }
-  const { description, items } = item;
+  const { items } = item;
 
   const availableFilters = Array.from(new Set(items.map((item) => item.type))).sort();
 

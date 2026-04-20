@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import useSWRInfinite from 'swr/infinite'
-import { FeedItem } from 'app/api/feed/types'
+import { FeedItem } from 'app/lib/feed-types'
 import { CACHE_SECONDS, FARCASTER_PAGE_LIMIT } from 'app/lib/constants'
 import { sortFeedItems } from 'app/lib/feed-utils'
 

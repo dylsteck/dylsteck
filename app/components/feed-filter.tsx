@@ -1,5 +1,3 @@
-'use client'
-
 export type FilterType = 'all' | 'blog' | 'farcaster' | 'video'
 export type ViewMode = 'grid' | 'list'
 export const FILTER_OPTIONS: FilterType[] = ['all', 'blog', 'farcaster', 'video']
@@ -16,17 +14,13 @@ export default function FeedFilter({ activeFilters, onFilterChange, viewMode, on
     if (filter === 'all') {
       onFilterChange(['all'])
     } else {
-      // If "all" is currently active, replace it with the selected filter
       if (activeFilters.includes('all')) {
         onFilterChange([filter])
       } else {
-        // Toggle the filter
         if (activeFilters.includes(filter)) {
-          // If removing the last filter, go back to "all"
           const newFilters = activeFilters.filter(f => f !== filter)
           onFilterChange(newFilters.length > 0 ? newFilters : ['all'])
         } else {
-          // Add the filter
           onFilterChange([...activeFilters, filter])
         }
       }

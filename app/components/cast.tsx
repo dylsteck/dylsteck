@@ -1,4 +1,4 @@
-import { FarcasterEmbed } from 'react-farcaster-embed'
+import { FarcasterEmbed } from 'react-farcaster-embed/dist/client'
 
 interface CastProps {
   url: string
@@ -12,4 +12,3 @@ export default function Cast({ url, ...props }: CastProps) {
     </div>
   )
 }
-

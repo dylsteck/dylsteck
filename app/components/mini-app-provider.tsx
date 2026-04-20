@@ -1,5 +1,3 @@
-"use client";
-
 import { sdk } from "@farcaster/miniapp-sdk";
 import type { MiniAppContext } from "@farcaster/miniapp-core/dist/context";
 import type { AddMiniAppResult } from "@farcaster/miniapp-core/dist/actions/AddMiniApp";

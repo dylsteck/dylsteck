@@ -1,5 +1,3 @@
-'use client'
-
 import { useState } from 'react'
 import BaseIcon from './icons/base-icon'
 

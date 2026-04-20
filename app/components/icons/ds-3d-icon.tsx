@@ -1,5 +1,3 @@
-'use client'
-
 import { Canvas, useFrame, extend } from '@react-three/fiber'
 import { useGLTF, shaderMaterial } from '@react-three/drei'
 import { useRef, useEffect, useMemo } from 'react'

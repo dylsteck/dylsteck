@@ -1,38 +1,36 @@
-'use client'
-
 import { useEffect, useState, useTransition, useRef } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter, useSearchParams, usePathname } from 'next/navigation'
-import { FeedItem } from 'app/api/feed/types'
+import Image from '../components/image'
+import { Link, useNavigate, useSearch, useLocation } from '@tanstack/react-router'
+import type { FeedItem } from 'app/api/feed/types'
 import FeedFilter, { FILTER_OPTIONS, FilterType, ViewMode } from '../components/feed-filter'
 import { useFeed } from '../hooks/use-feed'
 import { buildFarcasterCastImageUrl } from 'app/lib/feed-utils'
 
-function parseFiltersFromUrl(searchParams: URLSearchParams): FilterType[] {
-  const filterParam = searchParams.get('filter')
-  if (!filterParam) return ['all']
-  
-  const filters = filterParam.split(',').filter((f): f is FilterType => {
+function parseFiltersFromSearch(filter: string | undefined): FilterType[] {
+  if (!filter) return ['all']
+
+  const filters = filter.split(',').filter((f): f is FilterType => {
     return FILTER_OPTIONS.includes(f as FilterType)
   })
-  
+
   return filters.length > 0 ? filters : ['all']
 }
 
 export default function FeedMasonry() {
-  const router = useRouter()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-  const [isPending, startTransition] = useTransition()
-  
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const search = useSearch({ strict: false }) as {
+    filter?: string
+    view?: string
+  }
+  const [, startTransition] = useTransition()
+
   const [shouldAnimate, setShouldAnimate] = useState(false)
 
-  // Ref for intersection observer
   const loadMoreRef = useRef<HTMLDivElement>(null)
 
-  const activeFilters = parseFiltersFromUrl(searchParams)
-  const viewMode: ViewMode = searchParams.get('view') === 'list' ? 'list' : 'grid'
+  const activeFilters = parseFiltersFromSearch(search.filter)
+  const viewMode: ViewMode = search.view === 'list' ? 'list' : 'grid'
 
   const {
     items: allItems,
@@ -42,18 +40,15 @@ export default function FeedMasonry() {
     loadMore,
   } = useFeed()
 
-  // Track when initial load completes to set animation
   useEffect(() => {
     if (!isLoading && allItems.length > 0) {
-      // Set animation if load took a while (handled by SWR's timing)
       setShouldAnimate(true)
     }
   }, [isLoading, allItems.length])
 
-  // Intersection observer for infinite scroll
   useEffect(() => {
     if (!loadMoreRef.current || isLoading) return
-    
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && hasMore && !isLoadingMore) {
@@ -62,35 +57,39 @@ export default function FeedMasonry() {
       },
       { threshold: 0.1, rootMargin: '200px' }
     )
-    
+
     observer.observe(loadMoreRef.current)
-    
+
     return () => observer.disconnect()
   }, [hasMore, isLoadingMore, isLoading, loadMore])
 
   const handleViewModeChange = (mode: ViewMode) => {
     startTransition(() => {
-      const params = new URLSearchParams(searchParams.toString())
-      if (mode === 'grid') {
-        params.delete('view')
-      } else {
-        params.set('view', mode)
-      }
-      router.push(`${pathname}?${params.toString()}`, { scroll: false })
+      navigate({
+        to: pathname,
+        search: (prev: Record<string, unknown>) => ({
+          ...prev,
+          view: mode === 'grid' ? undefined : mode,
+        }),
+        replace: false,
+      })
     })
   }
 
   const handleFilterChange = (newFilters: FilterType[]) => {
     startTransition(() => {
-      const params = new URLSearchParams(searchParams.toString())
-      
-      if (newFilters.length === 1 && newFilters[0] === 'all') {
-        params.delete('filter')
-      } else {
-        params.set('filter', newFilters.join(','))
-      }
-      
-      router.push(`${pathname}?${params.toString()}`, { scroll: false })
+      const nextFilter =
+        newFilters.length === 1 && newFilters[0] === 'all'
+          ? undefined
+          : newFilters.join(',')
+      navigate({
+        to: pathname,
+        search: (prev: Record<string, unknown>) => ({
+          ...prev,
+          filter: nextFilter,
+        }),
+        replace: false,
+      })
     })
   }
 
@@ -98,7 +97,6 @@ export default function FeedMasonry() {
     ? allItems
     : allItems.filter(item => activeFilters.includes(item.type as FilterType))
 
-  // Show load more only when filtering includes Farcaster
   const showLoadMore = hasMore && (activeFilters.includes('all') || activeFilters.includes('farcaster'))
 
   if (isLoading) {
@@ -133,11 +131,10 @@ export default function FeedMasonry() {
             ))}
           </div>
         )}
-        
-        {/* Load more trigger */}
+
         {showLoadMore && (
-          <div 
-            ref={loadMoreRef} 
+          <div
+            ref={loadMoreRef}
             className="flex justify-center py-8"
           >
             {isLoadingMore && (
@@ -155,9 +152,9 @@ function FeedMasonryItem({ item, index, shouldAnimate }: { item: FeedItem; index
     const castHash = item.castData.hash
     const imageUrl = buildFarcasterCastImageUrl(castHash)
     const farcasterUrl = item.url
-    
+
     return (
-      <Link
+      <a
         href={farcasterUrl}
         className={`group block ${shouldAnimate ? 'feed-item-fade-in' : ''}`}
         style={shouldAnimate ? { animationDelay: `${Math.min(index * 50, 500)}ms` } : undefined}
@@ -174,18 +171,17 @@ function FeedMasonryItem({ item, index, shouldAnimate }: { item: FeedItem; index
             {item.title || item.text?.substring(0, 100) || 'Farcaster post'}
           </p>
         </div>
-      </Link>
+      </a>
     )
   }
 
-  // Skip if no image (shouldn't happen for blog/video posts now, but safety check)
   if (!item.imageUrl) {
     return null
   }
 
   return (
     <Link
-      href={item.url}
+      to={item.url}
       className={`group block ${shouldAnimate ? 'feed-item-fade-in' : ''}`}
       style={shouldAnimate ? { animationDelay: `${Math.min(index * 50, 500)}ms` } : undefined}
     >
@@ -230,25 +226,38 @@ function FeedListItem({ item, index, shouldAnimate }: { item: FeedItem; index: n
   const title = item.title || item.text?.substring(0, 100) || 'Farcaster post'
   const typeLabel = item.type === 'farcaster' ? 'cast' : item.type
 
-  return (
-    <Link
-      href={url}
-      className={`group block ${shouldAnimate ? 'feed-item-fade-in' : ''}`}
-      style={shouldAnimate ? { animationDelay: `${Math.min(index * 30, 300)}ms` } : undefined}
-    >
-      <div className="flex items-baseline justify-between gap-4 py-1 transition-all duration-200 hover:opacity-70">
-        <div className="min-w-0">
-          <p className="text-sm text-neutral-900 dark:text-neutral-100 truncate">
-            {title}
-          </p>
-          <p className="text-xs text-neutral-500 dark:text-neutral-500 mt-0.5">
-            {typeLabel}
-          </p>
-        </div>
-        <span className="text-xs text-neutral-500 dark:text-neutral-500 shrink-0 tabular-nums">
-          {formatRelativeDate(item.date)}
-        </span>
+  const isExternal = /^https?:\/\//.test(url)
+
+  const content = (
+    <div className="flex items-baseline justify-between gap-4 py-1 transition-all duration-200 hover:opacity-70">
+      <div className="min-w-0">
+        <p className="text-sm text-neutral-900 dark:text-neutral-100 truncate">
+          {title}
+        </p>
+        <p className="text-xs text-neutral-500 dark:text-neutral-500 mt-0.5">
+          {typeLabel}
+        </p>
       </div>
+      <span className="text-xs text-neutral-500 dark:text-neutral-500 shrink-0 tabular-nums">
+        {formatRelativeDate(item.date)}
+      </span>
+    </div>
+  )
+
+  const className = `group block ${shouldAnimate ? 'feed-item-fade-in' : ''}`
+  const style = shouldAnimate ? { animationDelay: `${Math.min(index * 30, 300)}ms` } : undefined
+
+  if (isExternal) {
+    return (
+      <a href={url} className={className} style={style}>
+        {content}
+      </a>
+    )
+  }
+
+  return (
+    <Link to={url} className={className} style={style}>
+      {content}
     </Link>
   )
 }

@@ -1,8 +1,5 @@
-'use client'
-
-import Image from 'next/image'
-import Link from 'next/link'
-import type { App } from './page'
+import Image from '../components/image'
+import type { App } from './apps'
 
 interface AppsGridProps {
   apps: App[]
@@ -14,7 +11,7 @@ export default function AppsGrid({ apps }: AppsGridProps) {
       <div className="flex-1 flex items-center justify-center">
         <div className="grid grid-cols-3 md:grid-cols-4 gap-x-8 sm:gap-x-14 gap-y-8 sm:gap-y-14">
           {apps.map((app, index) => (
-          <Link
+          <a
             key={index}
             href={app.url}
             target="_blank"
@@ -35,7 +32,7 @@ export default function AppsGrid({ apps }: AppsGridProps) {
             <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-neutral-200 transition-colors duration-200 text-center truncate w-full px-1">
               {app.hidden ? '***' : app.name}
             </span>
-          </Link>
+          </a>
         ))}
         </div>
       </div>

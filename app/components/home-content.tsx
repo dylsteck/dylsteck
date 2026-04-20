@@ -1,5 +1,3 @@
-'use client'
-
 import { useState } from 'react'
 import Hologram from './hologram'
 import DS3DIcon from './icons/ds-3d-icon'

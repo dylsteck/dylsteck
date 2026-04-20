@@ -1,4 +1,4 @@
-import { FarcasterCastData, FeedItem } from 'app/api/feed/types'
+import { FarcasterCastData, FeedItem } from './feed-types'
 import {
   CACHE_SECONDS,
   DEFAULT_FARCASTER_USERNAME,
