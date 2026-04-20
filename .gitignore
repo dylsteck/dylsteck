@@ -13,6 +13,10 @@
 /.next/
 /out/
 
+# vite / tanstack start
+/.output/
+/.tanstack/
+
 # production
 /build
 
@@ -39,4 +43,7 @@ next-env.d.ts
 bun.lock
 
 # obsidian
-.obsidianapp/routeTree.gen.ts
+.obsidian
+
+# tanstack router generated
+app/routeTree.gen.ts
