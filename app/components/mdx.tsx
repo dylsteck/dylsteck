@@ -1,8 +1,9 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { MDXRemote } from 'next-mdx-remote/rsc'
+import { Link } from '@tanstack/react-router'
+import { MDXRemote } from 'next-mdx-remote'
+import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { highlight } from 'sugar-high'
 import React from 'react'
+import Image from './image'
 import Gallery from './gallery'
 import TweetComponent from './tweet'
 import Cast from './cast'
@@ -34,7 +35,7 @@ function CustomLink(props) {
 
   if (href.startsWith('/')) {
     return (
-      <Link href={href} {...props}>
+      <Link to={href} {...props}>
         {props.children}
       </Link>
     )
@@ -64,11 +65,11 @@ function slugify(str) {
   return str
     .toString()
     .toLowerCase()
-    .trim() // Remove whitespace from both ends of a string
-    .replace(/\s+/g, '-') // Replace spaces with -
-    .replace(/&/g, '-and-') // Replace & with 'and'
-    .replace(/[^\w\-]+/g, '') // Remove all non-word characters except for -
-    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/&/g, '-and-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-')
 }
 
 function createHeading(level) {
@@ -93,7 +94,7 @@ function createHeading(level) {
   return Heading
 }
 
-let components = {
+const components = {
   h1: createHeading(1),
   h2: createHeading(2),
   h3: createHeading(3),
@@ -106,15 +107,19 @@ let components = {
   Table,
   Gallery,
   Tweet: TweetComponent,
-  Cast
+  Cast,
 }
 
-export function CustomMDX(props) {
+type CustomMDXProps = {
+  source: MDXRemoteSerializeResult
+  components?: React.ComponentProps<typeof MDXRemote>['components']
+}
+
+export function CustomMDX({ source, components: extra }: CustomMDXProps) {
   return (
     <MDXRemote
-      {...props}
-      components={{ ...components, ...(props.components || {}) }}
-      options={{ parseFrontmatter: true, blockJS: false }}
+      {...source}
+      components={{ ...components, ...(extra || {}) }}
     />
   )
 }

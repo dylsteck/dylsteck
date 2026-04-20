@@ -1,12 +1,10 @@
-"use client";
 import { MediaItem } from "app/types";
 import { posts } from "app/blog/posts/posts";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { Link, useNavigate } from "@tanstack/react-router";
 import React from "react";
 
 export default function ArticleRedirect({ id } : { id: string }) {
-  const router = useRouter();
+  const navigate = useNavigate();
   const [post, setPost] = React.useState<MediaItem | null>(null);
 
   React.useEffect(() => {
@@ -14,17 +12,17 @@ export default function ArticleRedirect({ id } : { id: string }) {
       if (postObject) {
           setPost(postObject);
           setTimeout(() => {
-            router.replace(`/blog/${postObject.id}`);
+            navigate({ to: '/blog/$id', params: { id: postObject.id }, replace: true });
           }, 500);
       } else {
-          router.replace('/404');
+          navigate({ to: '/404', replace: true });
       }
-  }, [id, router]);
+  }, [id, navigate]);
 
   return (
       <div>
-          {post !== null ? 
-              <p>Redirecting to <Link target="_blank" className="underline" href={`/blog/${post.id}`}>{post.title}</Link></p>
+          {post !== null ?
+              <p>Redirecting to <Link target="_blank" className="underline" to="/blog/$id" params={{ id: post.id }}>{post.title}</Link></p>
               :
               <p>Redirecting...</p>
           }

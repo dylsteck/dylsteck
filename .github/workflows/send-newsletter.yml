@@ -45,6 +45,6 @@ jobs:
           for slug in $SLUGS; do
             if [ -n "$slug" ]; then
               echo "Sending newsletter for: $slug"
-              bun run scripts/send-newsletter.ts "$slug"
+              bun run send-newsletter "$slug"
             fi
           done
