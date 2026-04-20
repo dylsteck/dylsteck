@@ -7,10 +7,18 @@ import { nitro } from 'nitro/vite'
 export default defineConfig({
   resolve: {
     tsconfigPaths: true,
-    noExternal: ['react-tweet', 'react-farcaster-embed'],
+    noExternal: [
+      'react-tweet',
+      'react-farcaster-embed',
+      '@farcaster/miniapp-sdk',
+    ],
   },
   ssr: {
-    noExternal: ['react-tweet', 'react-farcaster-embed'],
+    noExternal: [
+      'react-tweet',
+      'react-farcaster-embed',
+      '@farcaster/miniapp-sdk',
+    ],
   },
   plugins: [
     nitro(),
