@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import Image from '../components/image'
 import { appUrl, bannerImg, createMiniAppEmbed } from '../sitemap'
-import BaseIcon from '../components/icons/base-icon'
+import CoinbaseIcon from '../components/icons/coinbase-icon'
 import FarcasterIcon from '../components/icons/farcaster-icon'
 
 const miniAppEmbed = JSON.stringify(createMiniAppEmbed())
@@ -47,7 +47,7 @@ function InfoPage() {
           When I got to college I had been building apps already and knew that's what I wanted to spend my time doing. I fortunately got down the crypto rabbit hole at the right time, found out and got super passionate about <span className="inline-flex items-center mx-0.5 align-middle"><FarcasterIcon className="w-3.5 h-3.5 text-[#6A3CFF]" /></span> <a href="https://farcaster.xyz" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:opacity-70 transition-opacity">Farcaster</a>, and through a series of internships and projects dove head first into the space. Around the time I had helped out with <a href="https://farcon.xyz" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:opacity-70 transition-opacity">FarCon LA</a> and was doing work at <a href="https://neynar.com" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:opacity-70 transition-opacity">Neynar</a>, I dropped out of college to keep pursuing this dream.
         </p>
         <p className="text-left text-sm text-neutral-900 dark:text-neutral-100">
-          Now I work on <a href="https://base.app" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:opacity-70 transition-opacity">Base app</a> at <span className="inline-flex items-center mx-0.5 align-middle"><BaseIcon className="w-3.5 h-3.5 text-[rgb(0,0,255)] dark:text-white" /></span> Base, where I help figure out how all our onchain legos can fit together so we can bring more people onchain. In my free time, I'm exploring what interfaces for agentic coding and work will look like.
+          Now I work on <a href="https://base.app" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:opacity-70 transition-opacity">Base app</a> at <span className="inline-flex items-center mx-0.5 align-middle"><CoinbaseIcon className="w-3.5 h-3.5 text-[#0052FF] dark:text-white" /></span> <a href="https://coinbase.com" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:opacity-70 transition-opacity">Coinbase</a>, where I help figure out how all our onchain legos can fit together so we can bring more people onchain. In my free time, I'm exploring what interfaces for agentic coding and work will look like.
         </p>
         <div className="mt-6">
           <p className="text-left text-sm text-neutral-900 dark:text-neutral-300 mb-3">Links</p>
