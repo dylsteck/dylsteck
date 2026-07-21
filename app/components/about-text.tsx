@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import BaseIcon from './icons/base-icon'
+import CoinbaseIcon from './icons/coinbase-icon'
 
 export default function AboutText() {
   const [isFirstExpanded, setIsFirstExpanded] = useState(false)
@@ -13,9 +13,9 @@ export default function AboutText() {
       >
         Engineer at{' '}
         <span className="inline-flex items-center mx-1">
-          <BaseIcon className="w-4 h-4 text-[rgb(0,0,255)] dark:text-white" />
+          <CoinbaseIcon className="w-4 h-4 text-[#0052FF] dark:text-white" />
         </span>
-        Base{isFirstExpanded ? ' working on Base app' : ''}.
+        Coinbase{isFirstExpanded ? ' working on Base app' : ''}.
       </button>{' '}
       <button
         onClick={() => setIsSecondExpanded(!isSecondExpanded)}
