@@ -110,6 +110,16 @@ const components = {
   Cast,
 }
 
-export function CustomMDX({ source }: { source: MDXRemoteSerializeResult }) {
-  return <MDXRemote {...source} components={components} />
+type CustomMDXProps = {
+  source: MDXRemoteSerializeResult
+  components?: React.ComponentProps<typeof MDXRemote>['components']
+}
+
+export function CustomMDX({ source, components: extra }: CustomMDXProps) {
+  return (
+    <MDXRemote
+      {...source}
+      components={{ ...components, ...(extra || {}) }}
+    />
+  )
 }

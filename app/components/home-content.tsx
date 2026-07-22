@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Hologram from './hologram'
 import DS3DIcon from './icons/ds-3d-icon'
 import AboutText from './about-text'
+import SubscribeForm from './subscribe-form'
 
 export default function HomeContent() {
     const [showHologram, setShowHologram] = useState(false)
@@ -26,6 +27,9 @@ export default function HomeContent() {
             <div className="fixed bottom-6 left-6 z-30 pointer-events-auto">
                 <AboutText />
             </div>
+
+            {/* Subscribe - Bottom right */}
+            <SubscribeForm variant="fixed" />
 
             {/* Full size hologram after pop */}
             {showHologram && (

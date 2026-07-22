@@ -3,6 +3,7 @@ import { createServerFn } from '@tanstack/react-start'
 import { serialize } from 'next-mdx-remote/serialize'
 import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { CustomMDX } from '../components/mdx'
+import SubscribeForm from '../components/subscribe-form'
 import { formatDate, getBlogPosts } from '../blog/utils'
 import { posts } from '../blog/posts/posts'
 import { appUrl, bannerImg, createMiniAppEmbed } from '../sitemap'
@@ -131,6 +132,7 @@ function BlogPost() {
         <article className="prose">
           <CustomMDX source={data.serialized} />
         </article>
+        <SubscribeForm variant="inline" />
       </section>
     </div>
   )
