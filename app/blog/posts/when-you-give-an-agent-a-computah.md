@@ -6,9 +6,9 @@ summary: 'When you give an agent a computah'
 
 We've all figured out that coding agent harnesses(eg. Claude Code, Codex, OpenCode etc) are one of if not the most powerful ways to use LLMs. We've also figured out how powerful it can be for the agent to control its own computer because:
 - Agents are getting better at using the tools that control computers(whether that's CLIs, scripts, or computer use tools). A computer gives an agent a file system, browser, and apps; all of which agents now know how to control. 
-- The computer acts as a headless execution environment. If your agent controls a computer in the cloud, you can say goodbye to your lid half open laptop!
+- The computer acts as a headless execution environment. If your agent controls a computer in the cloud, you can say goodbye to your lid half open laptop! And if you want to parallelize your work, you can even give each agent its own computer independently.
 
-In this piece I want to talk about where things were beforehand, how agents and this stack have evolved, what I think the next execution environment for agents could be, and the problem spaces that will be very open and exciting for exploration.
+In this piece I want to talk about where things were beforehand, how agents have evolved, and what I think the next execution environment for agents could be.
 
 ### The stone ages
 
@@ -30,17 +30,23 @@ A few things happened on the road to the present day. And I’ll tell this part 
 
 Even though some developers probably started by trying to get snippets from ChatGPT(maybe by pasting in snippets of files), it seems like using AI for coding *really* kicked off with Cursor. In particular their Tab model, which gave you an accurate autocomplete response for any line of code you were on, was very impressive and ahead of its time. What helped Cursor's usage take off after Tab was their right side chat, which would go a step further and actually propose or make changes on your files directly. This concept combined with their vector embeddings of your codebase made for an experience that felt wildly ahead of anything else at the time. 
 
+<Tweet id="2016771167135420622" />
+
 For a good while it seemed like Cursor had a sizable lead here and that the right side chat UI would be the standard, but that was until Claude Code came out and changed both how we work with AI and how it *could* start pushing us further away from a traditional IDE. And while Claude Code was already garnering some real traction beforehand, the release of Opus 4.5 really started to show how good agents could be at completing large chunks of coding work fully on their own. Much deeper context and much better code could now be completed over a *much* larger time frame, where as beforehand agents wouldn't run for as long and would often involve a lot of back and forth. Over the holidays at the end of last year in particular it seemed like the hype around these agent harnesses & new Anthropic models really started to take off, and this year we've already gone from agent harnesses being the standard to whole new non-IDE interfaces and standards like cloud environments for agents.
 
-This all led us to where we are today, which I would still call the era of [Agentic workspaces](/blog/agentic-workspaces). With developers rarely writing code by hand or looking in a traditional IDE([our team was even told to delete the IDE!](https://x.com/linear/status/2087191891846520840)), many developers transitioned to the terminal and some started using(or making) their own post-IDE interfaces. That’s what you see today with the Codex, Claude, and even OpenCode & T3 Code desktop apps. 
+This all led us to where we are today, which I would still call the era of [Agentic workspaces](/blog/agentic-workspaces). With developers rarely writing code by hand or looking in a traditional IDE([our team was even told to delete the IDE!](https://x.com/linear/status/2087191891846520840)), many developers transitioned to the terminal and some started using(or making) their own post-IDE interfaces. That’s what you see today with the Codex, Claude, Conductor, and even OpenCode & T3 Code desktop apps. 
 
 While there are some people who definitely still use agent CLIs in the terminal, I think all these non-IDE desktop apps are signs there's a new experience people are looking for. That's something I've been running into myself at work. I want one place to manage all the agents I have running, run terminal commands, test changes out in the browser, and review changes(whether it's a diff or a full PR). Another thing these apps have started to embrace are remote environments, which give the agent a sandboxed environment to run in *and* (more importantly) let the agent run on its own without having to keep your laptop open.
 
-And one of the things that made that possible was [ACP](https://agentclientprotocol.com/get-started/introduction)(Agent Client Protocol)by Zed, which creates a simple transport layer so anyone can build interfaces on top of harnesses without needing a ton of custom setup. That all made it possible to have super desktop apps that encompass chat, sub agents, the terminal, code review, and even browser/computer use. The browser/computer use piece in particular is quite interesting because, instead of companies making their own agentic browsers(like OpenAI’s Atlas), they’ve found more success building in-app solutions that still have really great capabilities. In particular OpenAI’s macOS computer use, powered/built by the Sky Software team they acquired(that had originally built the Shortcuts app at Apple), is very impressive. And quickly going back to how we were talking about the shift of developers going from the terminal to a new(non-IDE) desktop app, part of the reason the computer and browser use could be helpful is that it also helps serve non-coders who are just doing their every day tasks with browsers and desktop apps. If agents can get good at that work, the reach of these agent harnesses could start to reach past developers with enough work.
+And one of the things that made that possible was [ACP](https://agentclientprotocol.com/get-started/introduction)(Agent Client Protocol)by Zed, which creates a simple transport layer so anyone can build interfaces on top of harnesses without needing a ton of custom setup. That all made it possible to have super desktop apps that encompass chat, sub agents, the terminal, code review, and even browser/computer use. 
+
+<Tweet id="2044847117043388444" />
+
+The browser/computer use piece in particular is quite interesting because, instead of companies making their own agentic browsers(like OpenAI’s Atlas), they’ve found more success building in-app solutions that still have really great capabilities. In particular OpenAI’s macOS computer use, powered/built by the Sky Software team they acquired(that had originally built the Shortcuts app at Apple), is very impressive. And quickly going back to how we were talking about the shift of developers going from the terminal to a new(non-IDE) desktop app, part of the reason the computer and browser use could be helpful is that it also helps serve non-coders who are just doing their every day tasks with browsers and desktop apps. If agents can get good at that work, the reach of these agent harnesses could start to reach past developers with enough work.
 
 So that's how we landed up with coding agent harnesses that work well controlling computers, but where's this all going and how will these tools reach more people?
 
-### The next environment and problem spaces
+### The next environment
 
 This is really all about what's next. And before I go deeper, one thing I'll call out is that every time the models get better, it will increase the scope of what's possible. And so I would expect that to happen, and I would expect people to plan for that to happen and how adventurous they get with what they build.
 
@@ -48,7 +54,7 @@ Right now, a lot of these apps have been rooted in sort of skeumorphisms, buildi
 
 <Tweet id="2084990137180590572" />
 
-**show grok bot too**
+<Tweet id="2087224798078517251" />
 
 The interface may still be slightly grounded in things from today, but I think the Cloudflare OS product is a great step in this direction, where it's more geared towards building a bunch of different things and sharing it with other people and becoming a source of truth. And I think that putting the interface stuff aside for a second, it is that centralized in the cloud, but also shareable and configurable source of truth that is going to become the next architectural change. What's also cool is because these are built on Cloudflare workers, the agent can control multiple different processes and I think having multiple different options for compute and computing environments will be really important for agents as well.
 
