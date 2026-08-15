@@ -319,4 +319,12 @@ export const posts: MediaItem[] = [
       "banner": "",
       "type": "blog",
     },
+    {
+      "id": "when-you-give-an-agent-a-computah",
+      "date": "August 17, 2026",
+      "title": "When you give an agent a computah",
+      "description": "When you give an agent a computah",
+      "banner": "",
+      "type": "blog",
+    },
   ];

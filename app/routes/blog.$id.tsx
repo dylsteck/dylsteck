@@ -3,8 +3,10 @@ import { createServerFn } from '@tanstack/react-start'
 import { serialize } from 'next-mdx-remote/serialize'
 import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { CustomMDX } from '../components/mdx'
+import ArticleOutline from '../components/article-outline'
 import { formatDate, getBlogPosts } from '../blog/utils'
 import { posts } from '../blog/posts/posts'
+import { extractArticleSections, type ArticleSection } from '../lib/headings'
 import { appUrl, bannerImg, createMiniAppEmbed } from '../sitemap'
 
 type BlogData = {
@@ -15,6 +17,7 @@ type BlogData = {
   image?: string
   serialized: MDXRemoteSerializeResult
   postYear: number
+  sections: ArticleSection[]
 }
 
 const getBlogData = createServerFn({ method: 'GET' })
@@ -37,6 +40,7 @@ const getBlogData = createServerFn({ method: 'GET' })
       image: post.metadata.image,
       serialized,
       postYear,
+      sections: extractArticleSections(post.content),
     }
   })
 
@@ -114,7 +118,8 @@ function BlogPost() {
 
   return (
     <div className="min-h-screen w-full bg-white dark:bg-black">
-      <section className="max-w-4xl mx-auto px-6 sm:px-8 pt-12 sm:pt-16">
+      <ArticleOutline sections={data.sections} />
+      <section className="mx-auto w-full max-w-4xl px-6 pt-12 min-[900px]:w-[70%] sm:px-8 sm:pt-16">
         <script
           type="application/ld+json"
           suppressHydrationWarning

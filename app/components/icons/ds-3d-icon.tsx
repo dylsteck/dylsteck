@@ -1,10 +1,11 @@
 import { Canvas, useFrame, extend } from '@react-three/fiber'
 import { useGLTF, shaderMaterial } from '@react-three/drei'
-import { useRef, useEffect, useMemo } from 'react'
+import { Suspense, useMemo, useRef } from 'react'
 import * as THREE from 'three'
 
-// Preload the GLB model
-useGLTF.preload('/models/ds-grey.glb')
+if (typeof window !== 'undefined') {
+  useGLTF.preload('/models/ds-grey.glb')
+}
 
 // Holographic shader material - Blue/Gray theme
 const HolographicMaterial = shaderMaterial(
@@ -201,11 +202,13 @@ export default function DS3DIcon({ size = 'large' }: { size?: 'small' | 'large' 
         gl={{ alpha: true, antialias: true }}
         style={{ background: 'transparent', width: '100%', height: '100%' }}
       >
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[5, 5, 5]} intensity={0.3} />
-        <pointLight position={[-5, -5, -5]} intensity={0.2} color="#4a90d9" />
-        <pointLight position={[5, -5, 5]} intensity={0.2} color="#6b7b8c" />
-        <Model size={size} />
+        <Suspense fallback={null}>
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[5, 5, 5]} intensity={0.3} />
+          <pointLight position={[-5, -5, -5]} intensity={0.2} color="#4a90d9" />
+          <pointLight position={[5, -5, 5]} intensity={0.2} color="#6b7b8c" />
+          <Model size={size} />
+        </Suspense>
       </Canvas>
     </div>
   )

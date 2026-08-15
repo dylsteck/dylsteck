@@ -11,7 +11,7 @@ This is the repo for [dylansteck.com](https://dylansteck.com) — Dylan Steck's 
 - [@vercel/og](https://vercel.com/docs/og-image-generation) for dynamic OG images.
 - [@farcaster/miniapp-sdk](https://miniapps.farcaster.xyz) — the site is a Farcaster Mini App.
 - [react-three/fiber](https://r3f.docs.pmnd.rs/) + [drei](https://drei.docs.pmnd.rs/) for the homepage's 3D "DS" logo.
-- Bun is the declared package manager but npm works too.
+- [Bun](https://bun.sh/) is the package manager (`packageManager` in `package.json`). Use `bun install` / `bun add`, never npm.
 
 ## Architecture
 
@@ -71,22 +71,24 @@ Dockerfile                        ← deploy image (Bun deps → Node build → 
 - Do not add `postcss.config.js` — Tailwind 4 is wired through its Vite plugin.
 - Avoid fs operations at module top level; they must run in a server handler / `createServerFn` / route loader so they execute at request time on the server.
 - If adding packages that bundle their own Buffer / Node polyfills (like `@farcaster/miniapp-sdk`), add them to `noExternal` in `vite.config.ts` so SSR doesn't try to use Node's builtin `buffer` module.
+- Do not use npm (`npm install`, `npm add`, `npx`). Install and add packages with Bun.
 
 ## Development
 
 ```sh
-npm install --legacy-peer-deps   # react-farcaster-embed declares an old React peer range
-npm run dev                      # vite dev on :3000
-npm run build                    # produces .output/server/ and .output/public/ via nitro
-npm start                        # node .output/server/index.mjs
+bun install                      # react-farcaster-embed declares an old React peer range; Bun is fine with it
+bun run dev                      # vite dev on :3000
+node node_modules/vite/bin/vite.js build   # produces .output/server/ and .output/public/ via nitro
+                                           # do not use `bun run build` — nitro will bundle Bun.serve() and crash under Node
+bun run start                    # node .output/server/index.mjs
 ```
 
 ## Testing requirements
 
 Before considering work complete:
 
-1. **Vite build must pass**: `npm run build` finishes with `✓ built` and produces `.output/`. This catches most type and import errors.
-2. **For any non-trivial change**: Run `npm run dev` and verify the affected routes in Chrome. Manually click through the CUJs that touch your change (topbar nav, feed filters, blog post render, etc.).
+1. **Vite build must pass**: `node node_modules/vite/bin/vite.js build` finishes with `✓ built` and produces `.output/`. This catches most type and import errors. Do not use `bun run build`.
+2. **For any non-trivial change**: Run `bun run dev` and verify the affected routes in Chrome. Manually click through the CUJs that touch your change (topbar nav, feed filters, blog post render, etc.).
 3. **For anything that changes the server runtime, Dockerfile, deps, nitro config, or anything runtime-sensitive: validate the Docker image.** This is the only way to confirm the app will run in prod (Coolify / self-host). See the next section.
 
 ### Validating the Docker image
