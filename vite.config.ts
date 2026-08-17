@@ -3,6 +3,9 @@ import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { nitro } from 'nitro/vite'
+import { cloudflare } from '@cloudflare/vite-plugin'
+
+const isNodeTarget = process.env.DEPLOY_TARGET === 'node'
 
 export default defineConfig({
   resolve: {
@@ -11,6 +14,8 @@ export default defineConfig({
       'react-tweet',
       'react-farcaster-embed',
       '@farcaster/miniapp-sdk',
+      'cf-workers-og',
+      'next-mdx-remote',
     ],
   },
   ssr: {
@@ -18,10 +23,14 @@ export default defineConfig({
       'react-tweet',
       'react-farcaster-embed',
       '@farcaster/miniapp-sdk',
+      'cf-workers-og',
+      'next-mdx-remote',
     ],
   },
   plugins: [
-    nitro(),
+    isNodeTarget
+      ? nitro()
+      : cloudflare({ viteEnvironment: { name: 'ssr' } }),
     tailwindcss(),
     tanstackStart({
       srcDirectory: 'app',

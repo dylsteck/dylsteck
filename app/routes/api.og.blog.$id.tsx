@@ -1,5 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ImageResponse } from '@vercel/og'
 import { posts } from '../blog/posts/posts'
 import { DS_ICON_GREY_SVG } from '../components/icons/ds-icon-grey'
 
@@ -75,7 +74,8 @@ export const Route = createFileRoute('/api/og/blog/$id')({
           return new Response('Failed to load required fonts', { status: 500 })
         }
 
-        const imageResponse = new ImageResponse(
+        const { ImageResponse } = await import('cf-workers-og')
+        return ImageResponse.create(
           (
             <div
               style={{
@@ -130,7 +130,7 @@ export const Route = createFileRoute('/api/og/blog/$id')({
                     color: '#000000',
                     lineHeight: 1.1,
                     margin: 0,
-                    fontFamily: font400 ? 'Inter' : 'system-ui',
+                    fontFamily: font400 ? 'Inter' : 'sans-serif',
                   }}
                 >
                   {post.title}
@@ -151,7 +151,7 @@ export const Route = createFileRoute('/api/og/blog/$id')({
                     fontSize: isMiniApp ? 36 : 32,
                     color: '#000000',
                     margin: 0,
-                    fontFamily: font400 ? 'Inter' : 'system-ui',
+                    fontFamily: font400 ? 'Inter' : 'sans-serif',
                   }}
                 >
                   Dylan Steck
@@ -161,7 +161,7 @@ export const Route = createFileRoute('/api/og/blog/$id')({
                     fontSize: isMiniApp ? 36 : 32,
                     color: '#000000',
                     margin: 0,
-                    fontFamily: font400 ? 'Inter' : 'system-ui',
+                    fontFamily: font400 ? 'Inter' : 'sans-serif',
                   }}
                 >
                   {formattedDate}
@@ -203,16 +203,11 @@ export const Route = createFileRoute('/api/og/blog/$id')({
                     ]
                   : []),
             ],
+            headers: {
+              'Cache-Control': 'public, max-age=31536000, immutable',
+            },
           }
         )
-
-        return new Response(imageResponse.body, {
-          headers: {
-            ...Object.fromEntries(imageResponse.headers as any),
-            'Cache-Control': 'public, max-age=31536000, immutable',
-            'Content-Type': 'image/png',
-          },
-        })
       },
     },
   },

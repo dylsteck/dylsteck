@@ -1,5 +1,3 @@
-import fs from 'fs'
-import path from 'path'
 import { allGalleryItems } from 'app/components/gallery/items'
 import { GalleryItemType } from 'app/types'
 
@@ -9,6 +7,18 @@ type Metadata = {
   summary: string
   image?: string
 }
+
+const blogPostFiles = import.meta.glob('./posts/*.md', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>
+
+const extraMarkdownFiles = import.meta.glob('../../*.md', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>
 
 function parseFrontmatter(fileContent: string) {
   let frontmatterRegex = /---\s*([\s\S]*?)\s*---/
@@ -28,31 +38,29 @@ function parseFrontmatter(fileContent: string) {
   return { metadata: metadata as Metadata, content }
 }
 
-function getMDFiles(dir) {
-  return fs.readdirSync(dir).filter((file) => path.extname(file) === '.md')
+function slugFromPath(filePath: string) {
+  const fileName = filePath.split('/').pop() ?? filePath
+  return fileName.replace(/\.md$/, '')
 }
 
-function readMDFile(filePath) {
-  let rawContent = fs.readFileSync(filePath, 'utf-8')
-  return parseFrontmatter(rawContent)
-}
-
-function getMDData(dir) {
-  let mdxFiles = getMDFiles(dir)
-  return mdxFiles.map((file) => {
-    let { metadata, content } = readMDFile(path.join(dir, file))
-    let slug = path.basename(file, path.extname(file))
-
+export function getBlogPosts() {
+  return Object.entries(blogPostFiles).map(([filePath, rawContent]) => {
+    const { metadata, content } = parseFrontmatter(rawContent)
     return {
       metadata,
-      slug,
+      slug: slugFromPath(filePath),
       content,
     }
   })
 }
 
-export function getBlogPosts() {
-  return getMDData(path.join(process.cwd(), 'app', 'blog', 'posts'))
+export function getRootMarkdownFiles() {
+  return Object.entries(extraMarkdownFiles)
+    .map(([filePath, content]) => ({
+      path: slugFromPath(filePath) + '.md',
+      content,
+    }))
+    .sort((a, b) => a.path.localeCompare(b.path))
 }
 
 export function formatDate(date: string, includeRelative = false) {

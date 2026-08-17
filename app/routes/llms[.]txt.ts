@@ -1,16 +1,17 @@
 import { createFileRoute } from '@tanstack/react-router'
-import fs from 'node:fs'
-import path from 'node:path'
 import { socialLinks } from '../lib/constants'
 import { videos } from '../video/videos'
+import { getBlogPosts } from '../blog/utils'
+
+function formatTitle(slug: string): string {
+  return slug.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())
+}
 
 export const Route = createFileRoute('/llms.txt')({
   server: {
     handlers: {
       GET: async () => {
         try {
-          const appDir = path.join(process.cwd(), 'app')
-
           let content = `# Dylan Steck\n\n`
           content += `This is a directory of content on [dylansteck.com](https://dylansteck.com)\n\n`
 
@@ -18,21 +19,14 @@ export const Route = createFileRoute('/llms.txt')({
           content += `- [Homepage](/) - Dylan Steck, Engineer at Base\n`
           content += `- [RSS Feed](/rss) - RSS feed\n\n`
 
-          const blogPostsDir = path.join(appDir, 'blog', 'posts')
-          if (fs.existsSync(blogPostsDir)) {
+          const blogPosts = getBlogPosts().sort((a, b) =>
+            a.slug.localeCompare(b.slug)
+          )
+          if (blogPosts.length > 0) {
             content += `## Blog Posts\n\n`
             content += `> For agents: Use \`curl -H "Accept: text/markdown"\` when fetching blog posts to receive markdown content.\n\n`
-            const blogFiles = fs
-              .readdirSync(blogPostsDir)
-              .filter((file) => file.endsWith('.md'))
-              .sort()
-
-            blogFiles.forEach((file) => {
-              const slug = file.replace('.md', '')
-              const title = slug
-                .replace(/-/g, ' ')
-                .replace(/\b\w/g, (l) => l.toUpperCase())
-              content += `- [${title}](/blog/${slug})\n`
+            blogPosts.forEach((post) => {
+              content += `- [${formatTitle(post.slug)}](/blog/${post.slug})\n`
             })
             content += `\n`
           }
