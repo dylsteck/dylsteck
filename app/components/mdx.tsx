@@ -3,6 +3,7 @@ import { MDXRemote } from 'next-mdx-remote'
 import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { highlight } from 'sugar-high'
 import React from 'react'
+import { slugify } from '../lib/headings'
 import Image from './image'
 import Gallery from './gallery'
 import TweetComponent from './tweet'
@@ -61,23 +62,27 @@ function Code({ children, ...props }) {
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
 }
 
-function slugify(str) {
-  return str
-    .toString()
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, '-')
-    .replace(/&/g, '-and-')
-    .replace(/[^\w\-]+/g, '')
-    .replace(/\-\-+/g, '-')
+function headingText(children: React.ReactNode): string {
+  if (typeof children === 'string' || typeof children === 'number') {
+    return String(children)
+  }
+  if (Array.isArray(children)) {
+    return children.map(headingText).join('')
+  }
+  if (children && typeof children === 'object' && 'props' in children) {
+    return headingText(
+      (children as { props?: { children?: React.ReactNode } }).props?.children
+    )
+  }
+  return ''
 }
 
 function createHeading(level) {
   const Heading = ({ children }) => {
-    let slug = slugify(children)
+    let slug = slugify(headingText(children))
     return React.createElement(
       `h${level}`,
-      { id: slug },
+      { id: slug, className: 'scroll-mt-24' },
       [
         React.createElement('a', {
           href: `#${slug}`,

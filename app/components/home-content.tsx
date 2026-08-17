@@ -1,7 +1,16 @@
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
+import { ClientOnly } from '@tanstack/react-router'
 import Hologram from './hologram'
-import DS3DIcon from './icons/ds-3d-icon'
 import AboutText from './about-text'
+
+const DS3DIcon = lazy(() => import('./icons/ds-3d-icon'))
+
+function LogoPlaceholder({ size = 'large' }: { size?: 'small' | 'large' }) {
+    const containerClass = size === 'small'
+        ? 'w-[36px] h-[36px] opacity-80 mt-0.5 mb-1'
+        : 'w-[350px] h-[350px]'
+    return <div className={containerClass} />
+}
 
 export default function HomeContent() {
     const [showHologram, setShowHologram] = useState(false)
@@ -19,7 +28,11 @@ export default function HomeContent() {
 
             {/* The 3D Logo - Fixed and always visible */}
             <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-20">
-                <DS3DIcon size="large" />
+                <ClientOnly fallback={<LogoPlaceholder />}>
+                    <Suspense fallback={<LogoPlaceholder />}>
+                        <DS3DIcon size="large" />
+                    </Suspense>
+                </ClientOnly>
             </div>
 
             {/* Engineer at Base - Bottom left */}
