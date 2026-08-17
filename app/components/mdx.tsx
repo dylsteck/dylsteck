@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router'
+import { Link, ClientOnly } from '@tanstack/react-router'
 import { MDXRemote } from 'next-mdx-remote'
 import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { highlight } from 'sugar-high'
@@ -116,5 +116,9 @@ const components = {
 }
 
 export function CustomMDX({ source }: { source: MDXRemoteSerializeResult }) {
-  return <MDXRemote {...source} components={components} />
+  return (
+    <ClientOnly fallback={null}>
+      <MDXRemote {...source} components={components} />
+    </ClientOnly>
+  )
 }

@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "dylsteck",
+  "account_id": "b6c3bd7b1a1c219a306faf2c3f0a903a",
+  "compatibility_date": "2026-08-16",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/react-start/server-entry",
+  "workers_dev": true,
+  "preview_urls": true,
+  "routes": [
+    { "pattern": "dylansteck.com", "custom_domain": true },
+    { "pattern": "www.dylansteck.com", "custom_domain": true }
+  ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
+}

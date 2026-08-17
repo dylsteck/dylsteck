@@ -16,6 +16,7 @@
 # vite / tanstack start
 /.output/
 /.tanstack/
+/dist/
 
 # production
 /build
@@ -41,6 +42,11 @@ next-env.d.ts
 
 # bun 
 bun.lock
+
+# cloudflare
+.wrangler
+.dev.vars
+worker-configuration.d.ts
 
 # obsidian
 .obsidian

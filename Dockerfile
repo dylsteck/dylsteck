@@ -7,13 +7,12 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# Nitro Node output for self-hosting. Cloudflare deploys use the default Vite target.
+ENV DEPLOY_TARGET=node
 RUN node node_modules/vite/bin/vite.js build
 
 FROM node:22-alpine
 WORKDIR /app
 COPY --from=builder /app/.output ./.output
-# Blog post markdown + other source-read files are loaded at runtime via
-# fs.readFileSync(process.cwd() + '/app/...'), so we ship the relevant source.
-COPY --from=builder /app/app ./app
 EXPOSE 3000
 CMD ["node", ".output/server/index.mjs"]
