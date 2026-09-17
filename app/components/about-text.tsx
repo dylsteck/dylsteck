@@ -9,14 +9,14 @@ export default function AboutText() {
     <div className="text-sm text-neutral-500 dark:text-neutral-500 max-w-xs text-left">
       <button
         onClick={() => setIsFirstExpanded(!isFirstExpanded)}
-        className="inline-flex items-center cursor-pointer transition-all duration-300 hover:opacity-80 no-underline"
+        className="block cursor-pointer transition-all duration-300 hover:opacity-80 no-underline text-left w-full"
       >
         Engineer at{' '}
-        <span className="inline-flex items-center mx-1">
+        <span className="inline-flex items-center mx-1 align-middle">
           <CoinbaseIcon className="w-4 h-4 text-[#0052FF] dark:text-white" />
         </span>
-        Coinbase{isFirstExpanded ? ' working on Base app' : ''}.
-      </button>{' '}
+        Coinbase{isFirstExpanded ? ' working on Coinbase Wallet' : ''}.
+      </button>
       <button
         onClick={() => setIsSecondExpanded(!isSecondExpanded)}
         className="block cursor-pointer transition-all duration-300 hover:opacity-80 no-underline text-left w-full"
