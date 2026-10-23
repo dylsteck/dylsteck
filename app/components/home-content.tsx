@@ -8,7 +8,7 @@ const DS3DIcon = lazy(() => import('./icons/ds-3d-icon'))
 function LogoPlaceholder({ size = 'large' }: { size?: 'small' | 'large' }) {
     const containerClass = size === 'small'
         ? 'w-[36px] h-[36px] opacity-80 mt-0.5 mb-1'
-        : 'w-[350px] h-[350px]'
+        : 'home-mark w-[350px] h-[350px]'
     return <div className={containerClass} />
 }
 
@@ -26,18 +26,18 @@ export default function HomeContent() {
             {/* Main page background */}
             <div className="fixed inset-0 bg-white dark:bg-black -z-10" />
 
-            {/* The 3D Logo - Fixed and always visible */}
-            <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-20">
-                <ClientOnly fallback={<LogoPlaceholder />}>
-                    <Suspense fallback={<LogoPlaceholder />}>
-                        <DS3DIcon size="large" />
-                    </Suspense>
-                </ClientOnly>
-            </div>
-
-            {/* Engineer at Base - Bottom left */}
-            <div className="fixed bottom-6 left-6 z-30 pointer-events-auto">
-                <AboutText />
+            {/* Mark stays centered, caption bottom-left. Short viewports stack them. */}
+            <div className="home-stage fixed inset-0 z-20 pointer-events-none">
+                <div className="home-logo">
+                    <ClientOnly fallback={<LogoPlaceholder />}>
+                        <Suspense fallback={<LogoPlaceholder />}>
+                            <DS3DIcon size="large" />
+                        </Suspense>
+                    </ClientOnly>
+                </div>
+                <div className="home-caption pointer-events-auto">
+                    <AboutText />
+                </div>
             </div>
 
             {/* Full size hologram after pop */}

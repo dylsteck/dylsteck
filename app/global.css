@@ -292,6 +292,14 @@ table {
     }
   }
 
+  /* Closed Duo landscape is wide enough for 2 columns and too short for them. */
+  @media (max-height: 400px) {
+    .masonry-grid,
+    .feed-grid {
+      column-count: 1 !important;
+    }
+  }
+
   /* Make Farcaster embeds smaller - only in feed, not in blog posts */
   .feed-grid .farcaster-embed-wrapper {
     transform: scale(0.85);
@@ -343,5 +351,55 @@ table {
   .feed-item-fade-in {
     animation: feed-fade-in 0.4s ease-out forwards;
     opacity: 0;
+  }
+}
+
+/* Home: centered mark and bottom-left caption until the page is too short. */
+.home-logo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-caption {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 30;
+  max-width: 20rem;
+}
+
+@media (max-height: 640px) {
+  .home-stage {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3.25rem 1.5rem 1.5rem;
+    gap: 1rem;
+  }
+
+  .home-logo {
+    position: relative;
+    inset: auto;
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    container-type: size;
+  }
+
+  .home-stage .home-mark {
+    width: min(350px, 100cqw, 100cqh);
+    height: min(350px, 100cqw, 100cqh);
+  }
+
+  .home-caption {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    align-self: flex-start;
+    flex: 0 0 auto;
+    width: min(20rem, 100%);
   }
 }

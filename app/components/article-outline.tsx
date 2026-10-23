@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { ArticleSection } from '../lib/headings'
 
 export default function ArticleOutline({
@@ -7,6 +7,26 @@ export default function ArticleOutline({
   sections: ArticleSection[]
 }) {
   const [activeId, setActiveId] = useState(sections[0]?.id ?? '')
+  const [open, setOpen] = useState(false)
+  const navRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+
+    const closeOnOutside = (event: PointerEvent) => {
+      if (!navRef.current?.contains(event.target as Node)) setOpen(false)
+    }
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+
+    document.addEventListener('pointerdown', closeOnOutside)
+    document.addEventListener('keydown', closeOnEscape)
+    return () => {
+      document.removeEventListener('pointerdown', closeOnOutside)
+      document.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [open])
 
   useEffect(() => {
     if (sections.length === 0) return
@@ -54,13 +74,21 @@ export default function ArticleOutline({
 
   return (
     <nav
+      ref={navRef}
       aria-label="On this page"
+      aria-expanded={open}
+      data-open={open ? 'true' : undefined}
       className="group/outline pointer-events-auto fixed top-1/2 left-3 z-20 hidden -translate-y-1/2 min-[900px]:block lg:left-4 2xl:left-8"
     >
       <div className="relative flex flex-col items-start">
-        <div className="flex flex-col items-center justify-center gap-1.5 rounded-md px-1 py-1">
+        <div className="flex flex-col items-center justify-center gap-1.5 rounded-md px-1 py-1 [@media(pointer:coarse)]:gap-0">
           {sections.map((section) => {
             const isActive = section.id === activeId
+            const barClass = isActive
+              ? 'w-4 bg-neutral-900 dark:bg-white'
+              : section.level === 3
+                ? 'w-2.5 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-600 dark:hover:bg-neutral-500'
+                : 'w-4 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-600 dark:hover:bg-neutral-500'
             return (
               <a
                 key={section.id}
@@ -68,19 +96,26 @@ export default function ArticleOutline({
                 aria-label={section.title}
                 aria-current={isActive ? 'location' : undefined}
                 onClick={() => setActiveId(section.id)}
-                className={`block h-1 rounded-full no-underline transition-[width,background-color] duration-200 ${
+                onPointerUp={(event) => {
+                  if (event.pointerType === 'touch') setOpen(true)
+                }}
+                className={`relative flex h-1 items-center justify-center no-underline [@media(pointer:coarse)]:h-6 [@media(pointer:coarse)]:w-6 ${
                   isActive
-                    ? 'w-4 bg-neutral-900 dark:bg-white'
+                    ? 'w-4'
                     : section.level === 3
-                      ? 'w-2.5 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-600 dark:hover:bg-neutral-500'
-                      : 'w-4 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-600 dark:hover:bg-neutral-500'
+                      ? 'w-2.5'
+                      : 'w-4'
                 }`}
-              />
+              >
+                <span
+                  className={`block h-1 rounded-full transition-[width,background-color] duration-200 ${barClass}`}
+                />
+              </a>
             )
           })}
         </div>
 
-        <div className="pointer-events-none absolute top-1/2 left-full z-30 w-64 -translate-y-1/2 pl-3 opacity-0 invisible translate-x-1 transition-all duration-150 group-hover/outline:pointer-events-auto group-hover/outline:visible group-hover/outline:translate-x-0 group-hover/outline:opacity-100 group-focus-within/outline:pointer-events-auto group-focus-within/outline:visible group-focus-within/outline:translate-x-0 group-focus-within/outline:opacity-100">
+        <div className="pointer-events-none absolute top-1/2 left-full z-30 w-64 -translate-y-1/2 pl-3 opacity-0 invisible translate-x-1 transition-all duration-150 group-hover/outline:pointer-events-auto group-hover/outline:visible group-hover/outline:translate-x-0 group-hover/outline:opacity-100 group-focus-within/outline:pointer-events-auto group-focus-within/outline:visible group-focus-within/outline:translate-x-0 group-focus-within/outline:opacity-100 group-data-[open=true]/outline:pointer-events-auto group-data-[open=true]/outline:visible group-data-[open=true]/outline:translate-x-0 group-data-[open=true]/outline:opacity-100">
           <div className="max-h-[min(24rem,70vh)] overflow-y-auto rounded-2xl border border-neutral-200 bg-white p-1.5 shadow-lg dark:border-neutral-800 dark:bg-neutral-900">
             {sections.map((section) => {
               const isActive = section.id === activeId
@@ -88,7 +123,10 @@ export default function ArticleOutline({
                 <a
                   key={section.id}
                   href={`#${section.id}`}
-                  onClick={() => setActiveId(section.id)}
+                  onClick={() => {
+                    setActiveId(section.id)
+                    setOpen(false)
+                  }}
                   className={`block truncate rounded-xl px-3 py-1.5 text-left text-[13px] leading-snug no-underline transition-colors ${
                     section.level === 3 ? 'pl-5' : ''
                   } ${
@@ -104,7 +142,7 @@ export default function ArticleOutline({
           </div>
         </div>
 
-        <p className="mt-3 max-w-[9.5rem] truncate rounded-full bg-neutral-100 px-2.5 py-1 text-[11px] text-neutral-500 opacity-0 transition-opacity duration-150 group-hover/outline:opacity-100 group-focus-within/outline:opacity-100 dark:bg-neutral-900 dark:text-neutral-400">
+        <p className="mt-3 max-w-[9.5rem] truncate rounded-full bg-neutral-100 px-2.5 py-1 text-[11px] text-neutral-500 opacity-0 transition-opacity duration-150 group-hover/outline:opacity-100 group-focus-within/outline:opacity-100 group-data-[open=true]/outline:opacity-100 dark:bg-neutral-900 dark:text-neutral-400">
           {activeTitle}
         </p>
       </div>

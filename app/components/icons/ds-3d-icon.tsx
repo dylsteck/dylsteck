@@ -189,7 +189,7 @@ function Model({ size = 'large' }: { size?: 'small' | 'large' }) {
 export default function DS3DIcon({ size = 'large' }: { size?: 'small' | 'large' }) {
   const containerClass = size === 'small' 
     ? 'w-[36px] h-[36px] opacity-80 mt-0.5 mb-1' 
-    : 'w-[350px] h-[350px]'
+    : 'home-mark w-[350px] h-[350px]'
   
   const cameraConfig = size === 'small'
     ? { position: [0, 0, 2.5] as [number, number, number], fov: 65 }
