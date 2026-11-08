@@ -586,8 +586,8 @@ table {
   }
 }
 
-/* Articles share the feed panel until the reader expands them. */
-.blog-panel-toolbar {
+/* Detail pages share the feed panel until expanded. */
+.detail-panel-toolbar {
   position: sticky;
   top: 0;
   z-index: 20;
@@ -600,7 +600,7 @@ table {
   background: white;
 }
 
-.blog-panel-toggle {
+.detail-panel-toggle {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -612,26 +612,26 @@ table {
   cursor: pointer;
 }
 
-.blog-panel-toggle:hover {
+.detail-panel-toggle:hover {
   background: #e5e5e5;
 }
 
-.blog-panel-toggle:focus-visible {
+.detail-panel-toggle:focus-visible {
   outline: 2px solid #4a90d9;
   outline-offset: 3px;
 }
 
-.home-layout:not(.is-content-expanded) .blog-article {
+.home-layout:not(.is-content-expanded) .detail-content {
   width: 100%;
   max-width: none;
   padding: 16px 12px 32px;
 }
 
-.blog-article .prose {
+.detail-content .prose {
   overflow-wrap: anywhere;
 }
 
-.blog-article .prose pre {
+.detail-content .prose pre {
   overflow-wrap: normal;
 }
 
@@ -658,22 +658,22 @@ table {
   border-radius: 0;
 }
 
-.home-layout.is-content-expanded .blog-panel-toolbar {
+.home-layout.is-content-expanded .detail-panel-toolbar {
   margin-inline: 0;
   padding-inline: 8px;
 }
 
 @media (prefers-color-scheme: dark) {
-  .blog-panel-toolbar {
+  .detail-panel-toolbar {
     background: black;
   }
 
-  .blog-panel-toggle {
+  .detail-panel-toggle {
     background: #282828;
     color: #a3a3a3;
   }
 
-  .blog-panel-toggle:hover {
+  .detail-panel-toggle:hover {
     background: #333;
   }
 }
@@ -716,26 +716,26 @@ html:active-view-transition .home-stage {
 }
 
 @media (max-width: 767px) {
-  .home-layout.is-content-expanded .blog-article {
+  .home-layout.is-content-expanded .detail-content {
     padding-top: 20px;
   }
 
-  .home-layout.is-content-expanded .blog-panel-toolbar {
+  .home-layout.is-content-expanded .detail-panel-toolbar {
     padding-inline: 24px;
   }
 }
 
 @media (min-width: 640px) and (max-width: 767px) {
-  .home-layout.is-content-expanded .blog-panel-toolbar {
+  .home-layout.is-content-expanded .detail-panel-toolbar {
     padding-inline: 32px;
   }
 }
 
-.blog-article {
+.detail-content {
   animation: home-article-collapse 400ms ease both;
 }
 
-.is-content-expanded .blog-article {
+.is-content-expanded .detail-content {
   animation-name: home-article-expand;
 }
 
@@ -772,14 +772,14 @@ html:active-view-transition .home-stage {
     transition: none;
   }
 
-  .blog-article {
+  .detail-content {
     animation: none;
   }
 }
 
-/* Mobile articles always use the full-width reader, regardless of desktop state. */
+/* Mobile detail pages stay full width, regardless of desktop state. */
 @media (max-width: 767px) {
-  .home-layout.is-blog-page {
+  .home-layout.is-detail-page {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto minmax(0, 1fr);
     gap: 0;
@@ -787,7 +787,7 @@ html:active-view-transition .home-stage {
     padding: 0;
   }
 
-  .home-layout.is-blog-page .home-stage {
+  .home-layout.is-detail-page .home-stage {
     height: 0;
     min-height: 0;
     border-width: 0;
@@ -796,7 +796,7 @@ html:active-view-transition .home-stage {
     pointer-events: none;
   }
 
-  .home-layout.is-blog-page .home-feed {
+  .home-layout.is-detail-page .home-feed {
     position: relative;
     top: auto;
     height: 100%;
@@ -806,27 +806,45 @@ html:active-view-transition .home-stage {
     border-radius: 0;
   }
 
-  .home-layout.is-blog-page .blog-panel-toolbar {
+  .home-layout.is-detail-page .detail-panel-toolbar {
     margin-inline: 0;
     padding-inline: 24px;
   }
 
-  .home-layout.is-blog-page .blog-article {
+  .home-layout.is-detail-page .detail-content {
     width: 100%;
     padding: 20px 24px 48px;
   }
 
-  .blog-expand-toggle {
+  .detail-expand-toggle {
     display: none;
   }
 }
 
 @media (min-width: 640px) and (max-width: 767px) {
-  .home-layout.is-blog-page .blog-panel-toolbar {
+  .home-layout.is-detail-page .detail-panel-toolbar {
     padding-inline: 32px;
   }
 
-  .home-layout.is-blog-page .blog-article {
+  .home-layout.is-detail-page .detail-content {
     padding-inline: 32px;
   }
+}
+
+.video-panel {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 100%;
+}
+
+.video-panel .detail-panel-toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.video-redirect {
+  padding: 56px 24px;
 }

@@ -14,14 +14,14 @@ export default function HomeContent({ children }: { children: ReactNode }) {
   const { pathname } = useLocation()
   const [expandedPath, setExpandedPath] = useState<string | null>(null)
   const expanded = expandedPath === pathname
-  const isBlog = pathname !== '/'
+  const isDetail = pathname !== '/'
   const toggleExpanded = () => {
     setExpandedPath((current) => current === pathname ? null : pathname)
   }
 
   return (
     <PanelLayoutContext.Provider value={{ isExpanded: expanded, toggleExpanded }}>
-      <div className={`home-layout${isCollapsed ? ' is-profile-collapsed' : ''}${expanded ? ' is-content-expanded' : ''}${isBlog ? ' is-blog-page' : ''}`}>
+      <div className={`home-layout${isCollapsed ? ' is-profile-collapsed' : ''}${expanded ? ' is-content-expanded' : ''}${isDetail ? ' is-detail-page' : ''}`}>
         <section
           className={`home-stage${isCollapsed ? ' is-collapsed' : ''}`}
           aria-label="Dylan Steck"
@@ -57,7 +57,7 @@ export default function HomeContent({ children }: { children: ReactNode }) {
             </div>
           </div>
         </section>
-        <section className="home-feed" aria-label={pathname === '/' ? 'Feed' : 'Blog post'} data-scroll-restoration-id="home-content-panel">
+        <section className="home-feed" aria-label={pathname === '/' ? 'Feed' : pathname.startsWith('/video/') ? 'Video' : 'Blog post'} data-scroll-restoration-id="home-content-panel">
           {children}
         </section>
       </div>
