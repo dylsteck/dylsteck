@@ -468,8 +468,8 @@ table {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    padding: 0 9px;
+    width: 28px;
+    padding: 0;
     font-size: 10px;
     font-weight: 500;
     white-space: nowrap;
@@ -538,7 +538,7 @@ table {
 
   .home-stage.is-collapsed .home-caption {
     min-width: 0;
-    padding: 0 92px 0 8px;
+    padding: 0 52px 0 8px;
     animation: home-profile-dissolve 400ms ease both;
   }
 
@@ -717,7 +717,17 @@ html:active-view-transition .home-stage {
 
 @media (max-width: 767px) {
   .home-layout.is-content-expanded .blog-article {
-    padding-top: 32px;
+    padding-top: 20px;
+  }
+
+  .home-layout.is-content-expanded .blog-panel-toolbar {
+    padding-inline: 24px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .home-layout.is-content-expanded .blog-panel-toolbar {
+    padding-inline: 32px;
   }
 }
 
