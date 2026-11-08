@@ -5,17 +5,11 @@ import type { FeedItem } from 'app/api/feed/types'
 import FeedFilter, { FILTER_OPTIONS, FilterType, ViewMode } from '../components/feed-filter'
 import { useFeed } from '../hooks/use-feed'
 
-function parseFiltersFromSearch(filter: string | undefined): FilterType[] {
-  if (!filter) return ['all']
-
-  const filters = filter.split(',').filter((f): f is FilterType => {
-    return FILTER_OPTIONS.includes(f as FilterType)
-  })
-
-  return filters.length > 0 ? filters : ['all']
+function parseFilterFromSearch(filter: string | undefined): FilterType {
+  return FILTER_OPTIONS.includes(filter as FilterType) ? filter as FilterType : 'all'
 }
 
-export default function FeedMasonry() {
+export default function FeedMasonry({ embedded = false }: { embedded?: boolean }) {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const search = useSearch({ strict: false }) as {
@@ -26,7 +20,7 @@ export default function FeedMasonry() {
 
   const [shouldAnimate, setShouldAnimate] = useState(false)
 
-  const activeFilters = parseFiltersFromSearch(search.filter)
+  const activeFilter = parseFilterFromSearch(search.filter)
   const viewMode: ViewMode = search.view === 'list' ? 'list' : 'grid'
 
   const { items: allItems, isLoading } = useFeed()
@@ -50,12 +44,9 @@ export default function FeedMasonry() {
     })
   }
 
-  const handleFilterChange = (newFilters: FilterType[]) => {
+  const handleFilterChange = (filter: FilterType) => {
     startTransition(() => {
-      const nextFilter =
-        newFilters.length === 1 && newFilters[0] === 'all'
-          ? undefined
-          : newFilters.join(',')
+      const nextFilter = filter === 'all' ? undefined : filter
       navigate({
         to: pathname,
         search: (prev: Record<string, unknown>) => ({
@@ -67,17 +58,17 @@ export default function FeedMasonry() {
     })
   }
 
-  const filteredItems = activeFilters.includes('all')
+  const filteredItems = activeFilter === 'all'
     ? allItems
-    : allItems.filter(item => activeFilters.includes(item.type as FilterType))
+    : allItems.filter(item => item.type === activeFilter)
 
   if (isLoading) {
     return (
       <>
-        <div className="pt-8 sm:pt-9">
-          <FeedFilter activeFilters={activeFilters} onFilterChange={handleFilterChange} viewMode={viewMode} onViewModeChange={handleViewModeChange} />
+        <div className={embedded ? 'home-feed-toolbar' : 'pt-8 sm:pt-9'}>
+          <FeedFilter embedded={embedded} activeFilter={activeFilter} onFilterChange={handleFilterChange} viewMode={viewMode} onViewModeChange={handleViewModeChange} />
         </div>
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 pb-6 sm:pb-12 pt-2 sm:pt-4">
+        <div className={embedded ? 'home-feed-items' : 'max-w-7xl mx-auto px-6 sm:px-8 pb-6 sm:pb-12 pt-2 sm:pt-4'}>
         </div>
       </>
     )
@@ -85,12 +76,12 @@ export default function FeedMasonry() {
 
   return (
     <>
-      <div className="pt-8 sm:pt-9">
-        <FeedFilter activeFilters={activeFilters} onFilterChange={handleFilterChange} viewMode={viewMode} onViewModeChange={handleViewModeChange} />
+      <div className={embedded ? 'home-feed-toolbar' : 'pt-8 sm:pt-9'}>
+        <FeedFilter embedded={embedded} activeFilter={activeFilter} onFilterChange={handleFilterChange} viewMode={viewMode} onViewModeChange={handleViewModeChange} />
       </div>
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 pb-6 sm:pb-12 pt-2 sm:pt-4">
+      <div className={embedded ? 'home-feed-items' : 'max-w-7xl mx-auto px-6 sm:px-8 pb-6 sm:pb-12 pt-2 sm:pt-4'}>
         {viewMode === 'grid' ? (
-          <div className={`masonry-grid feed-grid ${shouldAnimate ? 'feed-items-animate' : ''}`}>
+          <div className={`masonry-grid feed-grid ${embedded ? 'home-feed-grid' : ''} ${shouldAnimate ? 'feed-items-animate' : ''}`}>
             {filteredItems.map((item, index) => (
               <FeedMasonryItem key={item.id} item={item} index={index} shouldAnimate={shouldAnimate} />
             ))}
