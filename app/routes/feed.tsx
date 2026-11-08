@@ -22,12 +22,12 @@ export const Route = createFileRoute('/feed')({
       { title: 'Feed | Dylan Steck' },
       {
         name: 'description',
-        content: 'Feed of blog posts, videos, and Farcaster posts',
+        content: 'Feed of blog posts and videos',
       },
       { property: 'og:title', content: 'Feed' },
       {
         property: 'og:description',
-        content: 'Feed of blog posts, videos, and Farcaster posts',
+        content: 'Feed of blog posts and videos',
       },
       { property: 'og:image', content: bannerImg },
       { property: 'og:url', content: `${appUrl}/feed` },

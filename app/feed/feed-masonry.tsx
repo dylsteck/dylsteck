@@ -1,10 +1,9 @@
-import { useEffect, useState, useTransition, useRef } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 import Image from '../components/image'
 import { Link, useNavigate, useSearch, useLocation } from '@tanstack/react-router'
 import type { FeedItem } from 'app/api/feed/types'
 import FeedFilter, { FILTER_OPTIONS, FilterType, ViewMode } from '../components/feed-filter'
 import { useFeed } from '../hooks/use-feed'
-import { buildFarcasterCastImageUrl } from 'app/lib/feed-utils'
 
 function parseFiltersFromSearch(filter: string | undefined): FilterType[] {
   if (!filter) return ['all']
@@ -27,41 +26,16 @@ export default function FeedMasonry() {
 
   const [shouldAnimate, setShouldAnimate] = useState(false)
 
-  const loadMoreRef = useRef<HTMLDivElement>(null)
-
   const activeFilters = parseFiltersFromSearch(search.filter)
   const viewMode: ViewMode = search.view === 'list' ? 'list' : 'grid'
 
-  const {
-    items: allItems,
-    hasMore,
-    isLoading,
-    isLoadingMore,
-    loadMore,
-  } = useFeed()
+  const { items: allItems, isLoading } = useFeed()
 
   useEffect(() => {
     if (!isLoading && allItems.length > 0) {
       setShouldAnimate(true)
     }
   }, [isLoading, allItems.length])
-
-  useEffect(() => {
-    if (!loadMoreRef.current || isLoading) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasMore && !isLoadingMore) {
-          loadMore()
-        }
-      },
-      { threshold: 0.1, rootMargin: '200px' }
-    )
-
-    observer.observe(loadMoreRef.current)
-
-    return () => observer.disconnect()
-  }, [hasMore, isLoadingMore, isLoading, loadMore])
 
   const handleViewModeChange = (mode: ViewMode) => {
     startTransition(() => {
@@ -97,8 +71,6 @@ export default function FeedMasonry() {
     ? allItems
     : allItems.filter(item => activeFilters.includes(item.type as FilterType))
 
-  const showLoadMore = hasMore && (activeFilters.includes('all') || activeFilters.includes('farcaster'))
-
   if (isLoading) {
     return (
       <>
@@ -106,7 +78,6 @@ export default function FeedMasonry() {
           <FeedFilter activeFilters={activeFilters} onFilterChange={handleFilterChange} viewMode={viewMode} onViewModeChange={handleViewModeChange} />
         </div>
         <div className="max-w-7xl mx-auto px-6 sm:px-8 pb-6 sm:pb-12 pt-2 sm:pt-4">
-          {/* Empty state while loading */}
         </div>
       </>
     )
@@ -131,50 +102,12 @@ export default function FeedMasonry() {
             ))}
           </div>
         )}
-
-        {showLoadMore && (
-          <div
-            ref={loadMoreRef}
-            className="flex justify-center py-8"
-          >
-            {isLoadingMore && (
-              <div className="text-neutral-500 text-sm">Loading more...</div>
-            )}
-          </div>
-        )}
       </div>
     </>
   )
 }
 
 function FeedMasonryItem({ item, index, shouldAnimate }: { item: FeedItem; index: number; shouldAnimate: boolean }) {
-  if (item.type === 'farcaster' && item.castData) {
-    const castHash = item.castData.hash
-    const imageUrl = buildFarcasterCastImageUrl(castHash)
-    const farcasterUrl = item.url
-
-    return (
-      <a
-        href={farcasterUrl}
-        className={`group block ${shouldAnimate ? 'feed-item-fade-in' : ''}`}
-        style={shouldAnimate ? { animationDelay: `${Math.min(index * 50, 500)}ms` } : undefined}
-      >
-        <div className="transition-all duration-300 hover:opacity-90">
-          <div className="relative w-full mb-2 rounded-sm">
-            <img
-              src={imageUrl}
-              alt={item.title || 'Farcaster cast'}
-              className="w-full h-auto rounded-sm"
-            />
-          </div>
-          <p className="text-sm text-neutral-500 dark:text-neutral-500 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">
-            {item.title || item.text?.substring(0, 100) || 'Farcaster post'}
-          </p>
-        </div>
-      </a>
-    )
-  }
-
   if (!item.imageUrl) {
     return null
   }
@@ -186,7 +119,6 @@ function FeedMasonryItem({ item, index, shouldAnimate }: { item: FeedItem; index
       style={shouldAnimate ? { animationDelay: `${Math.min(index * 50, 500)}ms` } : undefined}
     >
       <div className="transition-all duration-300 hover:opacity-90">
-        {/* Fixed aspect ratio container: 1200x630 (OG image standard) */}
         <div className="relative w-full mb-2 aspect-[1200/630] overflow-hidden rounded-sm">
           <Image
             src={item.imageUrl}
@@ -222,42 +154,24 @@ function formatRelativeDate(dateStr: string): string {
 }
 
 function FeedListItem({ item, index, shouldAnimate }: { item: FeedItem; index: number; shouldAnimate: boolean }) {
-  const url = item.url
-  const title = item.title || item.text?.substring(0, 100) || 'Farcaster post'
-  const typeLabel = item.type === 'farcaster' ? 'cast' : item.type
-
-  const isExternal = /^https?:\/\//.test(url)
-
-  const content = (
-    <div className="flex items-baseline justify-between gap-4 py-1 transition-all duration-200 hover:opacity-70">
-      <div className="min-w-0">
-        <p className="text-sm text-neutral-900 dark:text-neutral-100 truncate">
-          {title}
-        </p>
-        <p className="text-xs text-neutral-500 dark:text-neutral-500 mt-0.5">
-          {typeLabel}
-        </p>
-      </div>
-      <span className="text-xs text-neutral-500 dark:text-neutral-500 shrink-0 tabular-nums">
-        {formatRelativeDate(item.date)}
-      </span>
-    </div>
-  )
-
   const className = `group block ${shouldAnimate ? 'feed-item-fade-in' : ''}`
   const style = shouldAnimate ? { animationDelay: `${Math.min(index * 30, 300)}ms` } : undefined
 
-  if (isExternal) {
-    return (
-      <a href={url} className={className} style={style}>
-        {content}
-      </a>
-    )
-  }
-
   return (
-    <Link to={url} className={className} style={style}>
-      {content}
+    <Link to={item.url} className={className} style={style}>
+      <div className="flex items-baseline justify-between gap-4 py-1 transition-all duration-200 hover:opacity-70">
+        <div className="min-w-0">
+          <p className="text-sm text-neutral-900 dark:text-neutral-100 truncate">
+            {item.title}
+          </p>
+          <p className="text-xs text-neutral-500 dark:text-neutral-500 mt-0.5">
+            {item.type}
+          </p>
+        </div>
+        <span className="text-xs text-neutral-500 dark:text-neutral-500 shrink-0 tabular-nums">
+          {formatRelativeDate(item.date)}
+        </span>
+      </div>
     </Link>
   )
 }

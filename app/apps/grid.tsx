@@ -29,7 +29,7 @@ export default function AppsGrid({ apps }: AppsGridProps) {
                 sizes="(max-width: 640px) 80px, 96px"
               />
             </div>
-            <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-neutral-200 transition-colors duration-200 text-center truncate w-full px-1">
+            <span className="text-sm font-medium text-neutral-600 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-neutral-200 transition-colors duration-200 text-center w-full px-1 leading-tight">
               {app.hidden ? '***' : app.name}
             </span>
           </a>

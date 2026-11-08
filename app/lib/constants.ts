@@ -1,14 +1,5 @@
 export const DEFAULT_FARCASTER_USERNAME = 'dylsteck.eth'
-export const FARCASTER_FID = 616
-
-export const FARCASTER_API_BASE = 'https://farcaster.xyz/~api/v2'
 export const FARCASTER_BASE_URL = 'https://farcaster.xyz'
-export const FARCASTER_IMAGE_PROXY_BASE = 'https://wrpcd.net/cdn-cgi/image/anim=false,fit=contain,f=auto,w=3186'
-export const WARPCAST_CDN_BASE = 'https://client.warpcast.com/v2'
-
-export const FARCASTER_INITIAL_LIMIT = 25
-export const FARCASTER_PAGE_LIMIT = 25
-export const FARCASTER_MAX_LIMIT = 50
 
 export const CACHE_SECONDS = {
   RECENT: 300,
