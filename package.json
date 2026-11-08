@@ -20,15 +20,15 @@
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
-    "@farcaster/miniapp-sdk": "^0.2.1",
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.4.2",
-    "@tailwindcss/vite": "^4.1.18",
+    "@farcaster/miniapp-sdk": "^0.2.3",
+    "@react-three/drei": "^10.7.9",
+    "@react-three/fiber": "^9.8.2",
+    "@tailwindcss/vite": "^4.3.5",
     "@tanstack/react-query": "^5.90.10",
-    "@tanstack/react-router": "^1.168.23",
-    "@tanstack/react-router-devtools": "^1.166.13",
-    "@tanstack/react-start": "^1.167.42",
-    "@tanstack/router-plugin": "^1.167.22",
+    "@tanstack/react-router": "^1.170.46",
+    "@tanstack/react-router-devtools": "^1.167.3",
+    "@tanstack/react-start": "^1.169.5",
+    "@tanstack/router-plugin": "^1.169.0",
     "cf-workers-og": "^3.0.1",
     "next-mdx-remote": "^5.0.0",
     "nitro": "npm:nitro-nightly@latest",
@@ -36,21 +36,29 @@
     "react-dom": "19.2.3",
     "react-farcaster-embed": "^1.11.0",
     "react-tweet": "^3.3.1",
-    "sugar-high": "^0.9.3",
-    "swr": "^2.3.8",
-    "tailwindcss": "4.1.18",
+    "sugar-high": "^0.9.5",
+    "swr": "^2.5.1",
+    "tailwindcss": "4.3.5",
     "three": "^0.182.0"
   },
   "devDependencies": {
-    "@cloudflare/vite-plugin": "^1.52.1",
+    "@cloudflare/vite-plugin": "^1.67.0",
     "@types/node": "24.10.1",
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "@types/three": "^0.182.0",
-    "@vitejs/plugin-react": "^6.0.1",
+    "@vitejs/plugin-react": "^6.2.1",
     "typescript": "5.9.3",
-    "vite": "^8.0.0",
-    "wrangler": "^4.123.0"
+    "vite": "^8.3.6",
+    "wrangler": "^4.158.0"
   },
-  "packageManager": "bun@1.3.3"
+  "packageManager": "bun@1.3.3",
+  "overrides": {
+    "fflate": "0.8.3",
+    "js-yaml": "4.3.2",
+    "mdast-util-to-hast": "13.2.1",
+    "sharp": "0.35.5",
+    "undici": "7.30.1",
+    "yaml": "2.9.1"
+  }
 }

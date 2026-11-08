@@ -23,7 +23,7 @@ type BlogData = {
 }
 
 const getBlogData = createServerFn({ method: 'GET' })
-  .inputValidator((id: string) => id)
+  .validator((id: string) => id)
   .handler(async ({ data: id }): Promise<BlogData | null> => {
     const post = getBlogPosts().find((p) => p.slug === id)
     if (!post) return null
