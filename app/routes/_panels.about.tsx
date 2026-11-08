@@ -59,7 +59,7 @@ function AboutPage() {
             <a href="https://farcaster.xyz/dylsteck.eth" target="_blank" rel="noopener noreferrer" className="text-sm text-neutral-900 dark:text-white hover:opacity-70 transition-opacity">Farcaster</a>
             <a href="https://github.com/dylsteck" target="_blank" rel="noopener noreferrer" className="text-sm text-neutral-900 dark:text-white hover:opacity-70 transition-opacity">GitHub</a>
             <a href="https://linkedin.com/in/dylansteck" target="_blank" rel="noopener noreferrer" className="text-sm text-neutral-900 dark:text-white hover:opacity-70 transition-opacity">LinkedIn</a>
-            <a href="https://x.com/dylan_steck" target="_blank" rel="noopener noreferrer" className="text-sm text-neutral-900 dark:text-white hover:opacity-70 transition-opacity">X</a>
+            <a href="https://x.com/dylsteck" target="_blank" rel="noopener noreferrer" className="text-sm text-neutral-900 dark:text-white hover:opacity-70 transition-opacity">X</a>
           </div>
         </div>
         </div>
