@@ -253,21 +253,8 @@ table {
       break-inside: auto !important;
     }
     
-    /* Blog and video items get more spacing */
     .feed-grid > a {
       margin-bottom: 1.5rem !important;
-    }
-    
-    /* Farcaster casts get minimal spacing on mobile */
-    .feed-grid .farcaster-embed-wrapper {
-      margin-bottom: -5% !important;
-      transform: scale(0.9);
-      width: 111%; /* Compensate for scale (1/0.9) */
-    }
-    
-    .feed-grid .farcaster-embed-wrapper .farcaster-embed-container {
-      margin-bottom: 0 !important;
-      margin-top: 0 !important;
     }
   }
 
@@ -298,26 +285,6 @@ table {
     .feed-grid {
       column-count: 1 !important;
     }
-  }
-
-  /* Make Farcaster embeds smaller - only in feed, not in blog posts */
-  .feed-grid .farcaster-embed-wrapper {
-    transform: scale(0.85);
-    transform-origin: top left;
-    break-inside: avoid;
-    page-break-inside: avoid;
-    display: inline-block;
-    width: 117.65%; /* Compensate for scale (1/0.85) */
-    margin-left: 0;
-    margin-right: 0;
-    overflow: hidden;
-    max-width: 100%;
-    /* Reduce bottom spacing */
-    margin-bottom: 0.5rem !important;
-  }
-
-  .feed-grid .farcaster-embed-wrapper .farcaster-embed-container {
-    font-size: 0.9em;
   }
 
   /* Slide-in animation for hologram */
@@ -368,7 +335,7 @@ table {
   bottom: 1.5rem;
   left: 1.5rem;
   z-index: 30;
-  max-width: 20rem;
+  max-width: 24rem;
 }
 
 @media (max-height: 640px) {
@@ -400,6 +367,6 @@ table {
     left: auto;
     align-self: flex-start;
     flex: 0 0 auto;
-    width: min(20rem, 100%);
+    width: min(24rem, 100%);
   }
 }

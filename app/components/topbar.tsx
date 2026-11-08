@@ -1,8 +1,8 @@
 import { Link, useLocation } from '@tanstack/react-router'
 
 const navItems = [
-  { path: '/feed', label: 'Feed' },
   { path: '/apps', label: 'Apps' },
+  { path: '/feed', label: 'Feed' },
   { path: '/info', label: 'Info' },
 ] as const
 

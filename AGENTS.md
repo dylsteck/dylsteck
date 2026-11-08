@@ -32,7 +32,7 @@ app/
     robots[.]txt.ts               ← /robots.txt
     llms[.]txt.ts, llms-full[.]txt.ts  ← /llms.txt, /llms-full.txt
     [.]well-known.farcaster[.]json.ts  ← /.well-known/farcaster.json
-    api.feed.ts, api.feed.farcaster.ts ← /api/feed, /api/feed/farcaster
+    api.feed.ts                        ← /api/feed
     api.og.blog.$id.tsx           ← /api/og/blog/:id (dynamic OG PNG)
     api.blog.$id.markdown.ts      ← /api/blog/:id/markdown
   router.tsx                      ← createRouter (scrollRestoration, preload intent)

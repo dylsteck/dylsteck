@@ -1,6 +1,6 @@
-export type FilterType = 'all' | 'blog' | 'farcaster' | 'video'
+export type FilterType = 'all' | 'blog' | 'video'
 export type ViewMode = 'grid' | 'list'
-export const FILTER_OPTIONS: FilterType[] = ['all', 'blog', 'farcaster', 'video']
+export const FILTER_OPTIONS: FilterType[] = ['all', 'blog', 'video']
 
 interface FeedFilterProps {
   activeFilters: FilterType[]
@@ -34,7 +34,7 @@ export default function FeedFilter({ activeFilters, onFilterChange, viewMode, on
           <div className="flex items-center gap-4 sm:gap-6">
             {FILTER_OPTIONS.map((filter) => {
               const isActive = activeFilters.includes(filter)
-              const label = filter === 'farcaster' ? 'Cast' : filter.charAt(0).toUpperCase() + filter.slice(1)
+              const label = filter.charAt(0).toUpperCase() + filter.slice(1)
 
               return (
                 <button

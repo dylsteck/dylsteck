@@ -1,18 +1,4 @@
-export type FeedItemType = 'blog' | 'video' | 'farcaster'
-
-export type FarcasterCastData = {
-  hash: string
-  author?: { fid?: number; username?: string; display_name?: string; pfp_url?: string }
-  text?: string
-  timestamp?: string
-  embeds?: {
-    images?: { url: string }[]
-    videos?: { thumbnailUrl?: string; imageUrl?: string }[]
-    urls?: { openGraph?: { image?: string } }[]
-  }
-  reactions?: { likes_count: number; recasts_count: number }
-  replies?: { count: number }
-}
+export type FeedItemType = 'blog' | 'video'
 
 export type FeedItem = {
   id: string
@@ -21,8 +7,6 @@ export type FeedItem = {
   date: string
   dateTimestamp?: number
   imageUrl?: string
-  text?: string
   url: string
   description?: string
-  castData?: FarcasterCastData
 }

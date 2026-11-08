@@ -2,57 +2,14 @@ import { createFileRoute } from '@tanstack/react-router'
 import { posts } from '../blog/posts/posts'
 import { videos } from '../video/videos'
 import type { FeedItem } from '../lib/feed-types'
-import {
-  CACHE_CONTROL,
-  FARCASTER_INITIAL_LIMIT,
-  FARCASTER_MAX_LIMIT,
-  FARCASTER_PAGE_LIMIT,
-} from '../lib/constants'
-import {
-  fetchFarcasterCasts,
-  parseDate,
-  sortFeedItems,
-  transformFarcasterCast,
-} from '../lib/feed-utils'
+import { CACHE_CONTROL } from '../lib/constants'
+import { parseDate, sortFeedItems } from '../lib/feed-utils'
 
 export const Route = createFileRoute('/api/feed')({
   server: {
     handlers: {
-      GET: async ({ request }) => {
-        const { searchParams } = new URL(request.url)
-        const cursor = searchParams.get('cursor') || null
-        const limitParam = parseInt(searchParams.get('limit') || '', 10)
-        const defaultLimit = cursor ? FARCASTER_PAGE_LIMIT : FARCASTER_INITIAL_LIMIT
-        const limit = Number.isFinite(limitParam)
-          ? Math.min(limitParam, FARCASTER_MAX_LIMIT)
-          : defaultLimit
-
+      GET: async () => {
         try {
-          if (cursor) {
-            const farcasterResult = await fetchFarcasterCasts({ cursor, limit })
-            const farcasterItems: FeedItem[] = farcasterResult.casts
-              .map(transformFarcasterCast)
-              .filter((item): item is FeedItem => item !== null)
-
-            const items = sortFeedItems(farcasterItems)
-
-            return new Response(
-              JSON.stringify({
-                items,
-                nextCursor: farcasterResult.nextCursor,
-                hasMore: !!farcasterResult.nextCursor,
-              }),
-              {
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Cache-Control': CACHE_CONTROL.OLD,
-                },
-              }
-            )
-          }
-
-          const farcasterPromise = fetchFarcasterCasts({ limit })
-
           const blogItems: FeedItem[] = posts.map((post) => {
             const imageUrl =
               post.banner && post.banner.trim()
@@ -82,38 +39,20 @@ export const Route = createFileRoute('/api/feed')({
             description: video.description,
           }))
 
-          const farcasterResult = await farcasterPromise
-          const farcasterItems: FeedItem[] = farcasterResult.casts
-            .map(transformFarcasterCast)
-            .filter((item): item is FeedItem => item !== null)
+          const items = sortFeedItems([...blogItems, ...videoItems])
 
-          const allItems = sortFeedItems([
-            ...blogItems,
-            ...videoItems,
-            ...farcasterItems,
-          ])
-
-          return new Response(
-            JSON.stringify({
-              items: allItems,
-              nextCursor: farcasterResult.nextCursor,
-              hasMore: !!farcasterResult.nextCursor,
-            }),
-            {
-              headers: {
-                'Content-Type': 'application/json',
-                'Cache-Control': CACHE_CONTROL.RECENT,
-              },
-            }
-          )
+          return new Response(JSON.stringify({ items }), {
+            headers: {
+              'Content-Type': 'application/json',
+              'Cache-Control': CACHE_CONTROL.RECENT,
+            },
+          })
         } catch (error) {
           console.error('Error generating feed:', error)
           return new Response(
             JSON.stringify({
               error: 'Failed to generate feed',
               items: [],
-              nextCursor: null,
-              hasMore: false,
             }),
             {
               status: 500,
