@@ -17,7 +17,7 @@ export const Route = createFileRoute('/sitemap.xml')({
           lastModified: new Date().toISOString().split('T')[0],
         }))
 
-        const routes = ['', '/blog'].map((route) => ({
+        const routes = ['', '/about', '/blog'].map((route) => ({
           url: `${appUrl}${route}`,
           lastModified: new Date().toISOString().split('T')[0],
         }))

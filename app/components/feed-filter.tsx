@@ -1,6 +1,6 @@
-export type FilterType = 'all' | 'blog' | 'video'
+export type FilterType = 'all' | 'apps' | 'blog' | 'video'
 export type ViewMode = 'grid' | 'list'
-export const FILTER_OPTIONS: FilterType[] = ['all', 'blog', 'video']
+export const FILTER_OPTIONS: FilterType[] = ['all', 'apps', 'blog', 'video']
 
 interface FeedFilterProps {
   embedded?: boolean

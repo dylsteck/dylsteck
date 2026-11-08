@@ -1,4 +1,4 @@
-import { useEffect, useState, useTransition } from 'react'
+import { useEffect, useState, useTransition, type CSSProperties, type ReactNode } from 'react'
 import Image from '../components/image'
 import { Link, useNavigate, useSearch, useLocation } from '@tanstack/react-router'
 import type { FeedItem } from 'app/api/feed/types'
@@ -60,9 +60,9 @@ export default function FeedMasonry({ embedded = false }: { embedded?: boolean }
 
   const filteredItems = activeFilter === 'all'
     ? allItems
-    : allItems.filter(item => item.type === activeFilter)
+    : allItems.filter(item => item.type === (activeFilter === 'apps' ? 'app' : activeFilter))
 
-  if (isLoading) {
+  if (isLoading && activeFilter !== 'apps') {
     return (
       <>
         <div className={embedded ? 'home-feed-toolbar' : 'pt-8 sm:pt-9'}>
@@ -104,18 +104,18 @@ function FeedMasonryItem({ item, index, shouldAnimate }: { item: FeedItem; index
   }
 
   return (
-    <Link
-      to={item.url}
+    <FeedItemLink
+      item={item}
       className={`group block ${shouldAnimate ? 'feed-item-fade-in' : ''}`}
       style={shouldAnimate ? { animationDelay: `${Math.min(index * 50, 500)}ms` } : undefined}
     >
       <div className="transition-all duration-300 hover:opacity-90">
-        <div className="relative w-full mb-2 aspect-[1200/630] overflow-hidden rounded-sm">
+        <div className={`relative w-full mb-2 aspect-[1200/630] overflow-hidden rounded-sm ${item.type === 'app' ? 'bg-neutral-50 dark:bg-neutral-900' : ''}`}>
           <Image
             src={item.imageUrl}
             alt={item.title}
             fill
-            className="object-cover"
+            className={item.type === 'app' ? 'object-contain p-8 sm:p-10' : 'object-cover'}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         </div>
@@ -123,7 +123,7 @@ function FeedMasonryItem({ item, index, shouldAnimate }: { item: FeedItem; index
           {item.title}
         </p>
       </div>
-    </Link>
+    </FeedItemLink>
   )
 }
 
@@ -149,20 +149,37 @@ function FeedListItem({ item, index, shouldAnimate }: { item: FeedItem; index: n
   const style = shouldAnimate ? { animationDelay: `${Math.min(index * 30, 300)}ms` } : undefined
 
   return (
-    <Link to={item.url} className={className} style={style}>
+    <FeedItemLink item={item} className={className} style={style}>
       <div className="flex items-baseline justify-between gap-4 py-1 transition-all duration-200 hover:opacity-70">
         <div className="min-w-0">
           <p className="text-sm text-neutral-900 dark:text-neutral-100 truncate">
             {item.title}
           </p>
           <p className="text-xs text-neutral-500 dark:text-neutral-500 mt-0.5">
-            {item.type}
+            {item.type === 'app' ? 'App' : item.type}
           </p>
         </div>
-        <span className="text-xs text-neutral-500 dark:text-neutral-500 shrink-0 tabular-nums">
-          {formatRelativeDate(item.date)}
-        </span>
+        {item.date && (
+          <span className="text-xs text-neutral-500 dark:text-neutral-500 shrink-0 tabular-nums">
+            {formatRelativeDate(item.date)}
+          </span>
+        )}
       </div>
-    </Link>
+    </FeedItemLink>
+  )
+}
+
+function FeedItemLink({ item, children, ...props }: {
+  item: FeedItem
+  children: ReactNode
+  className?: string
+  style?: CSSProperties
+}) {
+  return item.type === 'app' ? (
+    <a href={item.url} target="_blank" rel="noopener noreferrer" {...props}>
+      {children}
+    </a>
+  ) : (
+    <Link to={item.url} {...props}>{children}</Link>
   )
 }

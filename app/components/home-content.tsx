@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState, type ReactNode } from 'react'
-import { ClientOnly, useLocation } from '@tanstack/react-router'
+import { ClientOnly, Link, useLocation } from '@tanstack/react-router'
 import AboutText from './about-text'
+import CoinbaseIcon from './icons/coinbase-icon'
 import { PanelLayoutContext } from './panel-layout-context'
 
 const DS3DIcon = lazy(() => import('./icons/ds-3d-icon'))
@@ -26,6 +27,9 @@ export default function HomeContent({ children }: { children: ReactNode }) {
           className={`home-stage${isCollapsed ? ' is-collapsed' : ''}`}
           aria-label="Dylan Steck"
         >
+          <Link to="/about" className="home-about-pill" aria-current={pathname === '/about' ? 'page' : undefined}>
+            About
+          </Link>
           <button
             type="button"
             className="home-panel-toggle"
@@ -50,14 +54,18 @@ export default function HomeContent({ children }: { children: ReactNode }) {
               Dylan Steck
             </h1>
             <p className="home-compact-role text-xs text-neutral-500">
-              Engineer at Coinbase
+              Engineer at{' '}
+              <span className="mx-0.5 inline-flex align-middle">
+                <CoinbaseIcon className="h-3 w-3 text-[#0052FF] dark:text-white" />
+              </span>{' '}
+              Coinbase
             </p>
             <div id="home-profile-details" className="home-profile-details">
               <AboutText />
             </div>
           </div>
         </section>
-        <section className="home-feed" aria-label={pathname === '/' ? 'Feed' : pathname.startsWith('/video/') ? 'Video' : 'Blog post'} data-scroll-restoration-id="home-content-panel">
+        <section className="home-feed" aria-label={pathname === '/' ? 'Feed' : pathname === '/about' ? 'About' : pathname.startsWith('/video/') ? 'Video' : 'Blog post'} data-scroll-restoration-id="home-content-panel">
           {children}
         </section>
       </div>

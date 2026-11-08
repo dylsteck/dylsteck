@@ -848,3 +848,55 @@ html:active-view-transition .home-stage {
 .video-redirect {
   padding: 56px 24px;
 }
+
+.home-about-pill {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid #dedede;
+  border-radius: 999px;
+  color: #737373;
+  font-size: 11px;
+  font-weight: 500;
+  transition: border-color 140ms ease, color 140ms ease;
+}
+
+.home-about-pill:hover {
+  border-color: #a3a3a3;
+  color: #404040;
+}
+
+.home-about-pill:focus-visible {
+  outline: 2px solid #4a90d9;
+  outline-offset: 3px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .home-about-pill {
+    border-color: #3a3a3a;
+    color: #a3a3a3;
+  }
+
+  .home-about-pill:hover {
+    border-color: #737373;
+    color: #d4d4d4;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-stage.is-collapsed .home-about-pill {
+    top: 17px;
+    left: auto;
+    right: 48px;
+  }
+
+  .home-stage.is-collapsed .home-caption {
+    padding-right: 108px;
+  }
+}

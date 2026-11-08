@@ -33,8 +33,8 @@ export function parseDate(dateString: string): number {
 
 export function sortFeedItems(items: FeedItem[]): FeedItem[] {
   return [...items].sort((a, b) => {
-    const timestampA = a.dateTimestamp ?? parseDate(a.date)
-    const timestampB = b.dateTimestamp ?? parseDate(b.date)
+    const timestampA = a.dateTimestamp ?? (a.date ? parseDate(a.date) : 0)
+    const timestampB = b.dateTimestamp ?? (b.date ? parseDate(b.date) : 0)
     return timestampB - timestampA
   })
 }
