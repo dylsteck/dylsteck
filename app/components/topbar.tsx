@@ -1,9 +1,8 @@
 import { Link, useLocation } from '@tanstack/react-router'
 
 const navItems = [
-  { path: '/apps', label: 'Apps' },
   { path: '/feed', label: 'Feed' },
-  { path: '/info', label: 'Info' },
+  { path: '/about', label: 'About' },
 ] as const
 
 export default function Topbar() {

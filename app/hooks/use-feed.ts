@@ -2,6 +2,7 @@ import useSWR from 'swr'
 import { FeedItem } from 'app/lib/feed-types'
 import { CACHE_SECONDS } from 'app/lib/constants'
 import { sortFeedItems } from 'app/lib/feed-utils'
+import { appFeedItems } from 'app/lib/app-feed'
 
 async function fetchFeed(url: string): Promise<FeedItem[]> {
   const response = await fetch(url)
@@ -20,7 +21,10 @@ export function useFeed() {
   })
 
   return {
-    items: data ?? [],
+    // Apps ship with the page, so stale API data cannot hide the local catalog.
+    items: data
+      ? sortFeedItems([...data.filter((item) => item.type !== 'app'), ...appFeedItems])
+      : appFeedItems,
     isLoading: !data && !error,
     error,
   }

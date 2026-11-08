@@ -1,9 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
 import Video from '../components/video'
+import DetailPanelToolbar from '../components/detail-panel-toolbar'
 import { videos } from '../video/videos'
 import { appUrl, createMiniAppEmbed } from '../sitemap'
 
-export const Route = createFileRoute('/video/$id')({
+export const Route = createFileRoute('/_panels/video/$id')({
   head: ({ params }) => {
     const { id } = params
     const video = videos.find((v) => v.id === id)
@@ -39,10 +40,11 @@ function VideoPage() {
   const { id: ytId } = Route.useParams()
 
   return (
-    <div className="min-h-screen w-full bg-white dark:bg-black">
-      <div className="max-w-xl mx-4 lg:mx-auto px-2 md:px-0 pt-8 sm:pt-9">
+    <div className="video-panel">
+      <DetailPanelToolbar label="video" controlsId="video-content" />
+      <section id="video-content" className="video-redirect w-full max-w-4xl text-center">
         <Video ytId={ytId} />
-      </div>
+      </section>
     </div>
   )
 }

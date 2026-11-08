@@ -1,21 +1,15 @@
-import { useEffect, useState, useTransition } from 'react'
+import { useEffect, useState, useTransition, type CSSProperties, type ReactNode } from 'react'
 import Image from '../components/image'
 import { Link, useNavigate, useSearch, useLocation } from '@tanstack/react-router'
 import type { FeedItem } from 'app/api/feed/types'
 import FeedFilter, { FILTER_OPTIONS, FilterType, ViewMode } from '../components/feed-filter'
 import { useFeed } from '../hooks/use-feed'
 
-function parseFiltersFromSearch(filter: string | undefined): FilterType[] {
-  if (!filter) return ['all']
-
-  const filters = filter.split(',').filter((f): f is FilterType => {
-    return FILTER_OPTIONS.includes(f as FilterType)
-  })
-
-  return filters.length > 0 ? filters : ['all']
+function parseFilterFromSearch(filter: string | undefined): FilterType {
+  return FILTER_OPTIONS.includes(filter as FilterType) ? filter as FilterType : 'all'
 }
 
-export default function FeedMasonry() {
+export default function FeedMasonry({ embedded = false }: { embedded?: boolean }) {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const search = useSearch({ strict: false }) as {
@@ -26,7 +20,7 @@ export default function FeedMasonry() {
 
   const [shouldAnimate, setShouldAnimate] = useState(false)
 
-  const activeFilters = parseFiltersFromSearch(search.filter)
+  const activeFilter = parseFilterFromSearch(search.filter)
   const viewMode: ViewMode = search.view === 'list' ? 'list' : 'grid'
 
   const { items: allItems, isLoading } = useFeed()
@@ -50,12 +44,9 @@ export default function FeedMasonry() {
     })
   }
 
-  const handleFilterChange = (newFilters: FilterType[]) => {
+  const handleFilterChange = (filter: FilterType) => {
     startTransition(() => {
-      const nextFilter =
-        newFilters.length === 1 && newFilters[0] === 'all'
-          ? undefined
-          : newFilters.join(',')
+      const nextFilter = filter === 'all' ? undefined : filter
       navigate({
         to: pathname,
         search: (prev: Record<string, unknown>) => ({
@@ -67,17 +58,17 @@ export default function FeedMasonry() {
     })
   }
 
-  const filteredItems = activeFilters.includes('all')
+  const filteredItems = activeFilter === 'all'
     ? allItems
-    : allItems.filter(item => activeFilters.includes(item.type as FilterType))
+    : allItems.filter(item => item.type === (activeFilter === 'apps' ? 'app' : activeFilter))
 
-  if (isLoading) {
+  if (isLoading && activeFilter !== 'apps') {
     return (
       <>
-        <div className="pt-8 sm:pt-9">
-          <FeedFilter activeFilters={activeFilters} onFilterChange={handleFilterChange} viewMode={viewMode} onViewModeChange={handleViewModeChange} />
+        <div className={embedded ? 'home-feed-toolbar' : 'pt-8 sm:pt-9'}>
+          <FeedFilter embedded={embedded} activeFilter={activeFilter} onFilterChange={handleFilterChange} viewMode={viewMode} onViewModeChange={handleViewModeChange} />
         </div>
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 pb-6 sm:pb-12 pt-2 sm:pt-4">
+        <div className={embedded ? 'home-feed-items' : 'max-w-7xl mx-auto px-6 sm:px-8 pb-6 sm:pb-12 pt-2 sm:pt-4'}>
         </div>
       </>
     )
@@ -85,12 +76,12 @@ export default function FeedMasonry() {
 
   return (
     <>
-      <div className="pt-8 sm:pt-9">
-        <FeedFilter activeFilters={activeFilters} onFilterChange={handleFilterChange} viewMode={viewMode} onViewModeChange={handleViewModeChange} />
+      <div className={embedded ? 'home-feed-toolbar' : 'pt-8 sm:pt-9'}>
+        <FeedFilter embedded={embedded} activeFilter={activeFilter} onFilterChange={handleFilterChange} viewMode={viewMode} onViewModeChange={handleViewModeChange} />
       </div>
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 pb-6 sm:pb-12 pt-2 sm:pt-4">
+      <div className={embedded ? 'home-feed-items' : 'max-w-7xl mx-auto px-6 sm:px-8 pb-6 sm:pb-12 pt-2 sm:pt-4'}>
         {viewMode === 'grid' ? (
-          <div className={`masonry-grid feed-grid ${shouldAnimate ? 'feed-items-animate' : ''}`}>
+          <div className={`masonry-grid feed-grid ${embedded ? 'home-feed-grid' : ''} ${shouldAnimate ? 'feed-items-animate' : ''}`}>
             {filteredItems.map((item, index) => (
               <FeedMasonryItem key={item.id} item={item} index={index} shouldAnimate={shouldAnimate} />
             ))}
@@ -113,18 +104,18 @@ function FeedMasonryItem({ item, index, shouldAnimate }: { item: FeedItem; index
   }
 
   return (
-    <Link
-      to={item.url}
+    <FeedItemLink
+      item={item}
       className={`group block ${shouldAnimate ? 'feed-item-fade-in' : ''}`}
       style={shouldAnimate ? { animationDelay: `${Math.min(index * 50, 500)}ms` } : undefined}
     >
       <div className="transition-all duration-300 hover:opacity-90">
-        <div className="relative w-full mb-2 aspect-[1200/630] overflow-hidden rounded-sm">
+        <div className={`relative w-full mb-2 aspect-[1200/630] overflow-hidden rounded-sm ${item.type === 'app' ? 'bg-neutral-50 dark:bg-neutral-900' : ''}`}>
           <Image
             src={item.imageUrl}
             alt={item.title}
             fill
-            className="object-cover"
+            className={item.type === 'app' ? 'object-contain p-8 sm:p-10' : 'object-cover'}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         </div>
@@ -132,7 +123,7 @@ function FeedMasonryItem({ item, index, shouldAnimate }: { item: FeedItem; index
           {item.title}
         </p>
       </div>
-    </Link>
+    </FeedItemLink>
   )
 }
 
@@ -158,20 +149,37 @@ function FeedListItem({ item, index, shouldAnimate }: { item: FeedItem; index: n
   const style = shouldAnimate ? { animationDelay: `${Math.min(index * 30, 300)}ms` } : undefined
 
   return (
-    <Link to={item.url} className={className} style={style}>
+    <FeedItemLink item={item} className={className} style={style}>
       <div className="flex items-baseline justify-between gap-4 py-1 transition-all duration-200 hover:opacity-70">
         <div className="min-w-0">
           <p className="text-sm text-neutral-900 dark:text-neutral-100 truncate">
             {item.title}
           </p>
           <p className="text-xs text-neutral-500 dark:text-neutral-500 mt-0.5">
-            {item.type}
+            {item.type === 'app' ? 'App' : item.type}
           </p>
         </div>
-        <span className="text-xs text-neutral-500 dark:text-neutral-500 shrink-0 tabular-nums">
-          {formatRelativeDate(item.date)}
-        </span>
+        {item.date && (
+          <span className="text-xs text-neutral-500 dark:text-neutral-500 shrink-0 tabular-nums">
+            {formatRelativeDate(item.date)}
+          </span>
+        )}
       </div>
-    </Link>
+    </FeedItemLink>
+  )
+}
+
+function FeedItemLink({ item, children, ...props }: {
+  item: FeedItem
+  children: ReactNode
+  className?: string
+  style?: CSSProperties
+}) {
+  return item.type === 'app' ? (
+    <a href={item.url} target="_blank" rel="noopener noreferrer" {...props}>
+      {children}
+    </a>
+  ) : (
+    <Link to={item.url} {...props}>{children}</Link>
   )
 }

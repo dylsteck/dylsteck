@@ -20,7 +20,7 @@ export const Route = createFileRoute('/llms-full.txt')({
           content += `This file contains all markdown content from [dylansteck.com](https://dylansteck.com)\n\n`
 
           content += `## Pages\n\n`
-          content += `- [Homepage](/) - Dylan Steck, Engineer at Base\n`
+          content += `- [Homepage](/) - Dylan Steck, Engineer at Coinbase\n`
           content += `- [RSS Feed](/rss) - RSS feed\n\n`
 
           const blogPosts = getBlogPosts().sort((a, b) =>
@@ -61,7 +61,7 @@ export const Route = createFileRoute('/llms-full.txt')({
           })
 
           content += `## About\n\n`
-          content += `Dylan Steck is an engineer at [Base](https://base.org), focused on building products onchain that give people more agency.\n`
+          content += `Dylan Steck is an engineer at [Coinbase](https://www.coinbase.com), focused on building products onchain that give people more agency.\n`
           content += `This export contains all the markdown content from his personal website at dylansteck.com.\n`
 
           return new Response(content, {

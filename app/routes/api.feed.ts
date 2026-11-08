@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { posts } from '../blog/posts/posts'
 import { videos } from '../video/videos'
+import { appFeedItems } from '../lib/app-feed'
 import type { FeedItem } from '../lib/feed-types'
 import { CACHE_CONTROL } from '../lib/constants'
 import { parseDate, sortFeedItems } from '../lib/feed-utils'
@@ -39,7 +40,7 @@ export const Route = createFileRoute('/api/feed')({
             description: video.description,
           }))
 
-          const items = sortFeedItems([...blogItems, ...videoItems])
+          const items = sortFeedItems([...blogItems, ...videoItems, ...appFeedItems])
 
           return new Response(JSON.stringify({ items }), {
             headers: {

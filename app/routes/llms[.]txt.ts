@@ -16,7 +16,7 @@ export const Route = createFileRoute('/llms.txt')({
           content += `This is a directory of content on [dylansteck.com](https://dylansteck.com)\n\n`
 
           content += `## Pages\n\n`
-          content += `- [Homepage](/) - Dylan Steck, Engineer at Base\n`
+          content += `- [Homepage](/) - Dylan Steck, Engineer at Coinbase\n`
           content += `- [RSS Feed](/rss) - RSS feed\n\n`
 
           const blogPosts = getBlogPosts().sort((a, b) =>
@@ -24,7 +24,7 @@ export const Route = createFileRoute('/llms.txt')({
           )
           if (blogPosts.length > 0) {
             content += `## Blog Posts\n\n`
-            content += `> For agents: Use \`curl -H "Accept: text/markdown"\` when fetching blog posts to receive markdown content.\n\n`
+            content += `> For agents: Append \`.md\` to any blog post URL (e.g. \`/blog/agentic-workspaces.md\`), or use \`curl -H "Accept: text/markdown"\`, to receive markdown content.\n\n`
             blogPosts.forEach((post) => {
               content += `- [${formatTitle(post.slug)}](/blog/${post.slug})\n`
             })
@@ -44,7 +44,7 @@ export const Route = createFileRoute('/llms.txt')({
           content += `\n`
 
           content += `## About\n\n`
-          content += `Dylan Steck is an engineer at [Base](https://base.org), focused on building products onchain that give people more agency.\n`
+          content += `Dylan Steck is an engineer at [Coinbase](https://www.coinbase.com), focused on building products onchain that give people more agency.\n`
 
           return new Response(content, {
             headers: {

@@ -4,6 +4,8 @@ import { serialize } from 'next-mdx-remote/serialize'
 import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { CustomMDX } from '../components/mdx'
 import ArticleOutline from '../components/article-outline'
+import DetailPanelToolbar from '../components/detail-panel-toolbar'
+import { usePanelLayout } from '../components/panel-layout-context'
 import { formatDate, getBlogPosts } from '../blog/utils'
 import { posts } from '../blog/posts/posts'
 import { extractArticleSections, type ArticleSection } from '../lib/headings'
@@ -21,7 +23,7 @@ type BlogData = {
 }
 
 const getBlogData = createServerFn({ method: 'GET' })
-  .inputValidator((id: string) => id)
+  .validator((id: string) => id)
   .handler(async ({ data: id }): Promise<BlogData | null> => {
     const post = getBlogPosts().find((p) => p.slug === id)
     if (!post) return null
@@ -44,7 +46,7 @@ const getBlogData = createServerFn({ method: 'GET' })
     }
   })
 
-export const Route = createFileRoute('/blog/$id')({
+export const Route = createFileRoute('/_panels/blog/$id')({
   loader: async ({ params }) => {
     const data = await getBlogData({ data: params.id })
     if (!data) {
@@ -71,6 +73,7 @@ export const Route = createFileRoute('/blog/$id')({
     )
 
     return {
+      links: [{ rel: 'alternate', type: 'text/markdown', href: `${appUrl}/blog/${id}.md` }],
       meta: [
         { title: `${title} | Dylan Steck` },
         { name: 'description', content: description },
@@ -97,6 +100,7 @@ export const Route = createFileRoute('/blog/$id')({
 
 function BlogPost() {
   const data = Route.useLoaderData()
+  const { isExpanded } = usePanelLayout()
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -117,9 +121,10 @@ function BlogPost() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-white dark:bg-black">
-      <ArticleOutline sections={data.sections} />
-      <section className="mx-auto w-full max-w-4xl px-6 pt-12 min-[900px]:w-[70%] sm:px-8 sm:pt-16">
+    <>
+      <DetailPanelToolbar label="article" controlsId="blog-article" />
+      {isExpanded && <ArticleOutline sections={data.sections} />}
+      <section id="blog-article" className="detail-content mx-auto w-full max-w-4xl px-6 pt-12 pb-12 min-[900px]:w-[70%] sm:px-8 sm:pt-16">
         <script
           type="application/ld+json"
           suppressHydrationWarning
@@ -137,6 +142,6 @@ function BlogPost() {
           <CustomMDX source={data.serialized} />
         </article>
       </section>
-    </div>
+    </>
   )
 }

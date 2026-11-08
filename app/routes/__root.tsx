@@ -7,7 +7,6 @@ import {
   createRootRoute,
 } from '@tanstack/react-router'
 import { MiniAppProvider } from '../components/mini-app-provider'
-import Topbar from '../components/topbar'
 import { appUrl, bannerImg, createMiniAppEmbed } from '../lib/site'
 import appCss from '../global.css?url'
 import fcCss from 'react-farcaster-embed/dist/styles.css?url'
@@ -96,7 +95,6 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       </head>
       <body className="antialiased bg-white dark:bg-black">
         <MiniAppProvider>
-          <Topbar />
           <main className="flex-auto min-w-0 flex flex-col">
             <div className="w-full h-full">{children ?? <Outlet />}</div>
           </main>

@@ -20,7 +20,7 @@ export const apps: App[] = [
     name: 'Casterscan',
     imageUrl:
       'https://proxy.wrpcd.net/?url=https%3A%2F%2Fi.imgur.com%2FPD1XTs5.jpeg&s=b941d7bb7bc34acf57038dc3cea0360a5a2a453e4a00044a4ebf2b2c98c1827f',
-    url: 'https://casterscan.com',
+    url: 'http://github.com/dylsteck/casterscan',
   },
   {
     name: 'Cortex',
@@ -35,7 +35,7 @@ export const apps: App[] = [
   {
     name: 'litecast',
     imageUrl: 'https://i.imgur.com/ghxT2nT.png',
-    url: 'https://litecast.xyz',
+    url: 'https://github.com/dylsteck/litecast',
   },
   {
     name: 'prompt arena',

@@ -1,64 +1,74 @@
-import { lazy, Suspense, useState } from 'react'
-import { ClientOnly } from '@tanstack/react-router'
-import Hologram from './hologram'
+import { lazy, Suspense, useState, type ReactNode } from 'react'
+import { ClientOnly, Link, useLocation } from '@tanstack/react-router'
 import AboutText from './about-text'
+import CoinbaseIcon from './icons/coinbase-icon'
+import { PanelLayoutContext } from './panel-layout-context'
 
 const DS3DIcon = lazy(() => import('./icons/ds-3d-icon'))
 
-function LogoPlaceholder({ size = 'large' }: { size?: 'small' | 'large' }) {
-    const containerClass = size === 'small'
-        ? 'w-[36px] h-[36px] opacity-80 mt-0.5 mb-1'
-        : 'home-mark w-[350px] h-[350px]'
-    return <div className={containerClass} />
+function LogoPlaceholder() {
+  return <div className="home-mark" />
 }
 
-export default function HomeContent() {
-    const [showHologram, setShowHologram] = useState(false)
-    const [isPopped, setIsPopped] = useState(false)
+export default function HomeContent({ children }: { children: ReactNode }) {
+  const [isCollapsed, setIsCollapsed] = useState(true)
+  const { pathname } = useLocation()
+  const [expandedPath, setExpandedPath] = useState<string | null>(null)
+  const expanded = expandedPath === pathname
+  const isDetail = pathname !== '/'
+  const toggleExpanded = () => {
+    setExpandedPath((current) => current === pathname ? null : pathname)
+  }
 
-    const handleHologramClick = () => {
-        setIsPopped(true)
-        setTimeout(() => setShowHologram(true), 300)
-    }
-
-    return(
-        <>
-            {/* Main page background */}
-            <div className="fixed inset-0 bg-white dark:bg-black -z-10" />
-
-            {/* Mark stays centered, caption bottom-left. Short viewports stack them. */}
-            <div className="home-stage fixed inset-0 z-20 pointer-events-none">
-                <div className="home-logo">
-                    <ClientOnly fallback={<LogoPlaceholder />}>
-                        <Suspense fallback={<LogoPlaceholder />}>
-                            <DS3DIcon size="large" />
-                        </Suspense>
-                    </ClientOnly>
-                </div>
-                <div className="home-caption pointer-events-auto">
-                    <AboutText />
-                </div>
+  return (
+    <PanelLayoutContext.Provider value={{ isExpanded: expanded, toggleExpanded }}>
+      <div className={`home-layout${isCollapsed ? ' is-profile-collapsed' : ''}${expanded ? ' is-content-expanded' : ''}${isDetail ? ' is-detail-page' : ''}`}>
+        <section
+          className={`home-stage${isCollapsed ? ' is-collapsed' : ''}`}
+          aria-label="Dylan Steck"
+        >
+          <Link to="/about" className="home-about-pill" aria-current={pathname === '/about' ? 'page' : undefined}>
+            About
+          </Link>
+          <button
+            type="button"
+            className="home-panel-toggle"
+            aria-label={isCollapsed ? 'Expand profile' : 'Collapse profile'}
+            aria-expanded={!isCollapsed}
+            aria-controls="home-profile-details"
+            onClick={() => setIsCollapsed((collapsed) => !collapsed)}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 19V5m-7 7 7-7 7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+          <div className="home-logo" role="img" aria-label="Rotating DS monogram">
+            <ClientOnly fallback={<LogoPlaceholder />}>
+              <Suspense fallback={<LogoPlaceholder />}>
+                <DS3DIcon size="large" />
+              </Suspense>
+            </ClientOnly>
+          </div>
+          <div className="home-caption">
+            <h1 className="mb-1 text-base font-medium text-neutral-700 dark:text-neutral-300">
+              Dylan Steck
+            </h1>
+            <p className="home-compact-role text-xs text-neutral-500">
+              Engineer at{' '}
+              <span className="mx-0.5 inline-flex align-middle">
+                <CoinbaseIcon className="h-3 w-3 text-[#0052FF] dark:text-white" />
+              </span>{' '}
+              Coinbase
+            </p>
+            <div id="home-profile-details" className="home-profile-details">
+              <AboutText />
             </div>
-
-            {/* Full size hologram after pop */}
-            {showHologram && (
-                <div className="fixed right-12 top-0 bottom-0 flex items-center z-50 animate-slide-in-from-bottom-right">
-                    <div className="pr-4">
-                        <div className="relative">
-                             <button
-                                onClick={() => {
-                                    setShowHologram(false)
-                                    setIsPopped(false)
-                                }}
-                                className="absolute -top-10 right-4 text-[10px] uppercase tracking-[0.3em] text-neutral-400 hover:text-blue-500 transition-colors cursor-pointer"
-                            >
-                                [ close ]
-                            </button>
-                            <Hologram />
-                        </div>
-                    </div>
-                </div>
-            )}
-        </>
-    )
+          </div>
+        </section>
+        <section className="home-feed" aria-label={pathname === '/' ? 'Feed' : pathname === '/about' ? 'About' : pathname.startsWith('/video/') ? 'Video' : 'Blog post'} data-scroll-restoration-id="home-content-panel">
+          {children}
+        </section>
+      </div>
+    </PanelLayoutContext.Provider>
+  )
 }
