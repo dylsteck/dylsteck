@@ -24,7 +24,7 @@ export const Route = createFileRoute('/llms.txt')({
           )
           if (blogPosts.length > 0) {
             content += `## Blog Posts\n\n`
-            content += `> For agents: Use \`curl -H "Accept: text/markdown"\` when fetching blog posts to receive markdown content.\n\n`
+            content += `> For agents: Append \`.md\` to any blog post URL (e.g. \`/blog/agentic-workspaces.md\`), or use \`curl -H "Accept: text/markdown"\`, to receive markdown content.\n\n`
             blogPosts.forEach((post) => {
               content += `- [${formatTitle(post.slug)}](/blog/${post.slug})\n`
             })

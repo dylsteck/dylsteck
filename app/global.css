@@ -776,3 +776,57 @@ html:active-view-transition .home-stage {
     animation: none;
   }
 }
+
+/* Mobile articles always use the full-width reader, regardless of desktop state. */
+@media (max-width: 767px) {
+  .home-layout.is-blog-page {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 0;
+    height: 100dvh;
+    padding: 0;
+  }
+
+  .home-layout.is-blog-page .home-stage {
+    height: 0;
+    min-height: 0;
+    border-width: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .home-layout.is-blog-page .home-feed {
+    position: relative;
+    top: auto;
+    height: 100%;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .home-layout.is-blog-page .blog-panel-toolbar {
+    margin-inline: 0;
+    padding-inline: 24px;
+  }
+
+  .home-layout.is-blog-page .blog-article {
+    width: 100%;
+    padding: 20px 24px 48px;
+  }
+
+  .blog-expand-toggle {
+    display: none;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .home-layout.is-blog-page .blog-panel-toolbar {
+    padding-inline: 32px;
+  }
+
+  .home-layout.is-blog-page .blog-article {
+    padding-inline: 32px;
+  }
+}

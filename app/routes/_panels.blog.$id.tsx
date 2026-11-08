@@ -4,6 +4,7 @@ import { serialize } from 'next-mdx-remote/serialize'
 import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { CustomMDX } from '../components/mdx'
 import ArticleOutline from '../components/article-outline'
+import { usePanelLayout } from '../components/panel-layout-context'
 import { formatDate, getBlogPosts } from '../blog/utils'
 import { posts } from '../blog/posts/posts'
 import { extractArticleSections, type ArticleSection } from '../lib/headings'
@@ -71,6 +72,7 @@ export const Route = createFileRoute('/_panels/blog/$id')({
     )
 
     return {
+      links: [{ rel: 'alternate', type: 'text/markdown', href: `${appUrl}/blog/${id}.md` }],
       meta: [
         { title: `${title} | Dylan Steck` },
         { name: 'description', content: description },
@@ -97,6 +99,7 @@ export const Route = createFileRoute('/_panels/blog/$id')({
 
 function BlogPost() {
   const data = Route.useLoaderData()
+  const { isExpanded, toggleExpanded } = usePanelLayout()
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -124,8 +127,26 @@ function BlogPost() {
             <path d="M19 12H5m7-7-7 7 7 7" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </Link>
+        <button
+          type="button"
+          className="blog-panel-toggle blog-expand-toggle"
+          aria-label={isExpanded ? 'Collapse article' : 'Expand article'}
+          aria-expanded={isExpanded}
+          aria-controls="blog-article"
+          onClick={toggleExpanded}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d={isExpanded ? 'M4 10h6V4m10 10h-6v6M10 10 3 3m11 11 7 7' : 'M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7'}
+              stroke="currentColor"
+              strokeWidth="1.7"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
       </div>
-      <ArticleOutline sections={data.sections} />
+      {isExpanded && <ArticleOutline sections={data.sections} />}
       <section id="blog-article" className="blog-article mx-auto w-full max-w-4xl px-6 pt-12 pb-12 min-[900px]:w-[70%] sm:px-8 sm:pt-16">
         <script
           type="application/ld+json"
