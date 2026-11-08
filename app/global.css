@@ -376,11 +376,16 @@ table {
   min-height: 360px;
   overflow-y: auto;
   overscroll-behavior-y: contain;
-  scrollbar-width: thin;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   transition: height 400ms ease, padding 400ms ease, border-radius 400ms ease;
   padding: 0 12px;
   border: 1px solid #e5e5e5;
   border-radius: 12px;
+}
+
+.home-feed::-webkit-scrollbar {
+  display: none;
 }
 
 .home-feed-toolbar {
