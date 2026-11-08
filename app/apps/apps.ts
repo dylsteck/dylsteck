@@ -8,7 +8,7 @@ export type App = {
 export const apps: App[] = [
   {
     name: 'Coinbase Wallet',
-    imageUrl: 'https://res.cloudinary.com/base-app/image/upload/f_auto/v1766017009/7c0c93f6-8252-41d2-9696-594a07232e86.png',
+    imageUrl: '/coinbase-wallet.webp',
     url: 'https://wallet.coinbase.com',
   },
   {
