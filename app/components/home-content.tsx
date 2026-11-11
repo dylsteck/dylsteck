@@ -1,13 +1,71 @@
-import { lazy, Suspense, useState, type ReactNode } from 'react'
+import { Component, lazy, Suspense, useLayoutEffect, useState, type ReactNode } from 'react'
 import { ClientOnly, Link, useLocation } from '@tanstack/react-router'
 import AboutText from './about-text'
 import CoinbaseIcon from './icons/coinbase-icon'
+import DSGrayIcon from './icons/ds-gray-icon'
 import { PanelLayoutContext } from './panel-layout-context'
+import { canCreateWebGL2 } from '../lib/webgl-context'
 
 const DS3DIcon = lazy(() => import('./icons/ds-3d-icon'))
 
+// One retry covers a GPU process that refuses the first context and then accepts one.
+const maxLogoAttempts = 2
+
 function LogoPlaceholder() {
   return <div className="home-mark" />
+}
+
+function StaticMonogram() {
+  return (
+    <div className="home-mark" data-logo-mode="fallback">
+      <DSGrayIcon className="h-full w-full" />
+    </div>
+  )
+}
+
+class LogoErrorBoundary extends Component<
+  { children: ReactNode; onFail: () => void },
+  { failed: boolean }
+> {
+  state = { failed: false }
+  private reported = false
+
+  static getDerivedStateFromError(): { failed: boolean } {
+    return { failed: true }
+  }
+
+  componentDidCatch(): void {
+    if (this.reported) return
+    this.reported = true
+    requestAnimationFrame(() => this.props.onFail())
+  }
+
+  render() {
+    if (this.state.failed) return <LogoPlaceholder />
+    return this.props.children
+  }
+}
+
+function HomeLogo() {
+  const [attempt, setAttempt] = useState(0)
+  const [webgl, setWebgl] = useState<boolean | null>(null)
+
+  useLayoutEffect(() => {
+    setWebgl(canCreateWebGL2())
+  }, [])
+
+  if (webgl === false || attempt >= maxLogoAttempts) return <StaticMonogram />
+  if (webgl === null) return <LogoPlaceholder />
+
+  return (
+    <LogoErrorBoundary key={attempt} onFail={() => setAttempt((current) => current + 1)}>
+      <ClientOnly fallback={<LogoPlaceholder />}>
+        <Suspense fallback={<LogoPlaceholder />}>
+          <DS3DIcon size="large" />
+        </Suspense>
+      </ClientOnly>
+    </LogoErrorBoundary>
+  )
 }
 
 export default function HomeContent({ children }: { children: ReactNode }) {
@@ -43,11 +101,7 @@ export default function HomeContent({ children }: { children: ReactNode }) {
             </svg>
           </button>
           <div className="home-logo" role="img" aria-label="Rotating DS monogram">
-            <ClientOnly fallback={<LogoPlaceholder />}>
-              <Suspense fallback={<LogoPlaceholder />}>
-                <DS3DIcon size="large" />
-              </Suspense>
-            </ClientOnly>
+            <HomeLogo />
           </div>
           <div className="home-caption">
             <h1 className="mb-1 text-base font-medium text-neutral-700 dark:text-neutral-300">

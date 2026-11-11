@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 
-export default function DSGrayIcon(){
+export default function DSGrayIcon({ className }: { className?: string }) {
     const svgRef = useRef<SVGSVGElement>(null)
 
     useEffect(() => {
@@ -19,7 +19,16 @@ export default function DSGrayIcon(){
     }, [])
 
     return(
-        <svg ref={svgRef} width="100" height="120" viewBox="0 0 335 417" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+            ref={svgRef}
+            className={className}
+            width={className ? '100%' : 100}
+            height={className ? '100%' : 120}
+            viewBox="0 0 335 417"
+            preserveAspectRatio="xMidYMid meet"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
             <g opacity="0.5">
                 <path d="M115.83 46.5488L115.884 62.5599H74.6543L74.501 46.5488H115.83Z" fill="#D1D3D4"/>
                 <path d="M205.411 113.293L205.268 129.31V127.935C205.164 116.586 202.568 106.819 197.967 98.5587C193.365 90.2984 186.792 83.5719 178.696 78.2367C170.6 72.9015 161.042 69.0179 150.393 66.4051C139.745 63.7923 128.111 62.5708 115.884 62.5708L115.83 46.5597C128.078 46.5597 139.767 47.8195 150.415 50.394C161.064 52.9685 170.683 56.9014 178.789 62.2257C186.896 67.5499 193.502 74.3038 198.104 82.5476C202.705 90.7914 205.312 100.569 205.416 111.924C205.416 112.039 205.416 112.154 205.416 112.269V112.954C205.411 113.069 205.411 113.184 205.411 113.293Z" fill="#D1D3D4"/>
