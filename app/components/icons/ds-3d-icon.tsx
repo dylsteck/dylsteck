@@ -2,6 +2,12 @@ import { Canvas, useFrame, extend } from '@react-three/fiber'
 import { useGLTF, shaderMaterial } from '@react-three/drei'
 import { Suspense, useMemo, useRef } from 'react'
 import * as THREE from 'three'
+import {
+  acquireWebGL2Context,
+  detectSoftwareWebGL,
+  isSoftwareWebGLRenderer,
+  readRendererString,
+} from '../../lib/webgl-context'
 
 if (typeof window !== 'undefined') {
   useGLTF.preload('/models/ds-grey.glb')
@@ -186,6 +192,37 @@ function Model({ size = 'large' }: { size?: 'small' | 'large' }) {
   )
 }
 
+function createLogoRenderer(canvas: HTMLCanvasElement) {
+  const software = detectSoftwareWebGL()
+  const context = acquireWebGL2Context(canvas, software)
+  if (!context) throw new Error('Error creating WebGL context.')
+  const attributes = context.getContextAttributes()
+  return new THREE.WebGLRenderer({
+    canvas,
+    context,
+    alpha: true,
+    antialias: attributes?.antialias ?? false,
+    powerPreference: software ? 'low-power' : 'default',
+    failIfMajorPerformanceCaveat: false,
+  })
+}
+
+function tuneLogoRenderer(state: {
+  gl: THREE.WebGLRenderer
+  setDpr: (dpr: number) => void
+  get: () => { viewport: { dpr: number } }
+}) {
+  const context = state.gl.getContext() as WebGL2RenderingContext
+  const renderer = readRendererString(context)
+  const software = isSoftwareWebGLRenderer(renderer)
+  if (software) state.setDpr(1)
+  const node = state.gl.domElement.closest('[data-logo-mode]')
+  if (!(node instanceof HTMLElement)) return
+  node.dataset.webglRenderer = renderer
+  node.dataset.webglSoftware = String(software)
+  node.dataset.webglDpr = String(state.get().viewport.dpr)
+}
+
 export default function DS3DIcon({ size = 'large' }: { size?: 'small' | 'large' }) {
   const containerClass = size === 'small' 
     ? 'w-[36px] h-[36px] opacity-80 mt-0.5 mb-1' 
@@ -196,10 +233,11 @@ export default function DS3DIcon({ size = 'large' }: { size?: 'small' | 'large' 
     : { position: [0, 0, 4.5] as [number, number, number], fov: 45 }
 
   return (
-    <div className={containerClass}>
+    <div className={containerClass} data-logo-mode="webgl">
       <Canvas
         camera={cameraConfig}
-        gl={{ alpha: true, antialias: true }}
+        gl={(defaults) => createLogoRenderer(defaults.canvas as HTMLCanvasElement)}
+        onCreated={tuneLogoRenderer}
         style={{ background: 'transparent', width: '100%', height: '100%' }}
       >
         <Suspense fallback={null}>
