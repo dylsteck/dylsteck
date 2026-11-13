@@ -368,6 +368,22 @@ table {
   padding: 24px;
 }
 
+/* Center the mark in the whole stage. The caption stays pinned to the bottom
+   and does not shorten the box the mark is centered in. */
+@media (min-width: 768px) {
+  .home-logo {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .home-caption {
+    position: relative;
+    z-index: 1;
+    margin-top: auto;
+  }
+}
+
 .home-feed {
   min-width: 0;
   position: sticky;

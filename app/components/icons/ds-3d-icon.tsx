@@ -2,6 +2,7 @@ import { Canvas, useFrame, extend } from '@react-three/fiber'
 import { useGLTF, shaderMaterial } from '@react-three/drei'
 import { Suspense, useMemo, useRef } from 'react'
 import * as THREE from 'three'
+import { centerScaledObject } from '../../lib/center-scaled-object'
 import {
   acquireWebGL2Context,
   detectSoftwareWebGL,
@@ -132,29 +133,9 @@ function Model({ size = 'large' }: { size?: 'small' | 'large' }) {
     
     // Create a fresh clone to avoid mutations
     const scene = clonedScene.clone(true)
-    
-    // Reset scale first
-    scene.scale.set(1, 1, 1)
-    
-    const box = new THREE.Box3().setFromObject(scene)
-    const center = box.getCenter(new THREE.Vector3())
-    const sizeObj = box.getSize(new THREE.Vector3())
-    
-    // Center the model and move down slightly to prevent top clipping
-    scene.position.x = -center.x
-    scene.position.y = -center.y - 0.15
-    scene.position.z = -center.z
-    
-    // Scale based on size prop - use smaller scale to prevent clipping
-    const maxDim = Math.max(sizeObj.x, sizeObj.y, sizeObj.z)
-    const baseScale = size === 'small' ? 1.9 : 2.5
-    const scale = baseScale / maxDim
-    scene.scale.set(scale, scale, scale)
-    
-    // Move down slightly for small size to prevent top clipping
-    if (size === 'small') {
-      scene.position.y -= 0.1
-    }
+    // Scale first, then center. Translating to the unscaled center and scaling
+    // afterward leaves a bottom-origin model sitting high in the frame.
+    centerScaledObject(scene, size === 'small' ? 1.9 : 2.5)
     
     // Apply holographic material to all meshes
     scene.traverse((child) => {
