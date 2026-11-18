@@ -66,14 +66,6 @@ export const Route = createRootRoute({
         href: 'https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Geist:wght@400;500;600;700&display=swap',
       },
     ],
-    scripts: [
-      {
-        src: 'https://dylsteck-analytics.up.railway.app/umami.js',
-        async: true,
-        defer: true,
-        'data-website-id': '6bd90a5b-62c2-44c5-850b-7e24720d2062',
-      },
-    ],
   }),
   shellComponent: RootDocument,
 })
